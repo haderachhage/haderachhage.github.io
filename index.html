@@ -1,4 +1,4 @@
-#<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -27,6 +27,8 @@ body {
   justify-content: flex-start;
   padding: 2rem;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 /* --- Headings --- */
@@ -37,7 +39,7 @@ h1, h2 {
 }
 
 h1 {
-  font-size: 3.4rem;
+  font-size: 2.4rem;
   animation: colorPulse 6s ease-in-out infinite;
 }
 h2 {
@@ -90,6 +92,50 @@ a:hover { color: #4A302F; }
   color: #111;
 }
 
+/* --- Alignment Line --- */
+.alignment-section {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem 0;
+  height: 2px;
+}
+
+.alignment-line {
+  width: 100%;
+  height: 2px;
+  background-color: #C0C0C0;
+  opacity: 0.5;
+}
+
+/* --- Fixed Fullscreen Portraits --- */
+.fixed-portraits {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.fixed-portraits img {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: auto;
+  object-fit: cover;
+  opacity: 1; /* back to normal */
+}
+
+.fixed-portraits .left {
+  left: 2mm;
+}
+
+.fixed-portraits .right {
+  right: 2mm;
+}
+
 /* --- Footer --- */
 footer {
   font-size: 0.9rem;
@@ -98,6 +144,8 @@ footer {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 900px;
+  z-index: 1;
+  position: relative;
 }
 
 /* --- Animation --- */
@@ -108,41 +156,41 @@ footer {
 }
 
 /* --- Responsive --- */
-@media (max-width: 600) {
+@media (max-width: 768px) {
   body { padding: 1.5rem; }
   h1 { font-size: 2.3rem; }
   h2 { font-size: 1.5rem; }
   .about { font-size: 1rem; }
+
+  /* Hide fixed portraits on mobile */
+  .fixed-portraits {
+    display: none;
+  }
 }
 </style>
 </head>
 
-
-
-
 <body>
-    <img src="https://media.discordapp.net/attachments/1086573379429081180/1430765865724411989/ThePearlwithcoin2.png?ex=68faf80c&is=68f9a68c&hm=afcb6a509f8e5925a632d0a4ad374b29b0d3fe8dd0654af3fb7ee3ce1ea56aeb&=&format=webp&quality=lossless&width=913&height=913" 
-	 style="object-fit: fill;
-            width:500px;
-            height:300px;
-            
-            border: #CCC"/>
+  <!-- Fixed Portraits (hidden on mobile) -->
+  <div class="fixed-portraits">
+    <img src="https://i.ibb.co/chyzn0RR/4image.png" alt="Left Portrait" class="left">
+    <img src="https://i.ibb.co/chyzn0RR/4image.png" alt="Right Portrait" class="right">
+  </div>
+
+  <img src="https://i.ibb.co/35s0zx5Z/image-3-1.png" 
+    style="object-fit: fill;
+           width:500px;
+           height:300px;
+           border: #CCC"/>
 
   <h1>ShayneHaderhachHage <a href="https://www.instagram.com/______haderachhage" target="_blank">@______haderachhage</a></h1>
-  
-
-            
-          
-            
-        
-
 
   <!-- Fade-in Slideshow -->
   <div class="slideshow">
     <img src="https://i.ibb.co/MxvPkB4j/3000x3093.jpg" alt="KOSS Visual 1">
     <img src="https://i.ibb.co/MxvPkB4j/3000x3093.jpg" alt="Vulam Visual 1">
     <img src="https://i.ibb.co/MxvPkB4j/3000x3093.jpg" alt="KoSS Visual 3">
-    </div>
+  </div>
 
   <h2>KOSS</h2>
   <p>
@@ -150,34 +198,35 @@ footer {
     <a href="https://open.spotify.com/artist/7mUa1cRBm8TQim4OCoX8zO" target="_blank">Spotify</a> •
     <a href="https://www.youtube.com/channel/UCKvntLZn8mzE6Z8qDy4gRXA" target="_blank">YouTube</a> •
     <a href="https://vulam.bandcamp.com" target="_blank">Bandcamp (/Subvert)</a> •
-     <a href="mailto:vulamguntilion@gmail.com">Contact</a>
+    <a href="mailto:vulamguntilion@gmail.com">Contact</a>
   </p>
 
-
-
   <div class="about">
+      <h2>OM HAGE</h2>
     <p1>
       Textiles+Graphics+Sounds+Interiors Engineered by <strong>Oluwaseindemi "ShayneHage" Adigun</strong>.
-     <p2> </p2>
-      
-      
-       
-<p> Design and Production Began in the back row of 9D at Ås Ungdomsskole with Kevin Punnar, Dawit Admassu and Oda Plur under the tags SAWK, sanuwkgi, and svartarmor. </p><br>
-      </p><em>“KOSS”</em> (2025) an Audio+Visual Musical Project, blending sound and image by embedding audio into an image and edited solely using AudioFX, such as phaser/flangers and reverb. <br><br>  Conceptualised + Designed + Shot + Produced through the Summer of 2024 to 2025.
+      <p2></p2>
+      <p>Design and Production Began in the back row of 9D at Ås Ungdomsskole with Kevin Punnar, Dawit Admassu and Oda Plur under the tags SAWK, sanuwkgi, and svartarmor.</p><br>
+      <h2>OM KOSS</h2>
+      </p><em>“KOSS”</em> (2025) an Audio+Visual Musical Project, blending sound and image by embedding audio into an image and edited solely using AudioFX, such as phaser/flangers and reverb. <br><br><strong>Conceptualised+Designed+Shot+Produced through the Summer of 2024 to 2025.</strong>
     </p>
   </div>
+
+  <!-- Alignment Line Section -->
+  <div class="alignment-section">
+    <hr class="alignment-line">
+  </div>
+
   <footer>
-      <p>
+    <p>
       © 2025 vulamguntilion<br>
       <a href="https://music.apple.com/us/album/koss/1841787679" target="_blank">KOSS (2025)</a> 
       <a href="mailto:vulamguntilion@gmail.com">CONTACT</a>
     </p>
-    
   </footer>
-
 </body>
-
 </html>
+
 
 
 
