@@ -1,320 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Shayne Hage</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shayne Hage — Home</title>
 
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      /* COLOR SCHEME FLIPPED (white on black) */
+      --ink:#fff;
+      --muted:#fff;
+      --silver:#fff;
+      --line:#fff;
+      --soft:#000;
+      --max:900px;
+
+      --offset-left-spacer:160px;
+      --offset-right-spacer:70px;
+
+      --pad-x:2rem;
+      --pad-y:4rem;
+
+      --plate-v:0.2em;
+      --yvr-plate-v:0.26em;
+      --yvr-extra-right:0.02em;
+      --left-plate-v:0.2em;
+    }
+
+    html,body{
+      font-family:"EB Garamond", serif;
+      background:#000;
+      color:var(--ink);
+      overflow-x:hidden;
+    }
+
+    .c-wrapper{position:relative;min-height:100vh}
+    .stage{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      padding:var(--pad-y) var(--pad-x);
+    }
+    .spacer-left{width:var(--offset-left-spacer);flex:0 0 auto}
+    .spacer-right{width:var(--offset-right-spacer);flex:0 0 auto}
+    .content{width:min(var(--max),100%)}
+
+    .left-rail{
+      position:absolute;
+      left:var(--pad-x);
+      top:var(--pad-y);
+      height:calc(100vh - (var(--pad-y) * 2));
+      display:grid;
+      grid-template-columns:auto auto;
+      column-gap:2.25rem;
+      align-items:stretch;
+      pointer-events:none;
+      user-select:none;
+      text-transform:uppercase;
+      z-index:1;
+    }
+    .rail-col{height:100%;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start}
+    .rail-row{
+      font-size:clamp(72px, 7.2vw, 160px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:left center;
+      letter-spacing:-0.11em;
+      line-height:0.70;
+      color:var(--silver);
+      white-space:nowrap;
+      position:relative;
+      z-index:1;
+    }
+    .rail-plus{transform:scaleY(2.35);letter-spacing:-0.16em}
+    .rail-code{letter-spacing:-0.06em}
+
+    /* LEFT COLUMN TEXT = SOLID (now white, incl '+') */
+    .left-rail .rail-col:first-child .rail-row{
+      color:var(--ink);
+    }
+
+    /* SH / AY / + plates (background flipped to black) */
+    .rail-row.left-plate{ z-index:2; }
+    .rail-row.left-plate::before{
+      content:"";
+      position:absolute;
+      top:calc(-1 * var(--left-plate-v));
+      bottom:calc(-1 * var(--left-plate-v));
+      left:0;
+      right:0;
+      background:#000; /* was #fff */
+      z-index:-1;
+    }
+
+    /* OSL + YVR plates (background flipped to black) */
+    .rail-row.rail-code.plate{
+      width:max-content;
+      color:var(--ink);
+      z-index:2;
+    }
+    .rail-row.rail-code.plate::before{
+      content:"";
+      position:absolute;
+      top:calc(-1 * var(--plate-v));
+      bottom:calc(-1 * var(--plate-v));
+      left:0;
+      right:0;
+      background:#000; /* was #fff */
+      z-index:-1;
+    }
+    .rail-row.rail-code.plate.yvr::before{
+      top:calc(-1 * var(--yvr-plate-v));
+      bottom:calc(-1 * var(--yvr-plate-v));
+      right:calc(0px - var(--yvr-extra-right));
+    }
+
+    /* Make NE sit under HAGE */
+    .rail-row.ne-under{ z-index:1; }
+
+    /* HAGE plate above NE (background flipped to black) */
+    .rail-row.hage-plate{
+      width:max-content;
+      z-index:3;
+    }
+    .rail-row.hage-plate::before{
+      content:"";
+      position:absolute;
+      top:calc(-1 * var(--plate-v));
+      bottom:calc(-1 * var(--plate-v));
+      left:0;
+      right:0;
+      background:#000; /* was #fff */
+      z-index:-1;
+    }
+
+    .right-rail{
+      position:absolute;
+      right:var(--pad-x);
+      top:var(--pad-y);
+      height:calc(100vh - (var(--pad-y) * 2));
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      align-items:flex-end;
+      user-select:none;
+      text-transform:uppercase;
+      z-index:1;
+    }
+    .right-rail a,
+    .right-rail span{
+      font-size:clamp(54px, 5.2vw, 130px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:right center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      white-space:nowrap;
+      text-decoration:none;
+      color:var(--ink);
+    }
+    .right-rail .plus{
+      transform:scaleY(2.35);
+      letter-spacing:-0.16em;
+      opacity:.95;
+      pointer-events:none;
+    }
+    .right-rail a:hover{ text-decoration: underline; }
+
+    .hero{
+      max-width:900px;
+      text-align:center;
+      padding:1.5rem;
+    }
+    .hero-media{
+      width:100%;
+      height:auto;
+      border:1px solid var(--line);
+      margin-bottom:1.2rem;
+      display:block;
+      background:var(--soft);
+    }
+
+    .inline-wrapper{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      margin-bottom:1.4rem;
+      font-size:1.4rem;
+      font-weight:500;
+      color:var(--muted);
+      flex-wrap:wrap;
+    }
+    .inline-wrapper a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:inherit;
+      border-bottom:1px solid transparent;
+    }
+    .inline-wrapper a:hover{border-bottom-color:var(--muted)}
+
+    .hero h1{
+      font-size:2rem;
+      font-weight:500;
+      color:var(--muted);
+      margin-top:20px;
+      margin-bottom:.6rem;
+      letter-spacing:.2px;
+    }
+    .hero h1 a{color:var(--muted);text-decoration:none}
+    .hero h1 a:hover{text-decoration:underline}
+    .hero p{
+      color:var(--muted);
+      font-size:1.02rem;
+      line-height:1.6;
+      margin-top:.35rem;
+    }
+
+    /* Glitch */
+    .c-glitch{
+      background:var(--soft);
+      height:140px;
+      overflow:hidden;
+      position:relative;
+    }
+    .glitch-word{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-size:clamp(36px, 4.2vw, 66px);
+      letter-spacing:-0.08em;
+      text-transform:uppercase;
+      color:var(--silver);
+      user-select:none;
+    }
+    .glitch-word::before,
+    .glitch-word::after{
+      content:attr(data-text);
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      opacity:.85;
+
+      /* FIX: multiply disappears on black/white; screen preserves the glitch layers on black */
+      mix-blend-mode:screen;
+    }
+    .glitch-word::before{transform:translate(2px,0);clip-path:inset(10% 0 65% 0);animation:gl1 2.6s infinite linear}
+    .glitch-word::after{transform:translate(-2px,0);clip-path:inset(55% 0 12% 0);animation:gl2 2.1s infinite linear}
+    @keyframes gl1{
+      0%{clip-path:inset(10% 0 65% 0)}
+      25%{clip-path:inset(30% 0 45% 0)}
+      50%{clip-path:inset(12% 0 70% 0)}
+      75%{clip-path:inset(40% 0 35% 0)}
+      100%{clip-path:inset(10% 0 65% 0)}
+    }
+    @keyframes gl2{
+      0%{clip-path:inset(55% 0 12% 0)}
+      30%{clip-path:inset(65% 0 8% 0)}
+      60%{clip-path:inset(48% 0 20% 0)}
+      100%{clip-path:inset(55% 0 12% 0)}
+    }
+
+    /* MOBILE */
+    .mobile-min{display:none;text-align:center;padding:1.5rem}
+    .mobile-min img{
+      width:100%;
+      height:auto;
+      border:1px solid var(--line);
+      background:var(--soft);
+      display:block;
+      margin:0 auto 1.1rem;
+    }
+
+    /* MOBILE LINKS */
+    .mobile-links{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      text-transform:uppercase;
+      margin-bottom:1.1rem;
+    }
+    .mobile-links a{
+      font-family:"EB Garamond", serif;
+      font-size:clamp(22px, 5.5vw, 30px);
+      font-weight:500;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--ink);
+      text-decoration:none;
+      transform:scaleY(2.1);
+      transform-origin:center;
+    }
+    .mobile-links a:active{ text-decoration:underline; }
+    .mobile-links .sep{
+      font-family:"EB Garamond", serif;
+      font-size:clamp(22px, 5.5vw, 30px);
+      font-weight:500;
+      letter-spacing:-0.16em;
+      line-height:0.70;
+      transform:scaleY(2.25);
+      user-select:none;
+      color:var(--ink);
+    }
+
+    .mobile-ig a{
+      color:var(--muted);
+      text-decoration:underline;
+      font-size:1.02rem;
+      line-height:1.4;
+      word-break:break-word;
+    }
+
+    @media (max-width: 980px){
+      .left-rail, .right-rail{display:none}
+      .stage{
+        justify-content:center;
+        padding:1.5rem 1.25rem;
       }
+      .spacer-left, .spacer-right{display:none}
 
-      html,
-      body {
-        font-family: "EB Garamond", serif;
-        background-color: #fff;
-        color: #111;
-        overflow-x: hidden;
-      }
+      .hero, .c-glitch{display:none}
 
-      /* Viewer Layout */
-      .viewer-container {
-        position: relative;
-        width: 100%;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        padding: 4rem 2rem;
-      }
+      .mobile-min{display:block}
+      .content{width:min(var(--max),100%)}
+    }
+  </style>
+</head>
 
-      /* KOSS Visual Block */
-      .koss-visuals {
-        position: relative;
-        transform: translateX(-25%);
-        max-width: 900px;
-        z-index: 5;
-        text-align: center;
-        padding: 2rem;
-      }
+<body>
+  <div class="c-wrapper">
 
-      .koss-visuals h1 {
-        font-size: 2.5rem;
-        font-weight: 500;
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
-        animation: colorPulse 6s ease-in-out infinite;
-        color: #71797e;
-      }
-
-      .koss-visuals h1 a {
-        color: #71797e;
-        text-decoration: none;
-      }
-
-      .koss-visuals h1 a:hover {
-        color: #4a302f;
-      }
-
-      .koss-visuals h2 {
-        font-size: 2rem;
-        color: #71797e;
-        margin: 2rem 0 1rem;
-      }
-
-      .koss-visuals p {
-        color: #111;
-        line-height: 1.6;
-        font-size: 1.1rem;
-      }
-
-      .koss-visuals img.main-photo {
-        width: 500px;
-        height: 300px;
-        object-fit: fill;
-        border: 1px solid #ccc;
-        margin-bottom: 1rem;
-      }
-
-      /* Fixed Right Portrait */
-      .fixed-portraits {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .fixed-portraits img {
-        position: fixed;
-        top: 0;
-        height: 100vh;
-        width: auto;
-        object-fit: cover;
-      }
-
-      .fixed-portraits .right {
-        right: 2mm;
-      }
-
-      /* Top-left links (desktop only) */
-      .top-left-links {
-        position: fixed;
-        top: 20px;
-        left: 25px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        z-index: 10;
-      }
-
-      .top-left-links a {
-        color: #1c5e75;
-        text-decoration: none;
-        font-size: 1.4rem;
-        letter-spacing: 0.5px;
-        transition: color 0.3s ease;
-      }
-
-      .top-left-links a:hover {
-        color: #4a302f;
-      }
-
-      /* Bottom-Left Social Icons */
-      .bottom-left-social {
-        position: fixed;
-        bottom: 25px;
-        left: 25px;
-        display: flex;
-        gap: 14px;
-        align-items: center;
-        z-index: 10;
-      }
-
-      .bottom-left-social a {
-        color: #71797e;
-        text-decoration: none;
-        font-size: 1.3rem;
-        transition: color 0.3s ease;
-      }
-
-      .bottom-left-social a:hover {
-        color: #4a302f;
-      }
-
-      .icon {
-        width: 20px;
-        height: 20px;
-        vertical-align: middle;
-        fill: #71797e;
-        transition: fill 0.3s ease;
-      }
-
-      .bottom-left-social a:hover .icon {
-        fill: #4a302f;
-      }
-
-      @keyframes colorPulse {
-        0% {
-          color: #c0c0c0;
-        }
-        50% {
-          color: #71797e;
-        }
-        100% {
-          color: #c0c0c0;
-        }
-      }
-
-      /* Mobile-only link block under header (desktop default hidden) */
-      .mobile-links {
-        display: none;
-        margin-top: 1.5rem;
-        text-align: center;
-      }
-
-      /* MOBILE RULES */
-      @media (max-width: 768px) {
-        .koss-visuals {
-          transform: none;
-          padding: 1.5rem;
-        }
-
-        .koss-visuals img.main-photo {
-          width: 100%;
-          height: auto;
-        }
-
-        /* Hide desktop positions on mobile */
-        .fixed-portraits,
-        .top-left-links,
-        .bottom-left-social {
-          display: none;
-        }
-
-        /* Minimal Underline mobile style */
-        .mobile-links {
-          display: block;
-          width: 100%;
-          margin-top: 1.5rem;
-          text-align: center;
-        }
-
-        .mobile-links a.contact,
-        .mobile-links a.press {
-          display: block;
-          margin-bottom: 12px;
-          font-size: 1.28rem;
-          color: #444;
-          text-decoration: none;
-        }
-
-        .mobile-links .inline-wrapper {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 12px 14px;
-          margin-top: 12px;
-        }
-
-        .mobile-links .inline-wrapper a {
-          display: inline-block;
-          font-size: 1.15rem;
-          color: #444;
-          text-decoration: none;
-          padding: 3px 6px;
-          border-bottom: 1px solid transparent;
-          transition: 0.25s;
-        }
-
-        .mobile-links .inline-wrapper a:hover {
-          border-bottom-color: #444;
-        }
-
-        .koss-visuals h1 {
-          font-size: 2rem;
-        }
-
-        .koss-visuals h2 {
-          font-size: 1.4rem;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Fixed Right Portrait -->
-    <div class="fixed-portraits">
-      <img
-        src="https://i.ibb.co/chyzn0RR/4image.png"
-        alt="Right Portrait"
-        class="right"
-      />
-    </div>
-
-    <!-- Desktop top-left links -->
-    <div class="top-left-links">
-      <a href="mailto:vulamguntilion@gmail.com">CONTACT</a>
-      <a href="mailto:vulamguntilion@gmail.com">PRESS</a>
-      <u>portfolio</u>
-      <a href="portfolio.html" class="portfolio-link">IMAGE[WIP]</a>
-      <a href="DESIGN.html" class="portfolio-link">DESIGN[WIP]</a>
-      <a href="SOUND.html" class="portfolio-link">SOUND[WIP]</a>
-      <a href="https://music.apple.com/us/album/koss/1841787679">KOSS</a>
-      <a href="DASS.html" class="portfolio-link">DASS[WIP]</a>
-      <a href="OM.html" class="om-link">OM{ABOUT ME}[WIP]</a>
-      <a href="https://www.instagram.com/boyshardlly">@boyshardlly</a>
-    </div>
-
-    <!-- Bottom-Left Socials -->
-    <div class="bottom-left-social">
-      <a href="https://www.instagram.com/______haderachhage" target="_blank">
-        <svg class="icon" viewBox="0 0 24 24">
-          <path
-            d="M7.5,2h9A5.5,5.5,0,0,1,22,7.5v9A5.5,5.5,0,0,1,16.5,22h-9A5.5,5.5,0,0,1,2,16.5v-9A5.5,5.5,0,0,1,7.5,2ZM12,7a5,5,0,1,0,5,5A5,5,0,0,0,12,7Zm6.5-.75a1.25,1.25,0,1,0,1.25,1.25A1.25,1.25,0,0,0,18.5,6.25Z"
-          />
-        </svg>
-      </a>
-    </div>
-
-    <!-- Main Viewer -->
-    <div class="viewer-container">
-      <div class="koss-visuals">
-        <img
-          src="https://i.ibb.co/35s0zx5Z/image-3-1.png"
-          class="main-photo"
-        />
-
-        <h2>Image+Design+Sound Engineered by</h2>
-
-        <h1>
-          Shayne HaderachHage
-          <a href="https://www.instagram.com/______haderachhage"
-            >@______haderachhage</a
-          >
-        </h1>
-          <p style="color:#FFFFFF; font-size: 1px;">@haderach hage+svartarmor+boyshardlly+joshua dotun-adigun+shayne hage + Shayne Hage + ShayneHage + HaderachHage + Haderach Hage + vulam + vulamguntilion + baigeboyshardlly</p
-
-        <!-- MOBILE-ONLY LINKS under the header -->
-        <div class="mobile-links">
-          
-
-          <div class="inline-wrapper">
-            
-          </div>
-        </div>
+    <div class="left-rail" aria-hidden="true">
+      <div class="rail-col">
+        <div class="rail-row left-plate">SH</div>
+        <div class="rail-row left-plate">AY</div>
+        <div class="rail-row rail-plus left-plate">+</div>
+        <div class="rail-row ne-under">NE</div>
+        <div class="rail-row hage-plate">HAGE</div>
+      </div>
+      <div class="rail-col">
+        <div class="rail-row rail-code plate yvr">YVR</div>
+        <div class="rail-row rail-code plate">OSL</div>
       </div>
     </div>
 
-  
-  </body>
+    <div class="right-rail" aria-label="Primary sections">
+      <a href="IMG.html">IMG</a>
+      <span class="plus">+</span>
+      <a href="DSN.html">DSN</a>
+      <span class="plus">+</span>
+      <a href="AUD.html">AUD</a>
+    </div>
+
+    <main class="stage">
+      <div class="spacer-left" aria-hidden="true"></div>
+
+      <section class="content">
+        <section class="hero" aria-label="Homepage hero">
+          <img
+            src="https://i.ibb.co/35s0zx5Z/image-3-1.png"
+            class="hero-media"
+            alt="Hero image"
+          />
+
+          <div class="inline-wrapper" aria-label="Sections">
+            <a href="portfolio.html"> +</a>
+            <a href="DESIGN.html"> +</a>
+            <a href="SOUND.html"></a>
+          </div>
+
+          <h1>
+            <a href="https://www.instagram.com/______haderachhage" target="_blank" rel="noreferrer">
+              instagram+instagraminstagrainstagram@______haderachhage
+            </a>
+          </h1>
+
+          <p id="work">
+            A clean capsule index for sound + design + image.
+          </p>
+        </section>
+
+        <div class="c-glitch" aria-hidden="true">
+          <div class="glitch-word" data-text="IR0N+B0NE+CASHWAG+CASHWAG">IR0N+B0NE_CASHWAG_C4</div>
+        </div>
+
+        <!-- MOBILE VERSION -->
+        <section class="mobile-min" aria-label="Mobile minimal">
+          <img src="https://i.ibb.co/35s0zx5Z/image-3-1.png" alt="Main" />
+
+          <nav class="mobile-links" aria-label="Mobile sections">
+            <a href="IMG.html">IMG</a>
+            <span class="sep">+</span>
+            <a href="DSN.html">DSN</a>
+            <span class="sep">+</span>
+            <a href="AUD.html">AUD</a>
+          </nav>
+
+          <div class="mobile-ig">
+            <a href="https://www.instagram.com/______haderachhage" target="_blank" rel="noreferrer">
+              instagram+instagraminstagrainstagram@______haderachhage
+            </a>
+          </div>
+        </section>
+
+      </section>
+
+      <div class="spacer-right" aria-hidden="true"></div>
+    </main>
+  </div>
+
+  <script type='text/javascript' src='https://amniote.net/wp-content/themes/amniote/dist/bundle.js?ver=1.0.30' id='amniotescripts-js'></script>
+</body>
 </html>
-
-
-
-
