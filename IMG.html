@@ -18,14 +18,36 @@
     box-sizing: border-box;
   }
 
+  /* THEME TOKENS (default = LIGHT) */
+  :root{
+    --bg:#fff;
+    --ink:#000;
+    --link:#111;
+    --hover-ink:#fff;
+    --hover-underline:#000;
+    color-scheme: light;
+  }
+
+  /* AUTO SWITCH BASED ON SYSTEM PREFERENCE */
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#000;
+      --ink:#fff;
+      --link:#fff;
+      --hover-ink:#000;
+      --hover-underline:#fff;
+      color-scheme: dark;
+    }
+  }
+
   html, body {
     height: 100%;
-    background: #fff;
-    color: #000;
+    background: var(--bg);
+    color: var(--ink);
     font-family: "EB Garamond", serif;
   }
 
-  /* FULL-PAGE background for DSN hover ONLY */
+  /* FULL-PAGE background hover */
   body::before{
     content:"";
     position:fixed;
@@ -67,7 +89,7 @@
     letter-spacing: -0.10em;
     line-height: 0.70;
     white-space: nowrap;
-    color: #111;
+    color: var(--link);
     text-decoration: none;
   }
 
@@ -97,7 +119,7 @@
     letter-spacing: -0.10em;
     line-height: 0.7;
     white-space: nowrap;
-    color: #111;
+    color: var(--link);
     padding: 0.15em 0.25em;
     text-decoration: none;
   }
@@ -106,9 +128,9 @@
     background-size: cover;
     background-position: static;
     background-repeat: no-repeat;
-    color: #fff;
+    color: var(--hover-ink);
     text-decoration: underline;
-    text-decoration-color: #000;
+    text-decoration-color: var(--hover-underline);
   }
 
   .img-link:hover {
@@ -134,7 +156,7 @@
     display:block;
   }
 
-  /* MOBILE ONLY (existing) */
+  /* MOBILE ONLY */
   @media (max-width: 768px){
     .left-col{
       position:fixed;
@@ -179,7 +201,6 @@
       top: -80px;
     }
   }
-
 </style>
 </head>
 
@@ -225,6 +246,3 @@
 
 </body>
 </html>
-
-
-
