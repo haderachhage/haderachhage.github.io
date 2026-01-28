@@ -397,6 +397,7 @@
       <section class="content">
         <section class="hero" aria-label="Homepage hero">
           <img
+            id="heroImg"
             src="https://media.discordapp.net/attachments/1086573379429081180/1466205155446886531/ThePearlwithcoin2.png?ex=697be575&is=697a93f5&hm=cce3756292571cce5b6c8427eca2f54075b631a4f2e91863fd3adf7adf72c6a2&=&format=png&quality=lossless&width=3000&height=3000"
             class="hero-media"
             alt="Hero image"
@@ -425,7 +426,11 @@
 
         <!-- MOBILE VERSION -->
         <section class="mobile-min" aria-label="Mobile minimal">
-          <img src="https://media.discordapp.net/attachments/1086573379429081180/1466205155446886531/ThePearlwithcoin2.png?ex=697be575&is=697a93f5&hm=cce3756292571cce5b6c8427eca2f54075b631a4f2e91863fd3adf7adf72c6a2&=&format=png&quality=lossless&width=3000&height=3000" alt="Main" />
+          <img
+            id="mobileHeroImg"
+            src="https://media.discordapp.net/attachments/1086573379429081180/1466205155446886531/ThePearlwithcoin2.png?ex=697be575&is=697a93f5&hm=cce3756292571cce5b6c8427eca2f54075b631a4f2e91863fd3adf7adf72c6a2&=&format=png&quality=lossless&width=3000&height=3000"
+            alt="Main"
+          />
 
           <nav class="mobile-links" aria-label="Mobile sections">
             <a href="IMG.html">IMG</a>
@@ -447,6 +452,25 @@
       <div class="spacer-right" aria-hidden="true"></div>
     </main>
   </div>
+
+  <script>
+    // Theme-based hero image swap (light vs dark)
+    const LIGHT_HERO = "https://media.discordapp.net/attachments/1086573379429081180/1466204953491280132/image_3.png?ex=697be545&is=697a93c5&hm=bdd7709894754018c62ab63aa2c2b3b54667b0547deeb185c74ed7382e9c2a2f&=&format=png&quality=lossless&width=3000&height=3000";
+    const DARK_HERO  = "https://media.discordapp.net/attachments/1086573379429081180/1466205155446886531/ThePearlwithcoin2.png?ex=697be575&is=697a93f5&hm=cce3756292571cce5b6c8427eca2f54075b631a4f2e91863fd3adf7adf72c6a2&=&format=png&quality=lossless&width=3000&height=3000";
+
+    const heroImg = document.getElementById("heroImg");
+    const mobileHeroImg = document.getElementById("mobileHeroImg");
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function applyHero(){
+      const src = mq.matches ? DARK_HERO : LIGHT_HERO;
+      if (heroImg) heroImg.src = src;
+      if (mobileHeroImg) mobileHeroImg.src = src;
+    }
+
+    applyHero();
+    mq.addEventListener?.("change", applyHero);
+  </script>
 
   <script type='text/javascript' src='https://amniote.net/wp-content/themes/amniote/dist/bundle.js?ver=1.0.30' id='amniotescripts-js'></script>
 </body>
