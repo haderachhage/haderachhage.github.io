@@ -5,22 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
   <meta property="og:title" content="Shayne Hage" />
-<meta property="og:description" content="IMG+DSN+SND" />
-<meta property="og:image" content="https://media.discordapp.net/attachments/1086573379429081180/1465130313599684700/Untitled_design_1.png?ex=697a9f6f&is=69794def&hm=05f976db30d6020925d0daac510b308a5bf2c70209a1b9493dee5594f2e2499e&=&format=png&quality=lossless&width=3840&height=2160" />
-<meta property="og:url" content="https://haderachhage.github.io" />
-<meta property="og:type" content="website" />
+  <meta property="og:description" content="IMG+DSN+SND" />
+  <meta property="og:image" content="https://media.discordapp.net/attachments/1086573379429081180/1465130313599684700/Untitled_design_1.png?ex=697a9f6f&is=69794def&hm=05f976db30d6020925d0daac510b308a5bf2c70209a1b9493dee5594f2e2499e&=&format=png&quality=lossless&width=3840&height=2160" />
+  <meta property="og:url" content="https://haderachhage.github.io" />
+  <meta property="og:type" content="website" />
 
   <title>Shayne Hage — Home</title>
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
+
+    /* =====================================================
+       THEME: LIGHT DEFAULT + DARK VIA SYSTEM PREFERENCE
+       + GLITCH: multiply (light) / screen (dark)
+    ===================================================== */
     :root{
-      /* COLOR SCHEME FLIPPED (white on black) */
-      --ink:#fff;
-      --muted:#fff;
-      --silver:#fff;
-      --line:#fff;
-      --soft:#000;
+      /* LIGHT */
+      --ink:#111;
+      --muted:#71797e;
+      --silver:#7a8288;
+      --line:#d7d7d7;
+      --soft:#f5f5f5;
+
+      /* Glitch follows theme */
+      --glitch:#000;
+      --glitch-blend:multiply;
+
       --max:900px;
 
       --offset-left-spacer:160px;
@@ -33,11 +43,29 @@
       --yvr-plate-v:0.26em;
       --yvr-extra-right:0.02em;
       --left-plate-v:0.2em;
+
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        /* DARK */
+        --ink:#fff;
+        --muted:#fff;
+        --silver:#fff;
+        --line:#fff;
+        --soft:#000;
+
+        --glitch:#fff;
+        --glitch-blend:screen;
+
+        color-scheme: dark;
+      }
     }
 
     html,body{
       font-family:"EB Garamond", serif;
-      background:#000;
+      background:var(--soft);
       color:var(--ink);
       overflow-x:hidden;
     }
@@ -84,12 +112,12 @@
     .rail-plus{transform:scaleY(2.35);letter-spacing:-0.16em}
     .rail-code{letter-spacing:-0.06em}
 
-    /* LEFT COLUMN TEXT = SOLID (now white, incl '+') */
+    /* LEFT COLUMN TEXT = SOLID */
     .left-rail .rail-col:first-child .rail-row{
       color:var(--ink);
     }
 
-    /* SH / AY / + plates (background flipped to black) */
+    /* SH / AY / + plates */
     .rail-row.left-plate{ z-index:2; }
     .rail-row.left-plate::before{
       content:"";
@@ -98,11 +126,11 @@
       bottom:calc(-1 * var(--left-plate-v));
       left:0;
       right:0;
-      background:#000; /* was #fff */
+      background:var(--soft);
       z-index:-1;
     }
 
-    /* OSL + YVR plates (background flipped to black) */
+    /* OSL + YVR plates */
     .rail-row.rail-code.plate{
       width:max-content;
       color:var(--ink);
@@ -115,7 +143,7 @@
       bottom:calc(-1 * var(--plate-v));
       left:0;
       right:0;
-      background:#000; /* was #fff */
+      background:var(--soft);
       z-index:-1;
     }
     .rail-row.rail-code.plate.yvr::before{
@@ -127,7 +155,7 @@
     /* Make NE sit under HAGE */
     .rail-row.ne-under{ z-index:1; }
 
-    /* HAGE plate above NE (background flipped to black) */
+    /* HAGE plate above NE */
     .rail-row.hage-plate{
       width:max-content;
       z-index:3;
@@ -139,7 +167,7 @@
       bottom:calc(-1 * var(--plate-v));
       left:0;
       right:0;
-      background:#000; /* was #fff */
+      background:var(--soft);
       z-index:-1;
     }
 
@@ -240,7 +268,7 @@
       font-size:clamp(36px, 4.2vw, 66px);
       letter-spacing:-0.08em;
       text-transform:uppercase;
-      color:var(--silver);
+      color:var(--glitch);
       user-select:none;
     }
     .glitch-word::before,
@@ -251,9 +279,8 @@
       display:grid;
       place-items:center;
       opacity:.85;
-
-      /* FIX: multiply disappears on black/white; screen preserves the glitch layers on black */
-      mix-blend-mode:screen;
+      color:var(--glitch);
+      mix-blend-mode:var(--glitch-blend);
     }
     .glitch-word::before{transform:translate(2px,0);clip-path:inset(10% 0 65% 0);animation:gl1 2.6s infinite linear}
     .glitch-word::after{transform:translate(-2px,0);clip-path:inset(55% 0 12% 0);animation:gl2 2.1s infinite linear}
@@ -424,8 +451,3 @@
   <script type='text/javascript' src='https://amniote.net/wp-content/themes/amniote/dist/bundle.js?ver=1.0.30' id='amniotescripts-js'></script>
 </body>
 </html>
-
-
-
-
-
