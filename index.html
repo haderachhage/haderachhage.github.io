@@ -15,26 +15,21 @@
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
 
-    /* =====================================================
-       THEME: LIGHT DEFAULT + DARK VIA SYSTEM PREFERENCE
-       + GLITCH: multiply (light) / screen (dark)
-    ===================================================== */
     :root{
-      /* LIGHT */
       --ink:#111;
       --muted:#71797e;
       --silver:#7a8288;
       --line:#d7d7d7;
       --soft:#f5f5f5;
 
-      /* Glitch follows theme */
       --glitch:#000;
       --glitch-blend:multiply;
 
-      --max:900px;
+      --max:9000px;
 
-      --offset-left-spacer:160px;
-      --offset-right-spacer:70px;
+      /* CHANGED: bigger left spacer pushes the entire content column right */
+      --offset-left-spacer:280px; /* was 160px — increase more to push further right */
+      --offset-right-spacer:80px;
 
       --pad-x:2rem;
       --pad-y:4rem;
@@ -49,7 +44,6 @@
 
     @media (prefers-color-scheme: dark){
       :root{
-        /* DARK */
         --ink:#fff;
         --muted:#fff;
         --silver:#fff;
@@ -112,12 +106,10 @@
     .rail-plus{transform:scaleY(2.35);letter-spacing:-0.16em}
     .rail-code{letter-spacing:-0.06em}
 
-    /* LEFT COLUMN TEXT = SOLID */
     .left-rail .rail-col:first-child .rail-row{
       color:var(--ink);
     }
 
-    /* SH / AY / + plates */
     .rail-row.left-plate{ z-index:2; }
     .rail-row.left-plate::before{
       content:"";
@@ -130,7 +122,6 @@
       z-index:-1;
     }
 
-    /* OSL + YVR plates */
     .rail-row.rail-code.plate{
       width:max-content;
       color:var(--ink);
@@ -152,10 +143,8 @@
       right:calc(0px - var(--yvr-extra-right));
     }
 
-    /* Make NE sit under HAGE */
     .rail-row.ne-under{ z-index:1; }
 
-    /* HAGE plate above NE */
     .rail-row.hage-plate{
       width:max-content;
       z-index:3;
@@ -218,6 +207,48 @@
       background:var(--soft);
     }
 
+    .hero-top{
+      display:flex;
+      justify-content:center;
+      align-items:stretch;
+      gap:50px;
+    }
+    .hero-top .hero-media{
+      width:min(850px, 1500%);
+      margin-bottom:1.2rem;
+      align-self:flex-start;
+    }
+
+    .adj-rail{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      align-items:flex-start;
+      align-self:stretch;
+      height:auto;
+      padding-top:2px;
+      text-transform:uppercase;
+      user-select:none;
+    }
+    .adj-link{
+      font-size:clamp(72px, 7.2vw, 16px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:left center;
+      letter-spacing:-0.11em;
+      line-height:0.70;
+      color:var(--ink);
+      white-space:nowrap;
+      text-decoration:none;
+      display:inline-block;
+    }
+    .adj-link:hover{ text-decoration: underline; }
+
+    @media (max-width: 1120px){
+      .hero-top .hero-media{ width:min(660px, 100%); }
+      .adj-link{ font-size:clamp(54px, 6.0vw, 130px); }
+    }
+
     .inline-wrapper{
       display:flex;
       justify-content:center;
@@ -253,12 +284,13 @@
       margin-top:.35rem;
     }
 
-    /* Glitch */
     .c-glitch{
       background:var(--soft);
       height:140px;
       overflow:hidden;
       position:relative;
+
+      margin-top:35px;
     }
     .glitch-word{
       position:absolute;
@@ -271,6 +303,7 @@
       color:var(--glitch);
       user-select:none;
     }
+    
     .glitch-word::before,
     .glitch-word::after{
       content:attr(data-text);
@@ -284,6 +317,11 @@
     }
     .glitch-word::before{transform:translate(2px,0);clip-path:inset(10% 0 65% 0);animation:gl1 2.6s infinite linear}
     .glitch-word::after{transform:translate(-2px,0);clip-path:inset(55% 0 12% 0);animation:gl2 2.1s infinite linear}
+
+    .glitch-word{
+  transform: translateX(-250px); /* more negative = further left */
+}
+
     @keyframes gl1{
       0%{clip-path:inset(10% 0 65% 0)}
       25%{clip-path:inset(30% 0 45% 0)}
@@ -298,7 +336,42 @@
       100%{clip-path:inset(55% 0 12% 0)}
     }
 
-    /* MOBILE */
+    #buyPanel{
+      position:fixed;
+      top:0;
+      bottom:0;
+      left:0;
+      width:0;
+      display:none;
+      background:var(--soft);
+      border-left:1px solid var(--line);
+      border-right:1px solid var(--line);
+      z-index:0;
+    }
+    #buyPanel.is-open{ display:block; }
+
+    #buyFrame{
+      width:100%;
+      height:100%;
+      border:0;
+      background:var(--soft);
+      display:block;
+    }
+
+    #buyClose{
+      position:absolute;
+      top:10px;
+      right:14px;
+      font-family:"EB Garamond", serif;
+      font-size:34px;
+      line-height:1;
+      border:0;
+      background:transparent;
+      color:var(--ink);
+      cursor:pointer;
+      z-index:2;
+    }
+
     .mobile-min{display:none;text-align:center;padding:1.5rem}
     .mobile-min img{
       width:100%;
@@ -306,10 +379,9 @@
       border:1px solid var(--line);
       background:var(--soft);
       display:block;
-      margin:0 auto 1.1rem;
+      margin:0 auto 9.1rem;
     }
 
-    /* MOBILE LINKS */
     .mobile-links{
       display:flex;
       justify-content:center;
@@ -317,11 +389,11 @@
       gap:14px;
       flex-wrap:wrap;
       text-transform:uppercase;
-      margin-bottom:1.1rem;
+      margin-bottom:4.1rem;
     }
     .mobile-links a{
       font-family:"EB Garamond", serif;
-      font-size:clamp(22px, 5.5vw, 30px);
+      font-size:clamp(50px, 5.5vw, 30px);
       font-weight:500;
       letter-spacing:-0.10em;
       line-height:0.70;
@@ -362,6 +434,8 @@
 
       .mobile-min{display:block}
       .content{width:min(var(--max),100%)}
+
+      #buyPanel{ display:none !important; }
     }
   </style>
 </head>
@@ -391,23 +465,40 @@
       <a href="/aud">AUD</a>
     </div>
 
+    <div id="buyPanel" aria-hidden="true">
+      <button id="buyClose" type="button" aria-label="Close">×</button>
+      <iframe id="buyFrame" title="BUY landing page" loading="lazy"></iframe>
+    </div>
+
     <main class="stage">
       <div class="spacer-left" aria-hidden="true"></div>
 
       <section class="content">
         <section class="hero" aria-label="Homepage hero">
-          <img
-            id="heroImg"
-            src="https://i.ibb.co/9H8zvmS8/The-Pearlwithcoin2.png"
-            class="hero-media"
-            alt="Hero image"
-          />
+
+          <div class="hero-top">
+            <img
+              id="heroImg"
+              src="https://i.ibb.co/9H8zvmS8/The-Pearlwithcoin2.png"
+              class="hero-media"
+              alt="Hero image"
+            />
+
+            <nav class="adj-rail" aria-label="Adjacent links">
+              <a class="adj-link" href="#"></a>
+              <a class="adj-link" href="/live">LIVE</a>
+              <a class="adj-link" href="/buy" id="">BUY</a>
+              <a class="adj-link" href="/work">WORK</a>
+              <a class="adj-link" href="#"></a>
+            </nav>
+          </div>
 
           <div class="inline-wrapper" aria-label="Sections">
             <a href="https://www.instagram.com/cash_wag/"> +</a>
             <a href="https://www.instagram.com/musclebeach_________mafiaboss/"> +</a>
             <a href="SOUND.html"></a>
           </div>
+
 <h1>
   <a href="https://www.instagram.com/______haderachhage"
      target="_blank"
@@ -419,7 +510,6 @@
 </h1>
 
 <style>
-  /* IMPORTANT: prevent the anchor from ever underlining */
   .ig-link,
   .ig-link:hover,
   .ig-link:focus,
@@ -428,14 +518,12 @@
     text-decoration: none !important;
   }
 
-  /* keep your invisible spacer taking up space */
   .ig-spacer {
     color: transparent;
     user-select: none;
     pointer-events: none;
   }
 
-  /* underline ONLY when hovering the handle text */
   .ig-handle {
     display: inline;
     text-decoration: none;
@@ -467,19 +555,16 @@
 
   #work a {
     color: inherit;
-    text-decoration: underline; /* remove if you don’t want underline */
+    text-decoration: underline;
   }
 </style>
 
 </section>
 
-
-
         <div class="c-glitch" aria-hidden="true">
           <div class="glitch-word" data-text="IR0N+B0NE+CASHWAG+CASHWAG">IR0N+B0NE_CASHWAG_C4</div>
         </div>
 
-        <!-- MOBILE VERSION -->
         <section class="mobile-min" aria-label="Mobile minimal">
           <img
             id="mobileHeroImg"
@@ -509,7 +594,6 @@
   </div>
 
   <script>
-    // Theme-based hero image swap (light vs dark)
     const LIGHT_HERO = "https://i.ibb.co/ccy2cqYD/image-3.png";
     const DARK_HERO  = "https://i.ibb.co/9H8zvmS8/The-Pearlwithcoin2.png";
 
@@ -527,12 +611,78 @@
     mq.addEventListener?.("change", applyHero);
   </script>
 
+  <script>
+    (function(){
+      const buyLink  = document.getElementById("buyLink");
+      const panel    = document.getElementById("buyPanel");
+      const frame    = document.getElementById("buyFrame");
+      const closeBtn = document.getElementById("buyClose");
+
+      function isDesktop(){
+        return window.matchMedia("(min-width: 981px)").matches;
+      }
+
+      function layoutPanel(){
+        if (!panel.classList.contains("is-open")) return;
+
+        const adj = document.querySelector(".adj-rail");
+        const rr  = document.querySelector(".right-rail");
+        if (!adj || !rr) return;
+
+        const a = adj.getBoundingClientRect();
+        const r = rr.getBoundingClientRect();
+
+        const gutter = 18;
+
+        const left  = Math.round(a.right + gutter);
+        const right = Math.round(r.left  - gutter);
+        const width = Math.max(0, right - left);
+
+        panel.style.left  = left + "px";
+        panel.style.width = width + "px";
+      }
+
+      function openPanel(url){
+        if (!isDesktop()) return;
+        panel.classList.add("is-open");
+        panel.setAttribute("aria-hidden", "false");
+        frame.src = url;
+        layoutPanel();
+      }
+
+      function closePanel(){
+        panel.classList.remove("is-open");
+        panel.setAttribute("aria-hidden", "true");
+        frame.removeAttribute("src");
+        panel.style.width = "0";
+      }
+
+      if (buyLink){
+        buyLink.addEventListener("click", (e) => {
+          if (!isDesktop()) return;
+          e.preventDefault();
+
+          const url = buyLink.getAttribute("href") || "/#";
+
+          if (panel.classList.contains("is-open")) closePanel();
+          else openPanel(url);
+        });
+      }
+
+      closeBtn?.addEventListener("click", closePanel);
+
+      window.addEventListener("resize", layoutPanel);
+      window.addEventListener("scroll", layoutPanel, { passive:true });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && panel.classList.contains("is-open")) closePanel();
+      });
+    })();
+  </script>
+
   <script type='text/javascript' src='https://amniote.net/wp-content/themes/amniote/dist/bundle.js?ver=1.0.30' id='amniotescripts-js'></script>
 </body>
 </html>
-
-
-
 
 
 
