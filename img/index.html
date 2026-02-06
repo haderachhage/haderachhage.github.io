@@ -389,6 +389,77 @@
   @media (prefers-color-scheme: light){
     .lightbox-arrow{ color:#fff; }
   }
+
+
+  /* ============================
+     DESKTOP-ONLY LIGHTBOX ENHANCEMENTS
+     - Top-right nav (mobile-style) only while lightbox is open on desktop
+     - Story (scroll) mode for 9:16 + 2:3-like ratios only on desktop
+     ============================ */
+  @media (min-width: 769px){
+    /* Top-right: show only HJEM / DSN / AUD links while lightbox is open */
+    body.lb-open .right-rail{
+      top: 18px;
+      bottom: auto;
+      transform: none;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 14px;
+
+      /* ensure it sits ABOVE the lightbox overlay */
+      z-index: 10001;
+      pointer-events: auto;
+    }
+    body.lb-open .right-rail span{ display:none; }
+    body.lb-open .right-rail a{
+      font-size: clamp(22px, 5.5vw, 30px);
+      transform: scaleY(2.1);
+      transform-origin: right center;
+      letter-spacing: -0.10em;
+      line-height: 0.70;
+
+      /* visible on the dark overlay */
+      color: #fff;
+    }
+
+    /* Story mode: fill width and allow vertical scroll */
+    .lightbox.is-story{
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 4vh 0;
+      cursor: default;
+    }
+    .lightbox.is-story img{
+      width: min(80vw, 1100px);
+      max-width: min(80vw, 1100px);
+      max-height: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Zoom mode (desktop only): e.g., 3000x3093.jpg
+       - slightly larger than default contain
+       - allows vertical scroll if needed */
+    .lightbox.is-zoom{
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 3vh 0;
+      cursor: default;
+    }
+    .lightbox.is-zoom img{
+      width: min(88vw, 1200px);
+      max-width: min(88vw, 1200px);
+      max-height: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  }
 </style>
 </head>
 
@@ -516,21 +587,105 @@
     img.addEventListener('dragstart', (e) => e.preventDefault());
   });
 
-  images.forEach((img, index) => {
-    img.addEventListener('click', () => {
-      currentIndex = index;
-      lightboxImg.src = img.src;
-      lightbox.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    });
-  });
+  function isDesktopNow(){
+    return window.matchMedia('(min-width: 769px)').matches;
+  }
+
+  /* ✅ Desktop-only "story" ratios:
+     - 9:16 (h/w ≈ 1.777...)
+     - 2:3-ish (h/w ≈ 1.5) including 3712x5638 (≈ 1.518...)
+     Only these get the scrollable, width-filled view.
+  */
+  function isStoryRatio(r){
+    const isNineSixteen = (r >= 1.70 && r <= 1.90);
+    const isTwoThirds = (r >= 1.45 && r <= 1.60);
+    return isNineSixteen || isTwoThirds;
+  }
+
+  function isStoryFromImg(imgEl){
+    const w = imgEl && imgEl.naturalWidth;
+    const h = imgEl && imgEl.naturalHeight;
+    if(!w || !h) return false;
+    return isStoryRatio(h / w);
+  }
+
+  
+  function isZoomFromImg(imgEl){
+    // Specific request: zoom the image whose filename includes "3000x3093"
+    return !!(imgEl && imgEl.src && imgEl.src.indexOf('3000x3093') !== -1);
+  }
+
+  function updateZoomModeForIndex(i){
+    const shouldZoom = isZoomFromImg(images[i]);
+    // If story mode is active (desktop-only), don't stack zoom mode
+    if (lightbox.classList.contains('is-story')) {
+      lightbox.classList.remove('is-zoom');
+      return;
+    }
+    lightbox.classList.toggle('is-zoom', shouldZoom);
+    if (shouldZoom) lightbox.scrollTop = 0;
+  }
+
+function applyDesktopLightboxUI(open){
+    // Only on desktop: top-right nav layout while lightbox is open
+    document.body.classList.toggle('lb-open', open && isDesktopNow());
+  }
+
+  function updateStoryModeForIndex(i){
+    if (!isDesktopNow()) {
+      lightbox.classList.remove('is-story');
+      return;
+    }
+
+    const srcImg = images[i];
+    const shouldStory = isStoryFromImg(srcImg);
+
+    lightbox.classList.toggle('is-story', shouldStory);
+    if (shouldStory) lightbox.scrollTop = 0;
+  }
+
+  function openLightboxAt(i){
+    currentIndex = i;
+
+    updateStoryModeForIndex(currentIndex);
+    updateZoomModeForIndex(currentIndex);
+
+    // set src
+    lightboxImg.src = images[currentIndex].src;
+
+    // fallback in case the thumbnail's natural sizes weren't ready
+    lightboxImg.onload = () => {
+      if (!isDesktopNow()) {
+        lightbox.classList.remove('is-story');
+        return;
+      }
+      const r = lightboxImg.naturalHeight / lightboxImg.naturalWidth;
+      const shouldStory = isStoryRatio(r);
+      lightbox.classList.toggle('is-story', shouldStory);
+      if (shouldStory) {
+        lightbox.classList.remove('is-zoom');
+        lightbox.scrollTop = 0;
+      } else {
+        updateZoomModeForIndex(currentIndex);
+      }
+    };
+
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    applyDesktopLightboxUI(true);
+  }
 
   function showImage(index){
     if(index < 0) index = images.length - 1;
     if(index >= images.length) index = 0;
-    currentIndex = index;
-    lightboxImg.src = images[currentIndex].src;
+    openLightboxAt(index);
   }
+
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      openLightboxAt(index);
+    });
+  });
 
   lbPrev.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -544,10 +699,48 @@
   lightboxImg.addEventListener('contextmenu', (e) => e.preventDefault());
   lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
 
+  // ✅ Mobile swipe gestures (left/right) in lightbox
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touching = false;
+  let suppressClick = false;
+
+  lightbox.addEventListener('touchstart', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (!e.touches || e.touches.length !== 1) return;
+    touching = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', (e) => {
+    if (!touching) return;
+    touching = false;
+    if (!e.changedTouches || e.changedTouches.length !== 1) return;
+
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const dx = endX - touchStartX;
+    const dy = endY - touchStartY;
+
+    // horizontal swipe only
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      suppressClick = true;
+      if (dx < 0) showImage(currentIndex + 1);
+      else showImage(currentIndex - 1);
+      // release click suppression after this tick
+      setTimeout(() => { suppressClick = false; }, 0);
+    }
+  }, { passive: true });
+
   lightbox.addEventListener('click', () => {
+    if (suppressClick) return;
     lightbox.classList.remove('is-open');
+    lightbox.classList.remove('is-story');
+    lightbox.classList.remove('is-zoom');
     lightboxImg.src = '';
     document.body.style.overflow = '';
+    applyDesktopLightboxUI(false);
   });
   lightboxImg.addEventListener('click', (e) => e.stopPropagation());
 
@@ -556,11 +749,21 @@
 
     if (e.key === 'Escape') {
       lightbox.classList.remove('is-open');
+      lightbox.classList.remove('is-story');
+      lightbox.classList.remove('is-zoom');
       lightboxImg.src = '';
       document.body.style.overflow = '';
+      applyDesktopLightboxUI(false);
     }
     if (e.key === 'ArrowRight') showImage(currentIndex + 1);
     if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+  });
+
+  // If the user resizes while open, keep desktop-only rules consistent
+  window.addEventListener('resize', () => {
+    if (!lightbox.classList.contains('is-open')) return;
+    applyDesktopLightboxUI(true);
+    updateStoryModeForIndex(currentIndex);
   });
 
   document.addEventListener('contextmenu', (e) => {
