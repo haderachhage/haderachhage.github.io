@@ -1,758 +1,814 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
-  <meta property="og:title" content="ShayneHageIndex" />
-  <meta property="og:description" content="IMG+DSN+AUD Engineered By Shayne Hage" />
-  <meta property="og:image" content="https://i.postimg.cc/Fsx4vgFJ/Untitled-design-(13).png" />
-  <meta property="og:url" content="https://haderachhage.github.io" />
-  <meta property="og:type" content="website" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
+<meta property="og:title" content="IMG" />
+<meta property="og:description" content="IMG ENGINEERED BY SHAYNE" />
+<meta property="og:image" content="https://i.postimg.cc/gkKWpqcw/Untitled-design-(9).png" />
+<meta property="og:url" content="https://haderachhage.github.io/IMG" />
+<meta property="og:type" content="website" />
+<title>IMGHage</title>
 
-  <title>Shayne Hage</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
 
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
+  /* =====================================================
+     ✅ HIDE BROWSER SCROLLBAR (KEEP SCROLL)
+     ✅ SMOOTH MOMENTUM SCROLLING
+     (ADDED ONLY)
+     ===================================================== */
+  html, body{
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE/old Edge */
+    scroll-behavior: smooth;      /* smooth scroll for anchor jumps */
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar{
+    display: none;                /* Chrome/Safari/Opera */
+    width: 0;
+    height: 0;
+  }
 
+  /* Momentum / inertial scrolling on touch devices */
+  body{
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* If any scrollable overlays appear (like lightbox story/zoom), keep them smooth + scrollbarless too */
+  .lightbox{
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .lightbox::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+  }
+
+  /* THEME TOKENS (match your index page frame tokens) */
+  :root{
+    --bg:#fff;
+    --ink:#000;
+    --link:#111;
+    --hover-ink:#fff;
+    --hover-underline:#000;
+
+    /* IMPORTANT: same names as your index file */
+    --line:#d7d7d7;  /* used by hero-media border */
+    --soft:#f5f5f5;  /* used by hero-media background */
+
+    color-scheme: light;
+
+    /* showcase tokens */
+    --showcase-max: 760px;
+    --showcase-pad-x: 16px;
+    --showcase-top-pad: 120px;
+    --showcase-bottom-pad: 140px;
+
+    --card-gap: 18px;
+    --cascade-overlap: 46px;
+    --wobble: 14px;
+
+    /* squared corners */
+    --card-radius: 0px;
+  }
+
+  @media (prefers-color-scheme: dark){
     :root{
-      --ink:#111;
-      --muted:#71797e;
-      --silver:#7a8288;
-      --line:#d7d7d7;
-      --soft:#f5f5f5;
+      --bg:#000;
+      --ink:#fff;
+      --link:#fff;
+      --hover-ink:#000;
+      --hover-underline:#fff;
 
-      --glitch:#000;
-      --glitch-blend:multiply;
+      /* IMPORTANT: match your index dark theme */
+      --line:#fff;
+      --soft:#000;
 
-      --max:9000px;
+      color-scheme: dark;
+    }
+  }
 
-      /* CHANGED: bigger left spacer pushes the entire content column right */
-      --offset-left-spacer:280px; /* was 160px — increase more to push further right */
-      --offset-right-spacer:80px;
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "EB Garamond", serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100%;
+  }
 
-      --pad-x:2rem;
-      --pad-y:4rem;
+  /* FULL-PAGE background hover (cover) */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:url(https://i.ibb.co/wNXhrk5z/Untitled-design-9.png);
+    background-size:cover;
+    background-position:center;   /* FIXED */
+    background-repeat:no-repeat;
+    opacity:0;
+    pointer-events:none;
+    z-index:0;
+    transition:opacity 0s;
+  }
 
-      --plate-v:0.2em;
-      --yvr-plate-v:0.26em;
-      --yvr-extra-right:0.02em;
-      --left-plate-v:0.2em;
+  /* Trigger cover on hover (IMG + DSN + AUD) */
+  body:has(.img-link:hover)::before{ opacity:1; }
+  body:has(.dsn-link:hover)::before{ opacity:1; }
+  body:has(.aud-link:hover)::before{ opacity:1; }
 
-      color-scheme: light;
+  /* LEFT COLUMN (fixed so + stays on screen always) */
+  .left-col{
+    position:fixed;
+    left:104px;
+    top:55%;
+    transform:translateY(-50%);
+    transform: scaleY(3.25);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:6;
+    text-transform:uppercase;
+    user-select:none;
+  }
+
+  .left-col a{
+    font-size: clamp(54px, 5.2vw, 130px);
+    font-weight: 500;
+    transform: scaleY(2.25);
+    transform-origin: right center;
+    letter-spacing: -0.10em;
+    line-height: 0.70;
+    white-space: nowrap;
+    color: var(--link);
+    text-decoration: none;
+  }
+  .left-col a:hover{ text-decoration: underline; }
+
+  /* CENTER COLUMN */
+  .center-col {
+    position: relative;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: -100000000px;
+    text-transform: uppercase;
+    user-select: none;
+    z-index:5;
+  }
+
+  .center-col a {
+    display:inline-block; /* makes hover box reliable */
+    font-size: clamp(54px, 5.2vw, 130px);
+    font-weight: 500;
+    transform: scaleY(2.25);
+    transform-origin: center;
+    letter-spacing: -0.10em;
+    line-height: 0.7;
+    white-space: nowrap;
+    color: var(--link);
+    padding: 0.15em 0.25em;
+    text-decoration: none;
+  }
+
+  .center-col a:hover {
+    background-size: cover;
+    background-position: center; /* FIXED */
+    background-repeat: no-repeat;
+    color: var(--hover-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--hover-underline);
+  }
+
+  /* Link-specific hover images (optional but keeps your intent) */
+  .img-link:hover {
+    background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png);
+  }
+  /* If you don't have an aud-hover.jpg, this was effectively "not working" */
+  .aud-link:hover {
+    background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png);
+  }
+
+  /* RIGHT RAIL (fixed) */
+  .right-rail{
+    position:fixed;
+    right:24px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    user-select:none;
+    text-transform:uppercase;
+    z-index:6;
+    gap:18px;
+  }
+
+  .right-rail a,
+  .right-rail span{
+    font-size:clamp(54px, 5.2vw, 130px);
+    font-weight:500;
+    transform:scaleY(2.25);
+    transform-origin:right center;
+    letter-spacing:-0.10em;
+    line-height:0.70;
+    white-space:nowrap;
+    text-decoration:none;
+    color:var(--ink);
+  }
+
+  .right-rail .plus{
+    transform:scaleY(2.35);
+    letter-spacing:-0.16em;
+    opacity:.95;
+    pointer-events:none;
+  }
+  .right-rail a:hover{ text-decoration: underline; }
+
+  /* RIGHT EMBED PANEL */
+  .embed-panel{
+    position:fixed;
+    top:50%;
+    right:24px;
+    transform:translateY(-50%);
+    width:min(520px, 38vw);
+    z-index:7;
+    display:none;
+  }
+  .embed-panel.is-open{ display:block; }
+
+  /* SHOWCASE */
+  .showcase{
+    position: relative;
+    z-index:1;
+    width: min(var(--showcase-max), 100%);
+    margin: 0 auto;
+    padding: var(--showcase-top-pad) var(--showcase-pad-x) var(--showcase-bottom-pad);
+  }
+
+  .stack{
+    display:flex;
+    flex-direction:column;
+    gap: var(--card-gap);
+    align-items:center;
+  }
+
+  .card{
+    width:120%;
+    border-radius: var(--card-radius);
+    overflow:hidden;
+
+    border:1px solid var(--line);
+    background:var(--soft);
+    display:block;
+
+    will-change: transform, opacity;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .45s ease, transform .55s ease;
+  }
+
+  .card:not(:first-child){ margin-top: calc(-1 * var(--cascade-overlap)); }
+  .card:nth-child(odd){ transform: translateY(18px) translateX(calc(-1 * var(--wobble))); }
+  .card:nth-child(even){ transform: translateY(18px) translateX(var(--wobble)); }
+
+  .card.is-visible{
+    opacity:1;
+    transform: translateY(0) translateX(0);
+  }
+
+  .card img{
+    width:100%;
+    height:auto;
+    display:block;
+    background:var(--soft);
+    -webkit-user-drag: none;
+    user-select: none;
+    cursor: zoom-in;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px){
+    .left-col{
+      left:50%;
+      top:18px;
+      transform:translateX(-50%);
+      flex-direction:row;
+      align-items:baseline;
+      gap:14px;
     }
 
-    @media (prefers-color-scheme: dark){
-      :root{
-        --ink:#fff;
-        --muted:#fff;
-        --silver:#fff;
-        --line:#fff;
-        --soft:#000;
-
-        --glitch:#fff;
-        --glitch-blend:screen;
-
-        color-scheme: dark;
-      }
+    .center-col{
+      padding: 64px 16px 16px;
+      gap: 44px;
     }
 
-    html,body{
-      font-family:"EB Garamond", serif;
-      background:var(--soft);
-      color:var(--ink);
-      overflow-x:hidden;
-    }
-
-    /* =====================================================
-       ✅ HIDE BROWSER SCROLLBAR (KEEP SCROLL)
-       ✅ SMOOTH MOMENTUM SCROLLING
-       (ADDED ONLY)
-       ===================================================== */
-    html, body{
-      scrollbar-width: none;        /* Firefox */
-      -ms-overflow-style: none;     /* IE/old Edge */
-      scroll-behavior: smooth;      /* smooth scroll for anchor jumps */
-    }
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar{
-      display: none;                /* Chrome/Safari/Opera */
-      width: 0;
-      height: 0;
-    }
-    body{
-      -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
-    }
-
-    /* If a section ever becomes its own scroll container, keep it momentum + scrollbarless */
-    #buyPanel,
-    .c-glitch{
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    #buyPanel::-webkit-scrollbar,
-    .c-glitch::-webkit-scrollbar{
-      display:none;
-      width:0;
-      height:0;
-    }
-
-    .c-wrapper{position:relative;min-height:100vh}
-    .stage{
-      position:relative;
-      min-height:100vh;
-      display:flex;
-      align-items:flex-start;
-      padding:var(--pad-y) var(--pad-x);
-    }
-    .spacer-left{width:var(--offset-left-spacer);flex:0 0 auto}
-    .spacer-right{width:var(--offset-right-spacer);flex:0 0 auto}
-    .content{width:min(var(--max),100%)}
-
-    .left-rail{
-      position:absolute;
-      left:var(--pad-x);
-      top:var(--pad-y);
-      height:calc(100vh - (var(--pad-y) * 2));
-      display:grid;
-      grid-template-columns:auto auto;
-      column-gap:2.25rem;
-      align-items:stretch;
-      pointer-events:none;
-      user-select:none;
-      text-transform:uppercase;
-      z-index:1;
-    }
-    .rail-col{height:100%;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start}
-    .rail-row{
-      font-size:clamp(72px, 7.2vw, 160px);
-      font-weight:500;
-      transform:scaleY(2.25);
-      transform-origin:left center;
-      letter-spacing:-0.11em;
-      line-height:0.70;
-      color:var(--silver);
-      white-space:nowrap;
-      position:relative;
-      z-index:1;
-    }
-    .rail-plus{transform:scaleY(2.35);letter-spacing:-0.16em}
-    .rail-code{letter-spacing:-0.06em}
-
-    .left-rail .rail-col:first-child .rail-row{
-      color:var(--ink);
-    }
-
-    .rail-row.left-plate{ z-index:2; }
-    .rail-row.left-plate::before{
-      content:"";
-      position:absolute;
-      top:calc(-1 * var(--left-plate-v));
-      bottom:calc(-1 * var(--left-plate-v));
-      left:0;
-      right:0;
-      background:var(--soft);
-      z-index:-1;
-    }
-
-    .rail-row.rail-code.plate{
-      width:max-content;
-      color:var(--ink);
-      z-index:2;
-    }
-    .rail-row.rail-code.plate::before{
-      content:"";
-      position:absolute;
-      top:calc(-1 * var(--plate-v));
-      bottom:calc(-1 * var(--plate-v));
-      left:0;
-      right:0;
-      background:var(--soft);
-      z-index:-1;
-    }
-    .rail-row.rail-code.plate.yvr::before{
-      top:calc(-1 * var(--yvr-plate-v));
-      bottom:calc(-1 * var(--yvr-plate-v));
-      right:calc(0px - var(--yvr-extra-right));
-    }
-
-    .rail-row.ne-under{ z-index:1; }
-
-    .rail-row.hage-plate{
-      width:max-content;
-      z-index:3;
-    }
-    .rail-row.hage-plate::before{
-      content:"";
-      position:absolute;
-      top:calc(-1 * var(--plate-v));
-      bottom:calc(-1 * var(--plate-v));
-      left:0;
-      right:0;
-      background:var(--soft);
-      z-index:-1;
+    .center-col a{
+      max-width: 92vw;
+      text-align:center;
+      white-space: normal;
     }
 
     .right-rail{
-      position:absolute;
-      right:var(--pad-x);
-      top:var(--pad-y);
-      height:calc(100vh - (var(--pad-y) * 2));
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      align-items:flex-end;
-      user-select:none;
-      text-transform:uppercase;
-      z-index:1;
+      right:14px;
+      top:auto;
+      bottom:18px;
+      transform:none;
+      flex-direction:row;
+      align-items:baseline;
+      gap:14px;
     }
     .right-rail a,
     .right-rail span{
-      font-size:clamp(54px, 5.2vw, 130px);
-      font-weight:500;
-      transform:scaleY(2.25);
-      transform-origin:right center;
-      letter-spacing:-0.10em;
-      line-height:0.70;
-      white-space:nowrap;
-      text-decoration:none;
-      color:var(--ink);
-    }
-    .right-rail .plus{
-      transform:scaleY(2.35);
-      letter-spacing:-0.16em;
-      opacity:.95;
-      pointer-events:none;
-    }
-    .right-rail a:hover{ text-decoration: underline; }
-
-    .hero{
-      max-width:900px;
-      text-align:center;
-      padding:1.5rem;
-    }
-    .hero-media{
-      width:100%;
-      height:auto;
-      border:1px solid var(--line);
-      margin-bottom:1.2rem;
-      display:block;
-      background:var(--soft);
-    }
-
-    .hero-top{
-      display:flex;
-      justify-content:center;
-      align-items:stretch;
-      gap:50px;
-    }
-    .hero-top .hero-media{
-      width:min(850px, 1500%);
-      margin-bottom:1.2rem;
-      align-self:flex-start;
-    }
-
-    .adj-rail{
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      align-items:flex-start;
-      align-self:stretch;
-      height:auto;
-      padding-top:2px;
-      text-transform:uppercase;
-      user-select:none;
-    }
-    .adj-link{
-      font-size:clamp(72px, 7.2vw, 16px);
-      font-weight:500;
-      transform:scaleY(2.25);
-      transform-origin:left center;
-      letter-spacing:-0.11em;
-      line-height:0.70;
-      color: #FF89BB;
-      white-space:nowrap;
-      text-decoration:none;
-      display:inline-block;
-    }
-    .adj-link:hover{ text-decoration: underline; }
-
-    @media (max-width: 1120px){
-      .hero-top .hero-media{ width:min(660px, 100%); }
-      .adj-link{ font-size:clamp(54px, 6.0vw, 130px); }
-    }
-
-    .inline-wrapper{
-      display:flex;
-      justify-content:center;
-      gap:16px;
-      margin-bottom:1.4rem;
-      font-size:1.4rem;
-      font-weight:500;
-      color:var(--muted);
-      flex-wrap:wrap;
-    }
-    .inline-wrapper a{
-      color:var(--muted);
-      text-decoration:none;
-      font-weight:inherit;
-      border-bottom:1px solid transparent;
-    }
-    .inline-wrapper a:hover{border-bottom-color:var(--muted)}
-
-    .hero h1{
-      font-size:2rem;
-      font-weight:500;
-      color:var(--muted);
-      margin-top:20px;
-      margin-bottom:.6rem;
-      letter-spacing:.2px;
-    }
-    .hero h1 a{color:var(--muted);text-decoration:none}
-    .hero h1 a:hover{text-decoration:underline}
-    .hero p{
-      color:var(--muted);
-      font-size:1.02rem;
-      line-height:1.6;
-      margin-top:.35rem;
-    }
-
-    .c-glitch{
-      background:var(--soft);
-      height:140px;
-      overflow:hidden;
-      position:relative;
-
-      margin-top:35px;
-    }
-    .glitch-word{
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      font-size:clamp(36px, 4.2vw, 66px);
-      letter-spacing:-0.08em;
-      text-transform:uppercase;
-      color:var(--glitch);
-      user-select:none;
-    }
-    
-    .glitch-word::before,
-    .glitch-word::after{
-      content:attr(data-text);
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      opacity:.85;
-      color:var(--glitch);
-      mix-blend-mode:var(--glitch-blend);
-    }
-    .glitch-word::before{transform:translate(2px,0);clip-path:inset(10% 0 65% 0);animation:gl1 2.6s infinite linear}
-    .glitch-word::after{transform:translate(-2px,0);clip-path:inset(55% 0 12% 0);animation:gl2 2.1s infinite linear}
-
-    .glitch-word{
-  transform: translateX(-250px); /* more negative = further left */
-}
-
-    @keyframes gl1{
-      0%{clip-path:inset(10% 0 65% 0)}
-      25%{clip-path:inset(30% 0 45% 0)}
-      50%{clip-path:inset(12% 0 70% 0)}
-      75%{clip-path:inset(40% 0 35% 0)}
-      100%{clip-path:inset(10% 0 65% 0)}
-    }
-    @keyframes gl2{
-      0%{clip-path:inset(55% 0 12% 0)}
-      30%{clip-path:inset(65% 0 8% 0)}
-      60%{clip-path:inset(48% 0 20% 0)}
-      100%{clip-path:inset(55% 0 12% 0)}
-    }
-
-    #buyPanel{
-      position:fixed;
-      top:0;
-      bottom:0;
-      left:0;
-      width:0;
-      display:none;
-      background:var(--soft);
-      border-left:1px solid var(--line);
-      border-right:1px solid var(--line);
-      z-index:0;
-    }
-    #buyPanel.is-open{ display:block; }
-
-    #buyFrame{
-      width:100%;
-      height:100%;
-      border:0;
-      background:var(--soft);
-      display:block;
-    }
-
-    #buyClose{
-      position:absolute;
-      top:10px;
-      right:14px;
-      font-family:"EB Garamond", serif;
-      font-size:34px;
-      line-height:1;
-      border:0;
-      background:transparent;
-      color:var(--ink);
-      cursor:pointer;
-      z-index:2;
-    }
-
-    .mobile-min{display:none;text-align:center;padding:1.5rem}
-    .mobile-min img{
-      width:100%;
-      height:auto;
-      border:1px solid var(--line);
-      background:var(--soft);
-      display:block;
-      margin:0 auto 6.1rem;
-    }
-
-    .mobile-links{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:20px;
-      flex-wrap:wrap;
-      text-transform:uppercase;
-      margin-bottom:4.1rem;
-    }
-    .mobile-links a{
-      font-family:"EB Garamond", serif;
-      font-size:clamp(50px, 5.5vw, 30px);
-      font-weight:500;
-      letter-spacing:-0.10em;
-      line-height:0.70;
-      color:var(--ink);
-      text-decoration:none;
+      font-size:clamp(22px, 5.5vw, 30px);
       transform:scaleY(2.1);
       transform-origin:center;
-    }
-    .mobile-links a:active{ text-decoration:underline; }
-    .mobile-links .sep{
-      font-family:"EB Garamond", serif;
-      font-size:clamp(12px, 5.5vw, 30px);
-      font-weight:500;
-      letter-spacing:-0.16em;
+      letter-spacing:-0.10em;
       line-height:0.70;
+    }
+    .right-rail .plus{
       transform:scaleY(2.25);
-      user-select:none;
-      color:var(--ink);
+      letter-spacing:-0.16em;
     }
 
-    .mobile-ig a{
-      color:var(--muted);
-      text-decoration:underline;
-      font-size:1.02rem;
-      line-height:1.4;
-      word-break:break-word;
+    .embed-panel{
+      top:auto;
+      left:14px;
+      right:14px;
+      bottom:14px;
+      width:auto;
+      transform:none;
     }
 
-    @media (max-width: 980px){
-      .left-rail, .right-rail{display:none}
-      .stage{
-        justify-content:center;
-        padding:1.5rem 1.25rem;
-      }
-      .spacer-left, .spacer-right{display:none}
-
-      .hero, .c-glitch{display:none}
-
-      .mobile-min{display:block}
-      .content{width:min(var(--max),100%)}
-
-      #buyPanel{ display:none !important; }
+    .embed-panel iframe{
+      width:100%;
+      height:320px;
+      display:block;
     }
-  </style>
+
+    :root{ --cascade-overlap: 34px; --wobble: 10px; }
+    .showcase{ padding-top: 110px; }
+  }
+
+  /* PHONE ONLY: raise LISTEN TO KOSS */
+  @media (max-width: 480px){
+    .center-col .img-link{
+      position: relative;
+      top: -80px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card, .card.is-visible{
+      transition:none;
+      opacity:1;
+      transform:none;
+    }
+  }
+
+  /* ============================
+     LIGHTBOX (ADDED ONLY)
+     ============================ */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    cursor:zoom-out;
+  }
+  .lightbox.is-open{ display:flex; }
+
+  .lightbox img{
+    max-width:92vw;
+    max-height:92vh;
+    object-fit:contain;
+    background:transparent;
+    -webkit-user-drag: none;
+    user-select: none;
+    pointer-events: auto;
+  }
+
+  /* LIGHTBOX ARROWS (UPDATED: signature + style) */
+  .lightbox-arrow{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%) scaleY(2.35);
+    font-size:clamp(54px, 5.2vw, 130px);
+    font-weight:500;
+    transform-origin:center;
+    letter-spacing:-0.16em;
+    line-height:0.70;
+    white-space:nowrap;
+    text-decoration:none;
+    color:var(--ink);
+    cursor: pointer;
+    user-select: none;
+    z-index: 10000;
+    padding: 12px;
+  }
+  .lightbox-arrow.left{ left: 24px; }
+  .lightbox-arrow.right{ right: 24px; }
+  .lightbox-arrow:hover{ opacity: 0.7; }
+
+  /* ✅ ONLY CHANGE: FORCE WHITE ARROWS IN LIGHT MODE */
+  @media (prefers-color-scheme: light){
+    .lightbox-arrow{ color:#fff; }
+  }
+
+
+  /* ============================
+     DESKTOP-ONLY LIGHTBOX ENHANCEMENTS
+     - Top-right nav (mobile-style) only while lightbox is open on desktop
+     - Story (scroll) mode for 9:16 + 2:3-like ratios only on desktop
+     ============================ */
+  @media (min-width: 769px){
+    /* Top-right: show only HJEM / DSN / AUD links while lightbox is open */
+    body.lb-open .right-rail{
+      top: 18px;
+      bottom: auto;
+      transform: none;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 14px;
+
+      /* ensure it sits ABOVE the lightbox overlay */
+      z-index: 10001;
+      pointer-events: auto;
+    }
+    body.lb-open .right-rail span{ display:none; }
+    body.lb-open .right-rail a{
+      font-size: clamp(22px, 5.5vw, 30px);
+      transform: scaleY(2.1);
+      transform-origin: right center;
+      letter-spacing: -0.10em;
+      line-height: 0.70;
+
+      /* visible on the dark overlay */
+      color: #fff;
+    }
+
+    /* Story mode: fill width and allow vertical scroll */
+    .lightbox.is-story{
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 4vh 0;
+      cursor: default;
+    }
+    .lightbox.is-story img{
+      width: min(80vw, 1100px);
+      max-width: min(80vw, 1100px);
+      max-height: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Zoom mode (desktop only): e.g., 3000x3093.jpg
+       - slightly larger than default contain
+       - allows vertical scroll if needed */
+    .lightbox.is-zoom{
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 3vh 0;
+      cursor: default;
+    }
+    .lightbox.is-zoom img{
+      width: min(88vw, 1200px);
+      max-width: min(88vw, 1200px);
+      max-height: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+</style>
 </head>
 
 <body>
-  <div class="c-wrapper">
 
-    <div class="left-rail" aria-hidden="true">
-      <div class="rail-col">
-        <div class="rail-row left-plate">SH</div>
-        <div class="rail-row left-plate">AY</div>
-        <div class="rail-row rail-plus left-plate">+</div>
-        <div class="rail-row ne-under">NE</div>
-        <div class="rail-row hage-plate">HAGE</div>
-      </div>
-      <div class="rail-col">
-        <div class="rail-row rail-code plate yvr">YVR</div>
-        <div class="rail-row rail-code plate">OSL</div>
-      </div>
-    </div>
-
-    <div class="right-rail" aria-label="Primary sections">
-      <a href="/img">IMG</a>
-      <span class="plus">+</span>
-      <a href="/dsn">DSN</a>
-      <span class="plus">+</span>
-      <a href="/aud">AUD</a>
-    </div>
-
-    <div id="buyPanel" aria-hidden="true">
-      <button id="buyClose" type="button" aria-label="Close">×</button>
-      <iframe id="buyFrame" title="BUY landing page" loading="lazy"></iframe>
-    </div>
-
-    <main class="stage">
-      <div class="spacer-left" aria-hidden="true"></div>
-
-      <section class="content">
-        <section class="hero" aria-label="Homepage hero">
-
-          <div class="hero-top">
-            <img
-              id="heroImg"
-              src="https://i.ibb.co/9H8zvmS8/The-Pearlwithcoin2.png"
-              class="hero-media"
-              alt="Hero image"
-            />
-
-            <nav class="adj-rail" aria-label="Adjacent links">
-              <a class="adj-link" href="#"></a>
-              <a class="adj-link" href="/live">LIVE</a>
-              <a class="adj-link" href="/buy" id="">BUY</a>
-              <a class="adj-link" href="/work">WORK</a>
-              <a class="adj-link" href="#"></a>
-            </nav>
-          </div>
-
-          <div class="inline-wrapper" aria-label="Sections">
-            <a href="https://www.instagram.com/cash_wag/"> +</a>
-            <a href="https://www.instagram.com/musclebeach_________mafiaboss/"> +</a>
-            <a href="SOUND.html"></a>
-          </div>
-
-<h1>
-  <a href="https://www.instagram.com/______haderachhage/"
-   target="_blank"
-   rel="noreferrer"
-   class="ig-link"
-   style="color:#; animation:fadePulse .2s ease-in-out infinite;">
-  <span class="ig-spacer">instagram+instagraminstagrainstagram</span>
-  <span class="ig-handle" style="color:#; animation:fadePulse 2.2s ease-in-out infinite;">
-    @______haderachhage
-  </span>
-</a>
-  <a href="mailto:vulamguntilion@gmail.com"
-   target="_blank"
-   rel="noreferrer"
-   class="ig-link"
-   style="color:#FF89BB; animation:fadePulse 2.2s ease-in-out infinite;">
-  <span class="ig-spacer">instagram+instagraminstagrainstagram</span>
-  <span class="ig-handle" style="color:#C31419; animation:fadePulse 2.2s ease-in-out infinite;">
-    kontakt shayne
-  </span>
-</a>
-
-<style>
-@keyframes fadePulse{
-  0%   { opacity: 1; }
-  50%  { opacity: 0.35; }
-  100% { opacity: 1; }
-}
-</style>
-
-
-</h1>
-
-<style>
-  .ig-link,
-  .ig-link:hover,
-  .ig-link:focus,
-  .ig-link:active,
-  .ig-link:visited {
-    text-decoration: none !important;
-  }
-
-  .ig-spacer {
-    color: transparent;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .ig-handle {
-    display: inline;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .ig-handle:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-  }
-</style>
-
-
-<p id="work" style="color:#FF89BB; font-weight:700; letter-spacing:0.08em;">
-  <span class="ghost">
-    A Clean Capsule Index For Sound + Design + Imageee
-  </span>
-  DESIGNED WITH LOVE @
-  
-    MUSCLE BEACH.
-  </a>
-</p>
-
-
-<style>
-  #work .ghost {
-    visibility: hidden;
-  }
-
-  #work a {
-    color: inherit;
-    text-decoration: underline;
-  }
-</style>
-
-</section>
-
-        <div class="c-glitch" aria-hidden="true">
-          <div class="glitch-word" data-text="IR0N+B0NE+CASHWAG+CASHWAG">IR0N+B0NE_CASHWAG_C4</div>
-        </div>
-
-        <section class="mobile-min" aria-label="Mobile minimal">
-          <img
-            id="mobileHeroImg"
-            src="https://i.ibb.co/9H8zvmS8/The-Pearlwithcoin2.png"
-            alt="Main"
-          />
-
-          <nav class="mobile-links" aria-label="Mobile sections">
-            <a href="/img">IMG</a>
-            <span class="sep">+</span>
-            <a href="/dsn">DSN</a>
-            <span class="sep">+</span>
-            <a href="/aud">AUD</a>
-          </nav>
-
-          <nav class="mobile-links" aria-label="Mobile sections">
-            <a href="/live" style="color:#FF89BB;">LIV.E</a>
-            <span class="sep">+</span>
-            <a href="/buy" style="color:#FF89BB;">BUY</a>
-            
-          
-          </nav>
-
-          <nav class="mobile-links" aria-label="Mobile sections">
-            <a href="/img"></a>
-            <span class="sep"></span>
-            <a href="https://www.instagram.com/______haderachhage" target="_blank" rel="noreferrer">@</a>
-            <span class="sep"></span>
-            <a href="/aud"></a>
-          </nav>
-
-          <div class="mobile-ig">
-            <a href="https://www.instagram.com/______haderachhage" target="_blank" rel="noreferrer">
-              
-            </a>
-          </div>
-        </section>
-
-      </section>
-
-      <div class="spacer-right" aria-hidden="true"></div>
-    </main>
+  <!-- LEFT COLUMN -->
+  <div class="left-col">
+    <a href="#"></a>
+    <a href="DASS" class="dassLink" id="dassLink">+</a>
+    <a href="#"></a>
   </div>
 
-  <script>
-    const LIGHT_HERO = "https://i.ibb.co/ccy2cqYD/image-3.png";
-    const DARK_HERO  = "https://i.ibb.co/9H8zvmS8/The-Pearlwithcoin2.png";
+  <!-- RIGHT RAIL LINKS -->
+  <nav class="right-rail" aria-label="Primary sections">
+    <a href="/" class="" id="">HJEM</a>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <a href="/dsn">DSN</a>
+    <span class="plus">+</span>
+    <a href="/aud">AUD</a>
+  </nav>
 
-    const heroImg = document.getElementById("heroImg");
-    const mobileHeroImg = document.getElementById("mobileHeroImg");
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  <!-- CENTER COLUMN -->
+  <div class="center-col">
+    <a style="font-size:20px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link"></a>
+    <a href="https://www.instagram.com/______haderachhage/" class="dsn-link"></a>
+    <a href="/img" class="aud-link" id="dassLink">UPDA - TE</a>
+    <a href="/" class="aud-link" id="dassLink">  </a>
+  </div>
 
-    function applyHero(){
-      const src = mq.matches ? DARK_HERO : LIGHT_HERO;
-      if (heroImg) heroImg.src = src;
-      if (mobileHeroImg) mobileHeroImg.src = src;
+  <!-- IMAGE SHOWCASE -->
+  <main class="showcase" aria-label="Image showcase">
+    <section class="stack">
+    <figure class="card"><img src="https://i.ibb.co/qLBtDVTP/3image.png" alt=""></figure>
+    <figure class="card"><img src="https://i.ibb.co/spSMvVvy/2image.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/PZQSQ1Yf/DSC-6423.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/G3tvVHqs/DSC-1442.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/wZdCs46P/DSC-1441.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/7xvmrFN9/DSC-9537.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/tPsK45R0/1-DSC-7442-Kopi-2.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/1t1F59F9/3000x3093.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/gZTfqJdV/DSC-1368.jpg" alt="LEAF"></figure>
+      <figure class="card"><img src="https://i.ibb.co/k6JnSPDc/2-DSC-7442-Kopi.jpg" alt=""></figure>
+
+      <figure class="card"><img src="https://i.ibb.co/q3KqxqqN/DRuvr-B4.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/w2ZrHsH/Pedxyal.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/1fxj0Hwf/DSC-7325.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/S4Dzfv36/DSC-9774.jpg" alt="SINGLE STICK"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RTJtcL6N/DSC-9775.jpg" alt="BEACH"></figure>
+      <figure class="card"><img src="https://i.ibb.co/XZnRpPYd/DSC-9773.jpg" alt="BRYCE"></figure>
+
+      <figure class="card"><img src="https://i.ibb.co/0RgT4DCv/DSC-9687.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/4RZMgkm1/DSC-9661.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/3ybDTqZM/DSC-9529.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/j9jydKxY/DSC-6925.png" alt="AAMIRAH RED"></figure>
+      <figure class="card"><img src="https://i.ibb.co/Qv5ss0wL/DSC-6897-1.jpg" alt="AAMIRAH LAYING DOWN1"></figure>
+      <figure class="card"><img src="https://i.ibb.co/4R9JYmSF/DSC-6895.jpg" alt="AAMIRAH LAYING DOWN2"></figure>
+      <figure class="card"><img src="https://i.ibb.co/m51HNFFY/DSC-6901.jpg" alt="AAMIRAH LAYING DOWN3"></figure>
+      <figure class="card"><img src="https://i.ibb.co/JjMqM0XC/DSC-6877.jpg" alt="AAMIRAH LAYING DOWN4"></figure>
+      <figure class="card"><img src="https://i.ibb.co/2Ym5JvHh/DSC-6735.jpg" alt="AAMIRAH LAYING DOWN5"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RpjHKcHM/DSC-6728.jpg" alt="AAMIRAH LAYING DOWN6"></figure>
+      <figure class="card"><img src="https://i.ibb.co/Xfq7rdW7/tumblr-227db31e44870ac1f13f3668dca9e5b5-7738ffbe-1280.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/DfS6gbwB/DSC-9946.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RTrHS8NY/DSC-0005.jpg" alt="IMG 05"></figure>
+      <figure class="card"><img src="https://i.ibb.co/8g0JKyWw/DSC-9995.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/PfHfCp0/DSC-5929-1.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RLtCtf5/DSC-6299.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/N6m51YK0/DSC-8551.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/S7PHBVCt/DSC-7213.jpg" alt="Gabe's Eyes"></figure>
+      <figure class="card"><img src="https://i.ibb.co/hJNF5H81/DSC-7322.jpg" alt="Gabe1"></figure>
+      <figure class="card"><img src="https://i.ibb.co/cKYdbnXK/DSC-7355.jpg" alt="Gabe2"></figure>
+      <figure class="card"><img src="https://i.ibb.co/fVj3n2QX/DSC-7406.jpg" alt="Gabe3"></figure>
+      <figure class="card"><img src="https://i.ibb.co/qM3fKTh3/DSC-9716.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/wqYY17n/DSC-9919.jpg" alt=""></figure>
+    </section>
+  </main>
+
+  <!-- EMBED PANEL -->
+  <div class="embed-panel" id="embedPanel">
+    <iframe
+      style="border-radius: 24px"
+      src="https://untitled.stream/embed/JsMabpfmdQZF"
+      width="100%"
+      height="344"
+      allowfullscreen
+      allow="picture-in-picture"
+      frameborder="0"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-arrow left" id="lbPrev">+</div>
+    <img src="" alt="" draggable="false">
+    <div class="lightbox-arrow right" id="lbNext">+</div>
+  </div>
+
+<script>
+  const dassLink = document.getElementById('dassLink');
+  const embedPanel = document.getElementById('embedPanel');
+
+  dassLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    embedPanel.classList.toggle('is-open');
+  });
+
+  const cards = document.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) e.target.classList.add('is-visible');
+    }
+  }, { threshold: 0.12 });
+
+  cards.forEach(c => io.observe(c));
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+  const images = Array.from(document.querySelectorAll('.card img'));
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+
+  let currentIndex = 0;
+
+  images.forEach(img => {
+    img.setAttribute('draggable', 'false');
+    img.addEventListener('contextmenu', (e) => e.preventDefault());
+    img.addEventListener('dragstart', (e) => e.preventDefault());
+  });
+
+  function isDesktopNow(){
+    return window.matchMedia('(min-width: 769px)').matches;
+  }
+
+  /* ✅ Desktop-only "story" ratios:
+     - 9:16 (h/w ≈ 1.777...)
+     - 2:3-ish (h/w ≈ 1.5) including 3712x5638 (≈ 1.518...)
+     Only these get the scrollable, width-filled view.
+  */
+  function isStoryRatio(r){
+    const isNineSixteen = (r >= 1.70 && r <= 1.90);
+    const isTwoThirds = (r >= 1.45 && r <= 1.60);
+    return isNineSixteen || isTwoThirds;
+  }
+
+  function isStoryFromImg(imgEl){
+    const w = imgEl && imgEl.naturalWidth;
+    const h = imgEl && imgEl.naturalHeight;
+    if(!w || !h) return false;
+    return isStoryRatio(h / w);
+  }
+
+  
+  function isZoomFromImg(imgEl){
+    // Specific request: zoom the image whose filename includes "3000x3093"
+    return !!(imgEl && imgEl.src && imgEl.src.indexOf('3000x3093') !== -1);
+  }
+
+  function updateZoomModeForIndex(i){
+    const shouldZoom = isZoomFromImg(images[i]);
+    // If story mode is active (desktop-only), don't stack zoom mode
+    if (lightbox.classList.contains('is-story')) {
+      lightbox.classList.remove('is-zoom');
+      return;
+    }
+    lightbox.classList.toggle('is-zoom', shouldZoom);
+    if (shouldZoom) lightbox.scrollTop = 0;
+  }
+
+function applyDesktopLightboxUI(open){
+    // Only on desktop: top-right nav layout while lightbox is open
+    document.body.classList.toggle('lb-open', open && isDesktopNow());
+  }
+
+  function updateStoryModeForIndex(i){
+    if (!isDesktopNow()) {
+      lightbox.classList.remove('is-story');
+      return;
     }
 
-    applyHero();
-    mq.addEventListener?.("change", applyHero);
-  </script>
+    const srcImg = images[i];
+    const shouldStory = isStoryFromImg(srcImg);
 
-  <script>
-    (function(){
-      const buyLink  = document.getElementById("buyLink");
-      const panel    = document.getElementById("buyPanel");
-      const frame    = document.getElementById("buyFrame");
-      const closeBtn = document.getElementById("buyClose");
+    lightbox.classList.toggle('is-story', shouldStory);
+    if (shouldStory) lightbox.scrollTop = 0;
+  }
 
-      function isDesktop(){
-        return window.matchMedia("(min-width: 981px)").matches;
+  function openLightboxAt(i){
+    currentIndex = i;
+
+    updateStoryModeForIndex(currentIndex);
+    updateZoomModeForIndex(currentIndex);
+
+    // set src
+    lightboxImg.src = images[currentIndex].src;
+
+    // fallback in case the thumbnail's natural sizes weren't ready
+    lightboxImg.onload = () => {
+      if (!isDesktopNow()) {
+        lightbox.classList.remove('is-story');
+        return;
       }
-
-      function layoutPanel(){
-        if (!panel.classList.contains("is-open")) return;
-
-        const adj = document.querySelector(".adj-rail");
-        const rr  = document.querySelector(".right-rail");
-        if (!adj || !rr) return;
-
-        const a = adj.getBoundingClientRect();
-        const r = rr.getBoundingClientRect();
-
-        const gutter = 18;
-
-        const left  = Math.round(a.right + gutter);
-        const right = Math.round(r.left  - gutter);
-        const width = Math.max(0, right - left);
-
-        panel.style.left  = left + "px";
-        panel.style.width = width + "px";
+      const r = lightboxImg.naturalHeight / lightboxImg.naturalWidth;
+      const shouldStory = isStoryRatio(r);
+      lightbox.classList.toggle('is-story', shouldStory);
+      if (shouldStory) {
+        lightbox.classList.remove('is-zoom');
+        lightbox.scrollTop = 0;
+      } else {
+        updateZoomModeForIndex(currentIndex);
       }
+    };
 
-      function openPanel(url){
-        if (!isDesktop()) return;
-        panel.classList.add("is-open");
-        panel.setAttribute("aria-hidden", "false");
-        frame.src = url;
-        layoutPanel();
-      }
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    applyDesktopLightboxUI(true);
+  }
 
-      function closePanel(){
-        panel.classList.remove("is-open");
-        panel.setAttribute("aria-hidden", "true");
-        frame.removeAttribute("src");
-        panel.style.width = "0";
-      }
+  function showImage(index){
+    if(index < 0) index = images.length - 1;
+    if(index >= images.length) index = 0;
+    openLightboxAt(index);
+  }
 
-      if (buyLink){
-        buyLink.addEventListener("click", (e) => {
-          if (!isDesktop()) return;
-          e.preventDefault();
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      openLightboxAt(index);
+    });
+  });
 
-          const url = buyLink.getAttribute("href") || "/#";
+  lbPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
+  lbNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
+  });
 
-          if (panel.classList.contains("is-open")) closePanel();
-          else openPanel(url);
-        });
-      }
+  lightboxImg.addEventListener('contextmenu', (e) => e.preventDefault());
+  lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
 
-      closeBtn?.addEventListener("click", closePanel);
+  // ✅ Mobile swipe gestures (left/right) in lightbox
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touching = false;
+  let suppressClick = false;
 
-      window.addEventListener("resize", layoutPanel);
-      window.addEventListener("scroll", layoutPanel, { passive:true });
+  lightbox.addEventListener('touchstart', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (!e.touches || e.touches.length !== 1) return;
+    touching = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
 
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && panel.classList.contains("is-open")) closePanel();
-      });
-    })();
-  </script>
+  lightbox.addEventListener('touchend', (e) => {
+    if (!touching) return;
+    touching = false;
+    if (!e.changedTouches || e.changedTouches.length !== 1) return;
 
-  <script type='text/javascript' src='https://amniote.net/wp-content/themes/amniote/dist/bundle.js?ver=1.0.30' id='amniotescripts-js'></script>
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const dx = endX - touchStartX;
+    const dy = endY - touchStartY;
+
+    // horizontal swipe only
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      suppressClick = true;
+      if (dx < 0) showImage(currentIndex + 1);
+      else showImage(currentIndex - 1);
+      // release click suppression after this tick
+      setTimeout(() => { suppressClick = false; }, 0);
+    }
+  }, { passive: true });
+
+  lightbox.addEventListener('click', () => {
+    if (suppressClick) return;
+    lightbox.classList.remove('is-open');
+    lightbox.classList.remove('is-story');
+    lightbox.classList.remove('is-zoom');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+    applyDesktopLightboxUI(false);
+  });
+  lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('is-open')) return;
+
+    if (e.key === 'Escape') {
+      lightbox.classList.remove('is-open');
+      lightbox.classList.remove('is-story');
+      lightbox.classList.remove('is-zoom');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+      applyDesktopLightboxUI(false);
+    }
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+  });
+
+  // If the user resizes while open, keep desktop-only rules consistent
+  window.addEventListener('resize', () => {
+    if (!lightbox.classList.contains('is-open')) return;
+    applyDesktopLightboxUI(true);
+    updateStoryModeForIndex(currentIndex);
+  });
+
+  document.addEventListener('contextmenu', (e) => {
+    if (lightbox.classList.contains('is-open')) e.preventDefault();
+  });
+</script>
+
 </body>
 </html>
