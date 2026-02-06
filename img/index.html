@@ -9,7 +9,7 @@
 <meta property="og:image" content="https://i.postimg.cc/gkKWpqcw/Untitled-design-(9).png" />
 <meta property="og:url" content="https://haderachhage.github.io/IMG" />
 <meta property="og:type" content="website" />
-<title>IMG Hage</title>
+<title>IMGHage</title>
 
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -254,6 +254,9 @@
     height:auto;
     display:block;
     background:var(--soft);
+    -webkit-user-drag: none;
+    user-select: none;
+    cursor: zoom-in;
   }
 
   /* MOBILE */
@@ -334,6 +337,58 @@
       transform:none;
     }
   }
+
+  /* ============================
+     LIGHTBOX (ADDED ONLY)
+     ============================ */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    cursor:zoom-out;
+  }
+  .lightbox.is-open{ display:flex; }
+
+  .lightbox img{
+    max-width:92vw;
+    max-height:92vh;
+    object-fit:contain;
+    background:transparent;
+    -webkit-user-drag: none;
+    user-select: none;
+    pointer-events: auto;
+  }
+
+  /* LIGHTBOX ARROWS (UPDATED: signature + style) */
+  .lightbox-arrow{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%) scaleY(2.35);
+    font-size:clamp(54px, 5.2vw, 130px);
+    font-weight:500;
+    transform-origin:center;
+    letter-spacing:-0.16em;
+    line-height:0.70;
+    white-space:nowrap;
+    text-decoration:none;
+    color:var(--ink);
+    cursor: pointer;
+    user-select: none;
+    z-index: 10000;
+    padding: 12px;
+  }
+  .lightbox-arrow.left{ left: 24px; }
+  .lightbox-arrow.right{ right: 24px; }
+  .lightbox-arrow:hover{ opacity: 0.7; }
+
+  /* ✅ ONLY CHANGE: FORCE WHITE ARROWS IN LIGHT MODE */
+  @media (prefers-color-scheme: light){
+    .lightbox-arrow{ color:#fff; }
+  }
 </style>
 </head>
 
@@ -370,16 +425,26 @@
   <!-- IMAGE SHOWCASE -->
   <main class="showcase" aria-label="Image showcase">
     <section class="stack">
+    <figure class="card"><img src="https://i.ibb.co/qLBtDVTP/3image.png" alt=""></figure>
+    <figure class="card"><img src="https://i.ibb.co/spSMvVvy/2image.png" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/PZQSQ1Yf/DSC-6423.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/G3tvVHqs/DSC-1442.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/wZdCs46P/DSC-1441.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/7xvmrFN9/DSC-9537.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/1t1F59F9/3000x3093.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/gZTfqJdV/DSC-1368.jpg" alt="LEAF"></figure>
+      <figure class="card"><img src="https://i.ibb.co/k6JnSPDc/2-DSC-7442-Kopi.jpg" alt=""></figure>
+
       <figure class="card"><img src="https://i.ibb.co/q3KqxqqN/DRuvr-B4.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/w2ZrHsH/Pedxyal.jpg" alt=""></figure>
+
       <figure class="card"><img src="https://i.ibb.co/S4Dzfv36/DSC-9774.jpg" alt="SINGLE STICK"></figure>
       <figure class="card"><img src="https://i.ibb.co/RTJtcL6N/DSC-9775.jpg" alt="BEACH"></figure>
       <figure class="card"><img src="https://i.ibb.co/XZnRpPYd/DSC-9773.jpg" alt="BRYCE"></figure>
+
       <figure class="card"><img src="https://i.ibb.co/0RgT4DCv/DSC-9687.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/4RZMgkm1/DSC-9661.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/3ybDTqZM/DSC-9529.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/j9jydKxY/DSC-6925.png" alt="AAMIRAH RED"></figure>
       <figure class="card"><img src="https://i.ibb.co/Qv5ss0wL/DSC-6897-1.jpg" alt="AAMIRAH LAYING DOWN1"></figure>
       <figure class="card"><img src="https://i.ibb.co/4R9JYmSF/DSC-6895.jpg" alt="AAMIRAH LAYING DOWN2"></figure>
@@ -390,6 +455,12 @@
       <figure class="card"><img src="https://i.ibb.co/DfS6gbwB/DSC-9946.jpg" alt="FIRE"></figure>
       <figure class="card"><img src="https://i.ibb.co/RTrHS8NY/DSC-0005.jpg" alt="IMG 05"></figure>
       <figure class="card"><img src="https://i.ibb.co/8g0JKyWw/DSC-9995.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/PfHfCp0/DSC-5929-1.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RLtCtf5/DSC-6299.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/N6m51YK0/DSC-8551.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/qM3fKTh3/DSC-9716.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/wqYY17n/DSC-9919.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/S7PHBVCt/DSC-7213.jpg" alt=""></figure>
     </section>
   </main>
 
@@ -405,6 +476,12 @@
       frameborder="0"
       loading="lazy">
     </iframe>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-arrow left" id="lbPrev">+</div>
+    <img src="" alt="" draggable="false">
+    <div class="lightbox-arrow right" id="lbNext">+</div>
   </div>
 
 <script>
@@ -424,15 +501,72 @@
   }, { threshold: 0.12 });
 
   cards.forEach(c => io.observe(c));
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+  const images = Array.from(document.querySelectorAll('.card img'));
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+
+  let currentIndex = 0;
+
+  images.forEach(img => {
+    img.setAttribute('draggable', 'false');
+    img.addEventListener('contextmenu', (e) => e.preventDefault());
+    img.addEventListener('dragstart', (e) => e.preventDefault());
+  });
+
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      currentIndex = index;
+      lightboxImg.src = img.src;
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function showImage(index){
+    if(index < 0) index = images.length - 1;
+    if(index >= images.length) index = 0;
+    currentIndex = index;
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  lbPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
+  lbNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
+  });
+
+  lightboxImg.addEventListener('contextmenu', (e) => e.preventDefault());
+  lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('is-open');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  });
+  lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('is-open')) return;
+
+    if (e.key === 'Escape') {
+      lightbox.classList.remove('is-open');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+  });
+
+  document.addEventListener('contextmenu', (e) => {
+    if (lightbox.classList.contains('is-open')) e.preventDefault();
+  });
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
