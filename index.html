@@ -4,18 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
-
-  <title>SHAYNE HAGE</title>
-
-  <meta name="description" content="ARTIST. IMAGE + AUDIO + DESIGN. BASED IN YVR + OSL." />
-
-  <meta property="og:title" content="SHAYNE HAGE" />
-  <meta property="og:description" content="ARTIST. IMAGE + AUDIO + DESIGN. BASED IN YVR + OSL." />
+  <meta property="og:title" content="ShayneHageIndex" />
+  <meta property="og:description" content="IMG+DSN+AUD Engineered By Shayne Hage" />
   <meta property="og:image" content="https://i.postimg.cc/Fsx4vgFJ/Untitled-design-(13).png" />
   <meta property="og:url" content="https://haderachhage.github.io" />
   <meta property="og:type" content="website" />
-</head>
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico">
+
+  <title>Shayne Hage</title>
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -428,13 +427,13 @@
       gap:20px;
       flex-wrap:wrap;
       text-transform:uppercase;
-      margin-bottom:4.1rem;
+      margin-bottom:6.1rem;
     }
     .mobile-links a{
       font-family:"EB Garamond", serif;
-      font-size:clamp(50px, 5.5vw, 30px);
+      font-size:clamp(60px, 5.5vw, 30px);
       font-weight:500;
-      letter-spacing:-0.10em;
+      letter-spacing:-0.10m;
       line-height:0.70;
       color:var(--ink);
       text-decoration:none;
@@ -446,7 +445,7 @@
       font-family:"EB Garamond", serif;
       font-size:clamp(12px, 5.5vw, 30px);
       font-weight:500;
-      letter-spacing:-0.16em;
+      letter-spacing:-0.10em;
       line-height:0.70;
       transform:scaleY(2.25);
       user-select:none;
@@ -476,7 +475,69 @@
 
       #buyPanel{ display:none !important; }
     }
-  </style>
+  
+  /* ============================
+     CUSTOM CURSORS (Tumi's Metallic Link 3D)
+     IMPORTANT: The originals are .ani (animated) and won’t show in Opera/Chrome.
+     So we use the PNG previews (static), which DO work in Chromium browsers.
+     Source set: https://www.rw-designer.com/cursor-set/tumi-s-metallic-link-3d-complete
+     ============================ */
+
+  :root{
+    /* PNG preview assets from rw-designer */
+    --cur-normal-img:   url("https://www.rw-designer.com/cursor-view/230912.png");
+    --cur-link-img:     url("https://www.rw-designer.com/cursor-view/230909.png");
+    --cur-text-img:     url("https://www.rw-designer.com/cursor-view/230914.png");
+    --cur-move-img:     url("https://www.rw-designer.com/cursor-view/230910.png");
+    --cur-no-img:       url("https://www.rw-designer.com/cursor-view/230915.png");
+    --cur-precision-img:url("https://www.rw-designer.com/cursor-view/230913.png");
+    --cur-help-img:     url("https://www.rw-designer.com/cursor-view/230907.png");
+    --cur-working-img:  url("https://www.rw-designer.com/cursor-view/230917.png");
+    --cur-busy-img:     url("https://www.rw-designer.com/cursor-view/230903.png");
+
+    --cur-resize-ns-img:url("https://www.rw-designer.com/cursor-view/230916.png");
+    --cur-resize-ew-img:url("https://www.rw-designer.com/cursor-view/230908.png");
+    --cur-resize-nwse-img:url("https://www.rw-designer.com/cursor-view/230905.png");
+    --cur-resize-nesw-img:url("https://www.rw-designer.com/cursor-view/230906.png");
+
+    --cur-alt-img:      url("https://www.rw-designer.com/cursor-view/230901.png");
+  }
+
+  /* Default everywhere (hotspot 0 0) */
+  html, body{ cursor: var(--cur-normal-img) 0 0, auto; }
+
+  /* Clickables */
+  a, button, [role="button"], summary,
+  .lightbox-arrow, .card img, .left-col a, .right-rail a, .center-col a{
+    cursor: var(--cur-link-img) 0 0, pointer;
+  }
+
+  /* Text/editing */
+  input, textarea, select, [contenteditable="true"]{
+    cursor: var(--cur-text-img) 0 0, text;
+  }
+
+  /* Disabled / unavailable */
+  :disabled, [aria-disabled="true"], .is-disabled{
+    cursor: var(--cur-no-img) 0 0, not-allowed !important;
+  }
+
+  /* Optional utility classes (use if you ever need them) */
+  .cursor-move{ cursor: var(--cur-move-img) 0 0, move !important; }
+  .cursor-precision{ cursor: var(--cur-precision-img) 0 0, crosshair !important; }
+  .cursor-help{ cursor: var(--cur-help-img) 0 0, help !important; }
+  .cursor-working{ cursor: var(--cur-working-img) 0 0, progress !important; }
+  .cursor-busy{ cursor: var(--cur-busy-img) 0 0, wait !important; }
+  .cursor-resize-ns{ cursor: var(--cur-resize-ns-img) 0 0, ns-resize !important; }
+  .cursor-resize-ew{ cursor: var(--cur-resize-ew-img) 0 0, ew-resize !important; }
+  .cursor-resize-nwse{ cursor: var(--cur-resize-nwse-img) 0 0, nwse-resize !important; }
+  .cursor-resize-nesw{ cursor: var(--cur-resize-nesw-img) 0 0, nesw-resize !important; }
+
+  /* Lightbox overlay: alternate select cursor */
+  .lightbox{ cursor: var(--cur-alt-img) 0 0, auto; }
+  .lightbox img{ cursor: var(--cur-alt-img) 0 0, auto; }
+
+</style>
 </head>
 
 <body>
@@ -533,29 +594,32 @@
           </div>
 
           <div class="inline-wrapper" aria-label="Sections">
-            <a href="https://www.instagram.com/cash_wag/"> +</a>
-            <a href="https://www.instagram.com/musclebeach_________mafiaboss/"> +</a>
+            <a href="https://www.instagram.com/cash_wag/"> </a>
+            <a href="https://www.instagram.com/musclebeach_________mafiaboss/"></a>
             <a href="SOUND.html"></a>
           </div>
+
+          <p><span style="color: rgba(0, 0, 0, 0.0);">transparent text</span></p>
+          <p><span style="color: rgba(0, 0, 0, 0.0);">transparent text</span></p>
 
 <h1>
   <a href="https://www.instagram.com/______haderachhage/"
    target="_blank"
    rel="noreferrer"
    class="ig-link"
-   style="color:#;">
+   style="color:var(--ink); animation:fadePulse .2s ease-in-out infinite;">
   <span class="ig-spacer">instagram+instagraminstagrainstagram</span>
-  <span class="ig-handle" style="color:#;">
+  <span class="ig-handle" style="color:var(--link);">
     @______haderachhage
   </span>
 </a>
-  <a href="mailto:vulamguntilion@gmail.com"
+ <a href="mailto:vulamguntilion@gmail.com"
    target="_blank"
    rel="noreferrer"
    class="ig-link"
-   style="color:#FF89BB;">
+   style="color:var(--ink); animation:fadePulse 1.2s ease-in-out infinite;">
   <span class="ig-spacer">instagram+instagraminstagrainstagram</span>
-  <span class="ig-handle" style="color:#C31419;">
+  <span class="ig-handle" style="color:var(--link);">
     kontakt shayne
   </span>
 </a>
@@ -638,7 +702,12 @@
             <a href="/img">IMG</a>
             <span class="sep">+</span>
             <a href="/dsn">DSN</a>
-            <span class="sep">+</span>
+            <span class="sep"></span>
+          
+          </nav>
+
+          <nav class="mobile-links" aria-label="Mobile sections">
+            
             <a href="/aud">AUD</a>
           </nav>
 
@@ -653,7 +722,7 @@
           <nav class="mobile-links" aria-label="Mobile sections">
             <a href="/img"></a>
             <span class="sep"></span>
-            <a href="https://www.instagram.com/______haderachhage" target="_blank" rel="noreferrer">@</a>
+            <a href="https://www.instagram.com/______haderachhage" target="" rel="noreferrer">@</a>
             <span class="sep"></span>
             <a href="/aud"></a>
           </nav>
@@ -761,8 +830,5 @@
   <script type='text/javascript' src='https://amniote.net/wp-content/themes/amniote/dist/bundle.js?ver=1.0.30' id='amniotescripts-js'></script>
 </body>
 </html>
-
-
-
 
 
