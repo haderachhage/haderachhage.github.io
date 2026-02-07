@@ -68,7 +68,7 @@
     --showcase-top-pad: 120px;
     --showcase-bottom-pad: 140px;
 
-    --card-gap: 18px;
+    --card-gap: 46px;
     --cascade-overlap: 46px;
     --wobble: 14px;
 
@@ -480,14 +480,14 @@
     .lightbox.is-zoom{
       align-items: flex-start;
       justify-content: center;
-      overflow-y: auto;
+      overflow-y: scroll;
       overflow-x: hidden;
       padding: 3vh 0;
       cursor: default;
     }
     .lightbox.is-zoom img{
-      width: min(88vw, 1200px);
-      max-width: min(88vw, 1200px);
+      width: min(100vw, 1200px);
+      max-width: min(100vw, 1200px);
       max-height: none;
       height: auto;
       display: block;
@@ -530,17 +530,18 @@
   <!-- IMAGE SHOWCASE -->
   <main class="showcase" aria-label="Image showcase">
     <section class="stack">
+    <figure class="card"><img src="https://i.ibb.co/3YTgn8Nk/DSC-0001.jpg" alt=""></figure>
+    <figure class="card"><img src="https://ia903206.us.archive.org/5/items/yourimage_202602/GABETWOS%20%281%29%20–%20Kopi.png" alt=""></figure>
     <figure class="card"><img src="https://i.ibb.co/qLBtDVTP/3image.png" alt=""></figure>
-    <figure class="card"><img src="https://i.ibb.co/spSMvVvy/2image.png" alt=""></figure>
+    <figure class="card"><img src="https://i.ibb.co/r2Nzt57Z/gabethere-Kopi.png" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/PZQSQ1Yf/DSC-6423.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/G3tvVHqs/DSC-1442.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/wZdCs46P/DSC-1441.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/7xvmrFN9/DSC-9537.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/tPsK45R0/1-DSC-7442-Kopi-2.jpg" alt=""></figure>
-      <figure class="card"><img src="https://i.ibb.co/1t1F59F9/3000x3093.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/gZTfqJdV/DSC-1368.jpg" alt="LEAF"></figure>
       <figure class="card"><img src="https://i.ibb.co/qFjTR4jx/2-DSC-7442-Kopi-1.png" alt=""></figure>
-
       <figure class="card"><img src="https://i.ibb.co/q3KqxqqN/DRuvr-B4.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/w2ZrHsH/Pedxyal.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/1fxj0Hwf/DSC-7325.jpg" alt=""></figure>
@@ -651,7 +652,12 @@
   
   function isZoomFromImg(imgEl){
     // Specific request: zoom the image whose filename includes "3000x3093"
-    return !!(imgEl && imgEl.src && imgEl.src.indexOf('3000x3093') !== -1);
+    return !!(
+  imgEl &&
+  imgEl.src &&
+  imgEl.src.toLowerCase().includes('5917x6100')
+);
+
   }
 
   function updateZoomModeForIndex(i){
@@ -812,4 +818,3 @@ function applyDesktopLightboxUI(open){
 
 </body>
 </html>
-
