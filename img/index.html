@@ -494,6 +494,68 @@
       margin: 0 auto;
     }
   }
+
+  /* ============================
+     CUSTOM CURSORS (Tumi's Metallic Link 3D)
+     IMPORTANT: The originals are .ani (animated) and won’t show in Opera/Chrome.
+     So we use the PNG previews (static), which DO work in Chromium browsers.
+     Source set: https://www.rw-designer.com/cursor-set/tumi-s-metallic-link-3d-complete
+     ============================ */
+
+  :root{
+    /* PNG preview assets from rw-designer */
+    --cur-normal-img:   url("https://www.rw-designer.com/cursor-view/230912.png");
+    --cur-link-img:     url("https://www.rw-designer.com/cursor-view/230909.png");
+    --cur-text-img:     url("https://www.rw-designer.com/cursor-view/230914.png");
+    --cur-move-img:     url("https://www.rw-designer.com/cursor-view/230910.png");
+    --cur-no-img:       url("https://www.rw-designer.com/cursor-view/230915.png");
+    --cur-precision-img:url("https://www.rw-designer.com/cursor-view/230913.png");
+    --cur-help-img:     url("https://www.rw-designer.com/cursor-view/230907.png");
+    --cur-working-img:  url("https://www.rw-designer.com/cursor-view/230917.png");
+    --cur-busy-img:     url("https://www.rw-designer.com/cursor-view/230903.png");
+
+    --cur-resize-ns-img:url("https://www.rw-designer.com/cursor-view/230916.png");
+    --cur-resize-ew-img:url("https://www.rw-designer.com/cursor-view/230908.png");
+    --cur-resize-nwse-img:url("https://www.rw-designer.com/cursor-view/230905.png");
+    --cur-resize-nesw-img:url("https://www.rw-designer.com/cursor-view/230906.png");
+
+    --cur-alt-img:      url("https://www.rw-designer.com/cursor-view/230901.png");
+  }
+
+  /* Default everywhere (hotspot 0 0) */
+  html, body{ cursor: var(--cur-normal-img) 0 0, auto; }
+
+  /* Clickables */
+  a, button, [role="button"], summary,
+  .lightbox-arrow, .card img, .left-col a, .right-rail a, .center-col a{
+    cursor: var(--cur-link-img) 0 0, pointer;
+  }
+
+  /* Text/editing */
+  input, textarea, select, [contenteditable="true"]{
+    cursor: var(--cur-text-img) 0 0, text;
+  }
+
+  /* Disabled / unavailable */
+  :disabled, [aria-disabled="true"], .is-disabled{
+    cursor: var(--cur-no-img) 0 0, not-allowed !important;
+  }
+
+  /* Optional utility classes (use if you ever need them) */
+  .cursor-move{ cursor: var(--cur-move-img) 0 0, move !important; }
+  .cursor-precision{ cursor: var(--cur-precision-img) 0 0, crosshair !important; }
+  .cursor-help{ cursor: var(--cur-help-img) 0 0, help !important; }
+  .cursor-working{ cursor: var(--cur-working-img) 0 0, progress !important; }
+  .cursor-busy{ cursor: var(--cur-busy-img) 0 0, wait !important; }
+  .cursor-resize-ns{ cursor: var(--cur-resize-ns-img) 0 0, ns-resize !important; }
+  .cursor-resize-ew{ cursor: var(--cur-resize-ew-img) 0 0, ew-resize !important; }
+  .cursor-resize-nwse{ cursor: var(--cur-resize-nwse-img) 0 0, nwse-resize !important; }
+  .cursor-resize-nesw{ cursor: var(--cur-resize-nesw-img) 0 0, nesw-resize !important; }
+
+  /* Lightbox overlay: alternate select cursor */
+  .lightbox{ cursor: var(--cur-alt-img) 0 0, auto; }
+  .lightbox img{ cursor: var(--cur-alt-img) 0 0, auto; }
+
 </style>
 </head>
 
@@ -651,13 +713,23 @@
 
   
   function isZoomFromImg(imgEl){
-    // Specific request: zoom the image whose filename includes "3000x3093"
-    return !!(
-  imgEl &&
-  imgEl.src &&
-  imgEl.src.toLowerCase().includes('5917x6100')
-);
+    // Zoom rule for the 5917x6100 image:
+    // - primary: match by actual loaded dimensions (most reliable)
+    // - fallback: match by filename/URL containing "5917x6100"
+    if(!imgEl) return false;
 
+    const w = imgEl.naturalWidth || imgEl.width;
+    const h = imgEl.naturalHeight || imgEl.height;
+
+    // Exact (or near-exact) dimension match
+    if (w && h){
+      if (w === 5917 && h === 6100) return true;
+      // Some hosts resize slightly; allow a small tolerance
+      if (Math.abs(w - 5917) <= 4 && Math.abs(h - 6100) <= 4) return true;
+    }
+
+    const src = (imgEl.src || '').toLowerCase();
+    return src.includes('5917x6100');
   }
 
   function updateZoomModeForIndex(i){
