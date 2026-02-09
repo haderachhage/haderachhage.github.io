@@ -26,8 +26,6 @@
   <link rel="icon" href="/favicon.ico">
 
   <title>AUDHage</title>
-</head>
-
 
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -35,26 +33,23 @@
   /* =====================================================
      ✅ HIDE BROWSER SCROLLBAR (KEEP SCROLL)
      ✅ SMOOTH MOMENTUM SCROLLING
-     (ADDED ONLY)
      ===================================================== */
   html, body{
-    scrollbar-width: none;        /* Firefox */
-    -ms-overflow-style: none;     /* IE/old Edge */
-    scroll-behavior: smooth;      /* smooth scroll for anchor jumps */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
   }
   html::-webkit-scrollbar,
   body::-webkit-scrollbar{
-    display: none;                /* Chrome/Safari/Opera */
+    display: none;
     width: 0;
     height: 0;
   }
 
-  /* Momentum / inertial scrolling on touch devices */
   body{
     -webkit-overflow-scrolling: touch;
   }
 
-  /* If any scrollable overlays appear (like lightbox story/zoom), keep them smooth + scrollbarless too */
   .lightbox{
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -66,7 +61,6 @@
     height:0;
   }
 
-  /* THEME TOKENS (match your index page frame tokens) */
   :root{
     --bg:#fff;
     --ink:#000;
@@ -74,13 +68,11 @@
     --hover-ink:#fff;
     --hover-underline:#000;
 
-    /* IMPORTANT: same names as your index file */
-    --line:#d7d7d7;  /* used by hero-media border */
-    --soft:#f5f5f5;  /* used by hero-media background */
+    --line:#d7d7d7;
+    --soft:#f5f5f5;
 
     color-scheme: light;
 
-    /* showcase tokens */
     --showcase-max: 760px;
     --showcase-pad-x: 16px;
     --showcase-top-pad: 120px;
@@ -90,8 +82,15 @@
     --cascade-overlap: 6px;
     --wobble: 14px;
 
-    /* squared corners */
     --card-radius: 0px;
+
+    /* ✅ DASS sizing knobs (YouTube unaffected) */
+    --dass-panel-w: min(344px, 38vw);
+    --dass-panel-h: 344px; /* change freely */
+    --dass-radius: 24px;
+
+    /* ✅ NEW: DASS desktop position knob (works with slide animation) */
+    --dass-desktop-x: 800px; /* + = right, - = left */
   }
 
   @media (prefers-color-scheme: dark){
@@ -102,7 +101,6 @@
       --hover-ink:#000;
       --hover-underline:#fff;
 
-      /* IMPORTANT: match your index dark theme */
       --line:#fff;
       --soft:#000;
 
@@ -119,7 +117,6 @@
     min-height: 100%;
   }
 
-  /* FULL-PAGE background hover (cover) */
   body::before{
     content:"";
     position:fixed;
@@ -134,12 +131,10 @@
     transition:opacity 0s;
   }
 
-  /* Trigger cover on hover (IMG + DSN + AUD) */
   body:has(.img-link:hover)::before{ opacity:1; }
   body:has(.dsn-link:hover)::before{ opacity:1; }
   body:has(.aud-link:hover)::before{ opacity:1; }
 
-  /* LEFT COLUMN (fixed so + stays on screen always) */
   .left-col{
     position:fixed;
     left:104px;
@@ -167,7 +162,6 @@
   }
   .left-col a:hover{ text-decoration: underline; }
 
-  /* CENTER COLUMN */
   .center-col {
     position: fixed;
     inset: 0;
@@ -179,8 +173,6 @@
     text-transform: uppercase;
     user-select: none;
     z-index:5;
-
-    /* ✅ allow hover/click to pass through to images underneath */
     pointer-events: none;
   }
 
@@ -196,8 +188,6 @@
     color: #0302E7;
     padding: 0.15em 0.25em;
     text-decoration: none;
-
-    /* ✅ keep the actual center links clickable */
     pointer-events: auto;
   }
 
@@ -213,7 +203,6 @@
   .img-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
   .aud-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
 
-  /* RIGHT RAIL (fixed) */
   .right-rail{
     position:fixed;
     right:24px;
@@ -249,9 +238,6 @@
   }
   .right-rail a:hover{ text-decoration: underline; }
 
-  /* =========================
-     ✅ EMBED OVERLAY (click-out closes)
-     ========================= */
   .embed-overlay{
     position:fixed;
     inset:0;
@@ -261,20 +247,142 @@
   }
   .embed-overlay.is-open{ display:block; }
 
-  /* RIGHT EMBED PANEL -> CENTERED */
   .embed-panel{
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(700px, 38vw);
+    width: min(700px, 38vw); /* default (YouTube uses this) */
     z-index: 10001;
     display: none;
-    background: var(--bg);
+    background: transparent;
   }
   .embed-panel.is-open{ display: block; }
 
-  /* SHOWCASE */
+  /* ✅ DASS panel has independent width */
+  #embedPanel{ width: var(--dass-panel-w); }
+
+  /* 4:3 wrapper */
+  .embed-4x3{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #000; /* default (good for YouTube) */
+  }
+  .embed-4x3 iframe{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+    border-radius: 0;
+    background: #000; /* default (good for YouTube) */
+  }
+
+  /* ✅ DASS: rounded + independent height + NO black border/halo */
+  #embedPanel .embed-4x3{
+    aspect-ratio: auto;
+    height: var(--dass-panel-h);
+    border-radius: var(--dass-radius);
+    background: transparent !important;   /* removes black frame */
+    box-shadow: none !important;
+  }
+  #embedPanel .embed-4x3 iframe{
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* ✅ SLIDE BEHAVIOR (DASS ONLY)
+     Desktop: slides into current position (with X knob)
+     Mobile: slides into bottom-left corner
+  */
+  #embedPanel{
+    display: block;             /* keep in DOM so transform can animate */
+    opacity: 0;                 /* hidden when closed */
+    pointer-events: none;       /* not clickable when closed */
+    transition: transform 260ms ease, opacity 180ms ease;
+  }
+  #embedPanel.is-open{
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ✅ SLIDE BEHAVIOR (YOUTUBE) — same idea as DASS, but DOES NOT change alignment */
+  #ytEmbedPanel{
+    display: block;           /* keep in DOM so transform can animate */
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 260ms ease, opacity 180ms ease;
+  }
+  #ytEmbedPanel.is-open{
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Desktop: slides into the exact same centered position it already uses */
+  @media (min-width: 769px){
+    #ytEmbedPanel{ transform: translate(-50%, calc(-50% + 22px)); }
+    #ytEmbedPanel.is-open{ transform: translate(-50%, -50%); }
+  }
+
+  /* Mobile: does NOT change your anchoring (still bottom/left/right/bottom),
+     only adds a slight slide-up offset */
+  @media (max-width: 768px){
+    #ytEmbedPanel{
+      transform: translate3d(0, 18px, 0);   /* closed: nudged down */
+    }
+    #ytEmbedPanel.is-open{
+      transform: translate3d(0, 0, 0);      /* open: normal */
+    }
+  }
+
+  /* ✅ FIXED: Desktop DASS slide transforms now include X offset knob */
+  @media (min-width: 769px){
+    #embedPanel{
+      transform: translate(calc(-50% + var(--dass-desktop-x)), calc(-50% + 22px));
+    }
+    #embedPanel.is-open{
+      transform: translate(calc(-50% + var(--dass-desktop-x)), -50%);
+    }
+  }
+
+  /* Mobile target: bottom-left corner slide-in */
+  @media (max-width: 768px){
+    /* keep YouTube behavior unchanged */
+    .embed-panel{
+      top:auto;
+      left:14px;
+      right:14px;
+      bottom:14px;
+      width:auto !important;
+      transform:none;
+    }
+
+    /* DASS ONLY */
+    #embedPanel{
+      left:14px;
+      right:auto;
+      top:auto;
+      bottom:14px;
+      width: min(320px, 86vw) !important;
+
+      /* closed: slightly offscreen down + left */
+      transform: translate(-8px, 18px);
+    }
+    #embedPanel.is-open{
+      transform: translate(0, 0);
+    }
+
+    #embedPanel .embed-4x3{ height: 320px; }
+  }
+
+  /* ✅ YouTube: squared only */
+  #ytEmbedPanel .embed-4x3{ border-radius: 0 !important; }
+  #ytEmbedPanel .embed-4x3 iframe{ border-radius: 0 !important; }
+
   .showcase{
     position: relative;
     z-index:1;
@@ -294,11 +402,9 @@
     width:120%;
     border-radius: var(--card-radius);
     overflow:hidden;
-
     border:2px solid var(--line);
     background:var(--soft);
     display:block;
-
     will-change: transform, opacity;
     opacity: 0;
     transform: translateY(18px);
@@ -328,7 +434,6 @@
   }
   .card a:hover img{ opacity: 0.75; }
 
-  /* MOBILE */
   @media (max-width: 768px){
     .left-col{
       left:50%;
@@ -372,22 +477,6 @@
       letter-spacing:-0.16em;
     }
 
-    /* keep embed panel docked on mobile */
-    .embed-panel{
-      top:auto;
-      left:14px;
-      right:14px;
-      bottom:14px;
-      width:auto;
-      transform:none;
-    }
-
-    .embed-panel iframe{
-      width:100%;
-      height:320px;
-      display:block;
-    }
-
     :root{ --cascade-overlap: 34px; --wobble: 10px; }
     .showcase{ padding-top: 110px; }
   }
@@ -400,6 +489,7 @@
   }
 
   @media (prefers-reduced-motion: reduce){
+    #embedPanel{ transition:none !important; }
     .card, .card.is-visible{
       transition:none;
       opacity:1;
@@ -568,7 +658,8 @@
   <!-- LEFT COLUMN -->
   <div class="left-col">
     <a href="#"></a>
-    <a href="DASS" class="dassLink" id="dassLink">+ </a>
+    <!-- ✅ fixed HTML + points at the playlist (JS still toggles the panel) -->
+    <a href="https://youtube.com/playlist?list=PL5Q1Wfh75sZEiSJ303ukg9Jsk7Kvp6CHf" class="ytLink" id="ytLink">+ </a>
     <a href="#"></a>
   </div>
 
@@ -587,10 +678,12 @@
 
   <!-- CENTER COLUMN -->
   <div class="center-col">
-    <a style="font-size:90px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link">KOSS</a>
-    <a href="https://www.instagram.com/______haderachhage/" class="img-link">SVARTARMOR</a>
-    <a style="font-size:60px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link">X2 SE-FI</a>
-    <a  href="/" class="aud-link" id="dassLink">DASS</a>
+    <a style="font-size:90px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb" class="img-link" target="_blank" rel="noreferrer">KOSS</a>
+    <a href="https://www.youtube.com/@vulamguntilion" class="img-link" target="_blank" rel="noreferrer">SVARTARMOR</a>
+    <a style="font-size:60px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link" target="_blank" rel="noreferrer">X2 SE-FI</a>
+
+    <!-- ✅ DASS stays on-page and toggles embed panel -->
+    <a href="/" class="aud-link" id="dassLink">DASS</a>
   </div>
 
   <!-- IMAGE SHOWCASE -->
@@ -598,13 +691,13 @@
   <section class="stack">
 
     <figure class="card">
-      <a href="#" onclick="return false;" target="_blank" rel="noreferrer">
+      <a href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb" onclick="return false;" target="_blank" rel="noreferrer">
         <img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt="">
       </a>
     </figure>
 
     <figure class="card">
-      <a href="#" onclick="return false;" target="_blank" rel="noreferrer">
+      <a href="https://open.spotify.com/album/64Cq5qRQ35f6ApLpNTGCf8" onclick="return false;" target="_blank" rel="noreferrer">
         <img src="https://i.ibb.co/LDWjBKkj/5image.png" alt="">
       </a>
     </figure>
@@ -612,22 +705,33 @@
   </section>
 </main>
 
-
   <!-- ✅ CLICK-OUT OVERLAY (for embed panel close) -->
   <div class="embed-overlay" id="embedOverlay"></div>
 
-  <!-- EMBED PANEL -->
+  <!-- ✅ EMBED PANEL (DASS) — independently sizeable + rounded -->
   <div class="embed-panel" id="embedPanel">
-    <iframe
-      style="border-radius: 24px"
-      src="https://untitled.stream/embed/JsMabpfmdQZF"
-      width="100%"
-      height="344"
-      allowfullscreen
-      allow="picture-in-picture"
-      frameborder="0"
-      loading="lazy">
-    </iframe>
+    <div class="embed-4x3">
+      <iframe
+        src="https://untitled.stream/embed/JsMabpfmdQZF"
+        allowfullscreen
+        allow="picture-in-picture"
+        frameborder="0"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- ✅ EMBED PANEL (YOUTUBE PLAYLIST) — 4:3 + squared corners -->
+  <div class="embed-panel" id="ytEmbedPanel">
+    <div class="embed-4x3">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/videoseries?list=PL5Q1Wfh75sZEiSJ303ukg9Jsk7Kvp6CHf&autoplay=1&rel=0"
+        allowfullscreen
+        allow="autoplay; encrypted-media; picture-in-picture"
+        frameborder="0"
+        loading="lazy">
+      </iframe>
+    </div>
   </div>
 
   <div class="lightbox" id="lightbox">
@@ -638,41 +742,65 @@
 
 <script>
   /* ==========================
-     ✅ EMBED PANEL: center + click-out closes
+     ✅ EMBED PANELS: center + click-out closes (DASS + YouTube)
+     ✅ YouTube keeps playing when closed + resumes on reopen
      ========================== */
-  const embedPanel = document.getElementById('embedPanel');
+  const embedPanel = document.getElementById('embedPanel');         // DASS
+  const ytEmbedPanel = document.getElementById('ytEmbedPanel');     // YouTube
   const embedOverlay = document.getElementById('embedOverlay');
 
-  function openEmbed(){
-    embedPanel.classList.add('is-open');
+  function anyEmbedOpen(){
+    return embedPanel.classList.contains('is-open') || ytEmbedPanel.classList.contains('is-open');
+  }
+
+  function closeAllEmbeds(){
+    embedPanel.classList.remove('is-open');
+    ytEmbedPanel.classList.remove('is-open');
+    embedOverlay.classList.remove('is-open');
+    // ✅ do NOT reset YouTube src
+  }
+
+  function openEmbed(panelEl){
+    embedPanel.classList.remove('is-open');
+    ytEmbedPanel.classList.remove('is-open');
+
+    panelEl.classList.add('is-open');
     embedOverlay.classList.add('is-open');
   }
 
-  function closeEmbed(){
-    embedPanel.classList.remove('is-open');
-    embedOverlay.classList.remove('is-open');
+  function toggleEmbed(panelEl){
+    if (panelEl.classList.contains('is-open')) closeAllEmbeds();
+    else openEmbed(panelEl);
   }
 
-  // IMPORTANT: you have multiple elements with id="dassLink" in this file.
-  // querySelectorAll grabs them all so the click works everywhere.
+  // ✅ DASS: ALWAYS prevent navigation and toggle panel
   const dassLinks = Array.from(document.querySelectorAll('#dassLink, .dassLink'));
-
   dassLinks.forEach(el => {
     el.addEventListener('click', (e) => {
       e.preventDefault();
-      embedPanel.classList.contains('is-open') ? closeEmbed() : openEmbed();
+      toggleEmbed(embedPanel);
     });
   });
 
-  // click outside closes
-  embedOverlay.addEventListener('click', closeEmbed);
+  // ✅ YouTube + link (left rail) toggles YouTube panel
+  const ytLinks = Array.from(document.querySelectorAll('#ytLink, .ytLink'));
+  ytLinks.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleEmbed(ytEmbedPanel);
+    });
+  });
 
-  // clicking inside the panel should NOT close it
+  // click outside closes (both panels) — YouTube keeps playing
+  embedOverlay.addEventListener('click', closeAllEmbeds);
+
+  // clicking inside the panels should NOT close it
   embedPanel.addEventListener('click', (e) => e.stopPropagation());
+  ytEmbedPanel.addEventListener('click', (e) => e.stopPropagation());
 
-  // ESC closes
+  // ESC closes (both)
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeEmbed();
+    if (e.key === 'Escape' && anyEmbedOpen()) closeAllEmbeds();
   });
 
   /* ==========================
@@ -801,7 +929,6 @@
     openLightboxAt(index);
   }
 
-  // Single click = real hyperlink (normal). Double click = open lightbox.
   links.forEach((a, index) => {
     a.addEventListener('dblclick', (e) => {
       e.preventDefault();
