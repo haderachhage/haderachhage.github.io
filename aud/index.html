@@ -1,45 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- HTML Meta Tags -->
-<title>AUD Hage</title>
-<meta name="description" content="SND ENGINEERED BY SHAYNE">
+  <meta charset="UTF-8" />
 
-<!-- Facebook Meta Tags -->
-<meta property="og:url" content="https://haderachhage.github.io/AUD">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SHAYNE HAGE AUDIO">
-<meta property="og:description" content="SND ENGINEERED BY SHAYNE">
-<meta property="og:image" content="https://i.postimg.cc/Fsx4vgFJ/Untitled-design-(13).png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- Twitter Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta property="twitter:domain" content="haderachhage.github.io">
-<meta property="twitter:url" content="https://haderachhage.github.io/AUD">
-<meta name="twitter:title" content="SHAYNE HAGE AUDIO">
-<meta name="twitter:description" content="SND ENGINEERED BY SHAYNE">
-<meta name="twitter:image" content="https://i.postimg.cc/Fsx4vgFJ/Untitled-design-(13).png">
+  <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
 
-<!-- Meta Tags Generated via https://www.opengraph.xyz -->
+  <!-- Open Graph -->
+  <meta property="og:title" content="SHAYNE HAGE + AUDIO" />
+  <meta property="og:description" content="SOUND ENGINEERED BY SHAYNE" />
+  <meta property="og:image" content="https://i.postimg.cc/Fsx4vgFJ/Untitled-design-(13).png" />
+  <meta property="og:url" content="https://haderachhage.github.io/aud" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SHAYNE HAGE + AUDIO" />
+  <meta name="twitter:description" content="SOUND ENGINEERED BY SHAYNE" />
+  <meta name="twitter:image" content="https://i.postimg.cc/Fsx4vgFJ/Untitled-design-(13).png" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" href="/favicon.ico">
+
+  <title>AUDHage</title>
+</head>
+
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  /* =====================================================
+     ✅ HIDE BROWSER SCROLLBAR (KEEP SCROLL)
+     ✅ SMOOTH MOMENTUM SCROLLING
+     (ADDED ONLY)
+     ===================================================== */
+  html, body{
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE/old Edge */
+    scroll-behavior: smooth;      /* smooth scroll for anchor jumps */
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar{
+    display: none;                /* Chrome/Safari/Opera */
+    width: 0;
+    height: 0;
   }
 
-  /* THEME TOKENS (default = LIGHT) */
+  /* Momentum / inertial scrolling on touch devices */
+  body{
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* If any scrollable overlays appear (like lightbox story/zoom), keep them smooth + scrollbarless too */
+  .lightbox{
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .lightbox::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+  }
+
+  /* THEME TOKENS (match your index page frame tokens) */
   :root{
     --bg:#fff;
     --ink:#000;
     --link:#111;
     --hover-ink:#fff;
     --hover-underline:#000;
+
+    /* IMPORTANT: same names as your index file */
+    --line:#d7d7d7;  /* used by hero-media border */
+    --soft:#f5f5f5;  /* used by hero-media background */
+
     color-scheme: light;
+
+    /* showcase tokens */
+    --showcase-max: 760px;
+    --showcase-pad-x: 16px;
+    --showcase-top-pad: 120px;
+    --showcase-bottom-pad: 140px;
+
+    --card-gap: 3px;
+    --cascade-overlap: 6px;
+    --wobble: 14px;
+
+    /* squared corners */
+    --card-radius: 0px;
   }
 
-  /* AUTO SWITCH BASED ON SYSTEM PREFERENCE */
   @media (prefers-color-scheme: dark){
     :root{
       --bg:#000;
@@ -47,24 +101,32 @@
       --link:#fff;
       --hover-ink:#000;
       --hover-underline:#fff;
+
+      /* IMPORTANT: match your index dark theme */
+      --line:#fff;
+      --soft:#000;
+
       color-scheme: dark;
     }
   }
 
   html, body {
-    height: 100%;
     background: var(--bg);
     color: var(--ink);
     font-family: "EB Garamond", serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100%;
   }
 
+  /* FULL-PAGE background hover (cover) */
   body::before{
     content:"";
     position:fixed;
     inset:0;
     background-image:url(https://i.ibb.co/n8DGRZKB/Untitled-design-13.png);
     background-size:cover;
-    background-position:static;
+    background-position:center;
     background-repeat:no-repeat;
     opacity:0;
     pointer-events:none;
@@ -72,12 +134,14 @@
     transition:opacity 0s;
   }
 
-  body:has(.dsn-link:hover)::before{
-    opacity:1;
-  }
+  /* Trigger cover on hover (IMG + DSN + AUD) */
+  body:has(.img-link:hover)::before{ opacity:1; }
+  body:has(.dsn-link:hover)::before{ opacity:1; }
+  body:has(.aud-link:hover)::before{ opacity:1; }
 
+  /* LEFT COLUMN (fixed so + stays on screen always) */
   .left-col{
-    position:absolute;
+    position:fixed;
     left:104px;
     top:55%;
     transform:translateY(-50%);
@@ -85,7 +149,7 @@
     display:flex;
     flex-direction:column;
     gap:10px;
-    z-index:2;
+    z-index:6;
     text-transform:uppercase;
     user-select:none;
   }
@@ -101,11 +165,9 @@
     color: var(--link);
     text-decoration: none;
   }
+  .left-col a:hover{ text-decoration: underline; }
 
-  .left-col a:hover{
-    text-decoration: underline;
-  }
-
+  /* CENTER COLUMN */
   .center-col {
     position: fixed;
     inset: 0;
@@ -113,13 +175,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2px;
+    gap: 20px;
     text-transform: uppercase;
     user-select: none;
-    z-index:1;
+    z-index:5;
+
+    /* ✅ allow hover/click to pass through to images underneath */
+    pointer-events: none;
   }
 
   .center-col a {
+    display:inline-block;
     font-size: clamp(54px, 5.2vw, 130px);
     font-weight: 500;
     transform: scaleY(2.25);
@@ -127,55 +193,155 @@
     letter-spacing: -0.10em;
     line-height: 0.7;
     white-space: nowrap;
-    color: var(--link);
+    color: #0302E7;
     padding: 0.15em 0.25em;
     text-decoration: none;
+
+    /* ✅ keep the actual center links clickable */
+    pointer-events: auto;
   }
 
   .center-col a:hover {
     background-size: cover;
-    background-position:static;
-    background-repeat:no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
     color: var(--hover-ink);
     text-decoration: underline;
     text-decoration-color: var(--hover-underline);
   }
 
-  .img-link:hover {
-    background-image: url(https://images.genius.com/c1fdaab144a29f09e3d46c430f306091.1000x1000x1.jpg);
-  }
+  .img-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
+  .aud-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
 
-  .aud-link:hover {
-    background-image: url("aud-hover.jpg");
-  }
-
-  .embed-panel{
+  /* RIGHT RAIL (fixed) */
+  .right-rail{
     position:fixed;
-    top:50%;
     right:24px;
+    top:50%;
     transform:translateY(-50%);
-    width:min(520px, 38vw);
-    z-index:3;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    user-select:none;
+    text-transform:uppercase;
+    z-index:6;
+    gap:18px;
+  }
+
+  .right-rail a,
+  .right-rail span{
+    font-size:clamp(54px, 5.2vw, 130px);
+    font-weight:500;
+    transform:scaleY(2.25);
+    transform-origin:right center;
+    letter-spacing:-0.10em;
+    line-height:0.70;
+    white-space:nowrap;
+    text-decoration:none;
+    color:var(--ink);
+  }
+
+  .right-rail .plus{
+    transform:scaleY(2.35);
+    letter-spacing:-0.16em;
+    opacity:.95;
+    pointer-events:none;
+  }
+  .right-rail a:hover{ text-decoration: underline; }
+
+  /* =========================
+     ✅ EMBED OVERLAY (click-out closes)
+     ========================= */
+  .embed-overlay{
+    position:fixed;
+    inset:0;
+    background:transparent;
+    z-index:10000;
     display:none;
   }
+  .embed-overlay.is-open{ display:block; }
 
-  .embed-panel.is-open{
-    display:block;
+  /* RIGHT EMBED PANEL -> CENTERED */
+  .embed-panel{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(700px, 38vw);
+    z-index: 10001;
+    display: none;
+    background: var(--bg);
+  }
+  .embed-panel.is-open{ display: block; }
+
+  /* SHOWCASE */
+  .showcase{
+    position: relative;
+    z-index:1;
+    width: min(var(--showcase-max), 100%);
+    margin: 0 auto;
+    padding: var(--showcase-top-pad) var(--showcase-pad-x) var(--showcase-bottom-pad);
   }
 
+  .stack{
+    display:flex;
+    flex-direction:column;
+    gap: var(--card-gap);
+    align-items:center;
+  }
+
+  .card{
+    width:120%;
+    border-radius: var(--card-radius);
+    overflow:hidden;
+
+    border:2px solid var(--line);
+    background:var(--soft);
+    display:block;
+
+    will-change: transform, opacity;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .45s ease, transform .55s ease;
+  }
+
+  .card:not(:first-child){ margin-top: calc(-1 * var(--cascade-overlap)); }
+  .card:nth-child(odd){ transform: translateY(18px) translateX(calc(-1 * var(--wobble))); }
+  .card:nth-child(even){ transform: translateY(18px) translateX(var(--wobble)); }
+
+  .card.is-visible{
+    opacity:1;
+    transform: translateY(0) translateX(0);
+  }
+
+  .card a{ display:block; }
+
+  .card img{
+    width:100%;
+    height:auto;
+    display:block;
+    background:var(--soft);
+    -webkit-user-drag: none;
+    user-select: none;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+  }
+  .card a:hover img{ opacity: 0.75; }
+
+  /* MOBILE */
   @media (max-width: 768px){
     .left-col{
-      position:fixed;
       left:50%;
-      top:18px;
+      top:35px;
       transform:translateX(-50%);
       flex-direction:row;
       align-items:baseline;
-      gap:14px;
+      gap:16px;
     }
 
     .center-col{
       padding: 64px 16px 16px;
+      gap: 28px;
     }
 
     .center-col a{
@@ -184,6 +350,29 @@
       white-space: normal;
     }
 
+    .right-rail{
+      right:14px;
+      top:auto;
+      bottom:18px;
+      transform:none;
+      flex-direction:row;
+      align-items:baseline;
+      gap:14px;
+    }
+    .right-rail a,
+    .right-rail span{
+      font-size:clamp(22px, 5.5vw, 30px);
+      transform:scaleY(2.1);
+      transform-origin:center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+    }
+    .right-rail .plus{
+      transform:scaleY(2.25);
+      letter-spacing:-0.16em;
+    }
+
+    /* keep embed panel docked on mobile */
     .embed-panel{
       top:auto;
       left:14px;
@@ -198,6 +387,9 @@
       height:320px;
       display:block;
     }
+
+    :root{ --cascade-overlap: 34px; --wobble: 10px; }
+    .showcase{ padding-top: 110px; }
   }
 
   @media (max-width: 480px){
@@ -206,23 +398,223 @@
       top: -80px;
     }
   }
+
+  @media (prefers-reduced-motion: reduce){
+    .card, .card.is-visible{
+      transition:none;
+      opacity:1;
+      transform:none;
+    }
+  }
+
+  /* ============================
+     LIGHTBOX
+     ============================ */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    cursor:zoom-out;
+  }
+  .lightbox.is-open{ display:flex; }
+
+  .lightbox img{
+    max-width:92vw;
+    max-height:92vh;
+    object-fit:contain;
+    background:transparent;
+    -webkit-user-drag: none;
+    user-select: none;
+    pointer-events: auto;
+  }
+
+  .lightbox-arrow{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%) scaleY(2.35);
+    font-size:clamp(54px, 5.2vw, 130px);
+    font-weight:500;
+    transform-origin:center;
+    letter-spacing:-0.16em;
+    line-height:0.70;
+    white-space:nowrap;
+    text-decoration:none;
+    color:var(--ink);
+    cursor: pointer;
+    user-select: none;
+    z-index: 10000;
+    padding: 12px;
+  }
+  .lightbox-arrow.left{ left: 24px; }
+  .lightbox-arrow.right{ right: 24px; }
+  .lightbox-arrow:hover{ opacity: 0.7; }
+
+  @media (prefers-color-scheme: light){
+    .lightbox-arrow{ color:#fff; }
+  }
+
+  @media (min-width: 769px){
+    body.lb-open .right-rail{
+      top: 18px;
+      bottom: auto;
+      transform: none;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 14px;
+      z-index: 10001;
+      pointer-events: auto;
+    }
+    body.lb-open .right-rail span{ display:none; }
+    body.lb-open .right-rail a{
+      font-size: clamp(22px, 5.5vw, 30px);
+      transform: scaleY(2.1);
+      transform-origin: right center;
+      letter-spacing: -0.10em;
+      line-height: 0.70;
+      color: #fff;
+    }
+
+    .lightbox.is-story{
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 4vh 0;
+      cursor: default;
+    }
+    .lightbox.is-story img{
+      width: min(80vw, 1100px);
+      max-width: min(80vw, 1100px);
+      max-height: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .lightbox.is-zoom{
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      padding: 3vh 0;
+      cursor: default;
+    }
+    .lightbox.is-zoom img{
+      width: min(100vw, 1200px);
+      max-width: min(100vw, 1200px);
+      max-height: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  /* ============================
+     CUSTOM CURSORS
+     ============================ */
+  :root{
+    --cur-normal-img:   url("https://www.rw-designer.com/cursor-view/230912.png");
+    --cur-link-img:     url("https://www.rw-designer.com/cursor-view/230909.png");
+    --cur-text-img:     url("https://www.rw-designer.com/cursor-view/230914.png");
+    --cur-move-img:     url("https://www.rw-designer.com/cursor-view/230910.png");
+    --cur-no-img:       url("https://www.rw-designer.com/cursor-view/230915.png");
+    --cur-precision-img:url("https://www.rw-designer.com/cursor-view/230913.png");
+    --cur-help-img:     url("https://www.rw-designer.com/cursor-view/230907.png");
+    --cur-working-img:  url("https://www.rw-designer.com/cursor-view/230917.png");
+    --cur-busy-img:     url("https://www.rw-designer.com/cursor-view/230903.png");
+    --cur-resize-ns-img:url("https://www.rw-designer.com/cursor-view/230916.png");
+    --cur-resize-ew-img:url("https://www.rw-designer.com/cursor-view/230908.png");
+    --cur-resize-nwse-img:url("https://www.rw-designer.com/cursor-view/230905.png");
+    --cur-resize-nesw-img:url("https://www.rw-designer.com/cursor-view/230906.png");
+    --cur-alt-img:      url("https://www.rw-designer.com/cursor-view/230901.png");
+  }
+
+  html, body{ cursor: var(--cur-normal-img) 0 0, auto; }
+
+  a, button, [role="button"], summary,
+  .lightbox-arrow, .card img, .left-col a, .right-rail a, .center-col a{
+    cursor: var(--cur-link-img) 0 0, pointer;
+  }
+
+  input, textarea, select, [contenteditable="true"]{
+    cursor: var(--cur-text-img) 0 0, text;
+  }
+
+  :disabled, [aria-disabled="true"], .is-disabled{
+    cursor: var(--cur-no-img) 0 0, not-allowed !important;
+  }
+
+  .cursor-move{ cursor: var(--cur-move-img) 0 0, move !important; }
+  .cursor-precision{ cursor: var(--cur-precision-img) 0 0, crosshair !important; }
+  .cursor-help{ cursor: var(--cur-help-img) 0 0, help !important; }
+  .cursor-working{ cursor: var(--cur-working-img) 0 0, progress !important; }
+  .cursor-busy{ cursor: var(--cur-busy-img) 0 0, wait !important; }
+  .cursor-resize-ns{ cursor: var(--cur-resize-ns-img) 0 0, ns-resize !important; }
+  .cursor-resize-ew{ cursor: var(--cur-resize-ew-img) 0 0, ew-resize !important; }
+  .cursor-resize-nwse{ cursor: var(--cur-resize-nwse-img) 0 0, nwse-resize !important; }
+  .cursor-resize-nesw{ cursor: var(--cur-resize-nesw-img) 0 0, nesw-resize !important; }
+
+  .lightbox{ cursor: var(--cur-alt-img) 0 0, auto; }
+  .lightbox img{ cursor: var(--cur-alt-img) 0 0, auto; }
 </style>
 </head>
 
 <body>
 
+  <!-- LEFT COLUMN -->
   <div class="left-col">
     <a href="#"></a>
-    <a href="/">+</a>
+    <a href="DASS" class="dassLink" id="dassLink">+ </a>
     <a href="#"></a>
   </div>
 
+  <!-- RIGHT RAIL LINKS -->
+  <nav class="right-rail" aria-label="Primary sections">
+    <a href="/" class="dassLink" id="dassLink">HJEM</a>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <span class="plus"></span>
+    <a href="/img">IMG</a>
+    <span class="plus">+</span>
+    <a href="/dsn">DSN</a>
+  </nav>
+
+  <!-- CENTER COLUMN -->
   <div class="center-col">
-    <a href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link">KOSS</a>
-    <a href="https://open.spotify.com/artist/1loPEM6oRSJ519RIva8vJL" class="dsn-link">SVARTARMOR</a>
-    <a href="https://untitled.stream/library/project/RZBQu7fk4LONAK4sYsKAd" class="aud-link" id="dassLink">DASS</a>
+    <a style="font-size:90px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link">KOSS</a>
+    <a href="https://www.instagram.com/______haderachhage/" class="img-link">SVARTARMOR</a>
+    <a style="font-size:60px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link">X2 SE-FI</a>
+    <a  href="/" class="aud-link" id="dassLink">DASS</a>
   </div>
 
+  <!-- IMAGE SHOWCASE -->
+  <main class="showcase" aria-label="Image showcase">
+    <section class="stack">
+
+      <figure class="card">
+        <a href="#" target="_blank" rel="noreferrer">
+          <img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt="">
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="#" target="_blank" rel="noreferrer">
+          <img src="https://i.ibb.co/LDWjBKkj/5image.png" alt="">
+        </a>
+      </figure>
+    </section>
+  </main>
+
+  <!-- ✅ CLICK-OUT OVERLAY (for embed panel close) -->
+  <div class="embed-overlay" id="embedOverlay"></div>
+
+  <!-- EMBED PANEL -->
   <div class="embed-panel" id="embedPanel">
     <iframe
       style="border-radius: 24px"
@@ -236,36 +628,264 @@
     </iframe>
   </div>
 
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-arrow left" id="lbPrev">+</div>
+    <img src="" alt="" draggable="false">
+    <div class="lightbox-arrow right" id="lbNext">+</div>
+  </div>
+
 <script>
-  const dassLink = document.getElementById('dassLink');
+  /* ==========================
+     ✅ EMBED PANEL: center + click-out closes
+     ========================== */
   const embedPanel = document.getElementById('embedPanel');
+  const embedOverlay = document.getElementById('embedOverlay');
 
-  dassLink.addEventListener('click', (e) => {
+  function openEmbed(){
+    embedPanel.classList.add('is-open');
+    embedOverlay.classList.add('is-open');
+  }
 
-    // PHONES ONLY → allow normal link navigation
-    if (window.matchMedia("(max-width: 480px)").matches) {
+  function closeEmbed(){
+    embedPanel.classList.remove('is-open');
+    embedOverlay.classList.remove('is-open');
+  }
+
+  // IMPORTANT: you have multiple elements with id="dassLink" in this file.
+  // querySelectorAll grabs them all so the click works everywhere.
+  const dassLinks = Array.from(document.querySelectorAll('#dassLink, .dassLink'));
+
+  dassLinks.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      embedPanel.classList.contains('is-open') ? closeEmbed() : openEmbed();
+    });
+  });
+
+  // click outside closes
+  embedOverlay.addEventListener('click', closeEmbed);
+
+  // clicking inside the panel should NOT close it
+  embedPanel.addEventListener('click', (e) => e.stopPropagation());
+
+  // ESC closes
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeEmbed();
+  });
+
+  /* ==========================
+     showcase animation
+     ========================== */
+  const cards = document.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) e.target.classList.add('is-visible');
+    }
+  }, { threshold: 0.12 });
+
+  cards.forEach(c => io.observe(c));
+
+  /* ==========================
+     lightbox logic (unchanged)
+     ========================== */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+
+  const images = Array.from(document.querySelectorAll('.card img'));
+  const links  = Array.from(document.querySelectorAll('.card a'));
+
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+
+  let currentIndex = 0;
+
+  images.forEach(img => {
+    img.setAttribute('draggable', 'false');
+    img.addEventListener('contextmenu', (e) => e.preventDefault());
+    img.addEventListener('dragstart', (e) => e.preventDefault());
+  });
+
+  function isDesktopNow(){
+    return window.matchMedia('(min-width: 769px)').matches;
+  }
+
+  function isStoryRatio(r){
+    const isNineSixteen = (r >= 1.70 && r <= 1.90);
+    const isTwoThirds = (r >= 1.45 && r <= 1.60);
+    return isNineSixteen || isTwoThirds;
+  }
+
+  function isStoryFromImg(imgEl){
+    const w = imgEl && imgEl.naturalWidth;
+    const h = imgEl && imgEl.naturalHeight;
+    if(!w || !h) return false;
+    return isStoryRatio(h / w);
+  }
+
+  function isZoomFromImg(imgEl){
+    if(!imgEl) return false;
+
+    const w = imgEl.naturalWidth || imgEl.width;
+    const h = imgEl.naturalHeight || imgEl.height;
+
+    if (w && h){
+      if (w === 5917 && h === 6100) return true;
+      if (Math.abs(w - 5917) <= 4 && Math.abs(h - 6100) <= 4) return true;
+    }
+
+    const src = (imgEl.src || '').toLowerCase();
+    return src.includes('5917x6100');
+  }
+
+  function updateZoomModeForIndex(i){
+    const shouldZoom = isZoomFromImg(images[i]);
+    if (lightbox.classList.contains('is-story')) {
+      lightbox.classList.remove('is-zoom');
+      return;
+    }
+    lightbox.classList.toggle('is-zoom', shouldZoom);
+    if (shouldZoom) lightbox.scrollTop = 0;
+  }
+
+  function applyDesktopLightboxUI(open){
+    document.body.classList.toggle('lb-open', open && isDesktopNow());
+  }
+
+  function updateStoryModeForIndex(i){
+    if (!isDesktopNow()) {
+      lightbox.classList.remove('is-story');
       return;
     }
 
-    // TABLET + DESKTOP → keep existing embed toggle behavior
-    e.preventDefault();
-    embedPanel.classList.toggle('is-open');
+    const srcImg = images[i];
+    const shouldStory = isStoryFromImg(srcImg);
+
+    lightbox.classList.toggle('is-story', shouldStory);
+    if (shouldStory) lightbox.scrollTop = 0;
+  }
+
+  function openLightboxAt(i){
+    currentIndex = i;
+
+    updateStoryModeForIndex(currentIndex);
+    updateZoomModeForIndex(currentIndex);
+
+    lightboxImg.src = images[currentIndex].src;
+
+    lightboxImg.onload = () => {
+      if (!isDesktopNow()) {
+        lightbox.classList.remove('is-story');
+        return;
+      }
+      const r = lightboxImg.naturalHeight / lightboxImg.naturalWidth;
+      const shouldStory = isStoryRatio(r);
+      lightbox.classList.toggle('is-story', shouldStory);
+      if (shouldStory) {
+        lightbox.classList.remove('is-zoom');
+        lightbox.scrollTop = 0;
+      } else {
+        updateZoomModeForIndex(currentIndex);
+      }
+    };
+
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    applyDesktopLightboxUI(true);
+  }
+
+  function showImage(index){
+    if(index < 0) index = images.length - 1;
+    if(index >= images.length) index = 0;
+    openLightboxAt(index);
+  }
+
+  // Single click = real hyperlink (normal). Double click = open lightbox.
+  links.forEach((a, index) => {
+    a.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      openLightboxAt(index);
+    });
+  });
+
+  lbPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
+  lbNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
+  });
+
+  lightboxImg.addEventListener('contextmenu', (e) => e.preventDefault());
+  lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touching = false;
+  let suppressClick = false;
+
+  lightbox.addEventListener('touchstart', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (!e.touches || e.touches.length !== 1) return;
+    touching = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', (e) => {
+    if (!touching) return;
+    touching = false;
+    if (!e.changedTouches || e.changedTouches.length !== 1) return;
+
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const dx = endX - touchStartX;
+    const dy = endY - touchStartY;
+
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      suppressClick = true;
+      if (dx < 0) showImage(currentIndex + 1);
+      else showImage(currentIndex - 1);
+      setTimeout(() => { suppressClick = false; }, 0);
+    }
+  }, { passive: true });
+
+  lightbox.addEventListener('click', () => {
+    if (suppressClick) return;
+    lightbox.classList.remove('is-open');
+    lightbox.classList.remove('is-story');
+    lightbox.classList.remove('is-zoom');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+    applyDesktopLightboxUI(false);
+  });
+  lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('is-open')) return;
+
+    if (e.key === 'Escape') {
+      lightbox.classList.remove('is-open');
+      lightbox.classList.remove('is-story');
+      lightbox.classList.remove('is-zoom');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+      applyDesktopLightboxUI(false);
+    }
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+  });
+
+  window.addEventListener('resize', () => {
+    if (!lightbox.classList.contains('is-open')) return;
+    applyDesktopLightboxUI(true);
+    updateStoryModeForIndex(currentIndex);
+  });
+
+  document.addEventListener('contextmenu', (e) => {
+    if (lightbox.classList.contains('is-open')) e.preventDefault();
   });
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
