@@ -160,7 +160,7 @@
     .rail-code{letter-spacing:-0.06em}
 
     .left-rail .rail-col:first-child .rail-row{
-      color:var(--ink);
+      color: #0302E7;
     }
 
     .rail-row.left-plate{ z-index:2; }
@@ -290,12 +290,27 @@
       transform-origin:left center;
       letter-spacing:-0.11em;
       line-height:0.70;
-      color: #0302E7;
+      color:var(--link);
       white-space:nowrap;
       text-decoration:none;
       display:inline-block;
     }
+
     .adj-link:hover{ text-decoration: underline; }
+
+    /* =====================================================
+       ✅ LIVE / BUY / WORK: slight transparency on hover
+       (ADDED ONLY)
+       ===================================================== */
+    .adj-link{
+      transition: opacity 220ms ease;
+    }
+    .adj-link:hover{
+      opacity: 0.78;
+    }
+
+     
+    }
 
     @media (max-width: 1120px){
       .hero-top .hero-media{ width:min(660px, 100%); }
@@ -521,6 +536,10 @@
   /* Default everywhere (hotspot 0 0) */
   html, body{ cursor: var(--cur-normal-img) 0 0, auto; }
 
+  /* ADDED ONLY: disable CSS smooth scroll on mobile */
+html, body { scroll-behavior: auto !important; }
+
+
   /* Clickables */
   a, button, [role="button"], summary,
   .lightbox-arrow, .card img, .left-col a, .right-rail a, .center-col a{
@@ -551,6 +570,37 @@
   /* Lightbox overlay: alternate select cursor */
   .lightbox{ cursor: var(--cur-alt-img) 0 0, auto; }
   .lightbox img{ cursor: var(--cur-alt-img) 0 0, auto; }
+
+
+
+  /* =====================================================
+     ✅ DVD GUY POPUP (click to dismiss)
+     Added only.
+     ===================================================== */
+  #dvdGuyWrap{
+    position:fixed;
+    left:0;
+    top:0;
+    width:160px;
+    height:auto;
+    z-index:99999;
+    display:none;
+    pointer-events:none; /* only the image is clickable */
+    will-change: transform;
+  }
+  #dvdGuy{
+    width:100%;
+    height:auto;
+    display:block;
+    pointer-events:auto;
+    cursor:pointer;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  @media (max-width: 980px){
+    /* ensure it never runs / shows on mobile layout */
+    #dvdGuyWrap{ display:none !important; }
+  }
 
 </style>
 </head>
@@ -678,7 +728,7 @@
 </style>
 
 
-<p id="work" style="color:#0302E7; font-weight:700; letter-spacing:0.08em;">
+<p id="work" style="color:#FF89BB; font-weight:700; letter-spacing:0.08em;">
   <span class="ghost">
     A Clean Capsule Index For Sound + Design + Imageee
   </span>
@@ -843,11 +893,228 @@
   </script>
 
   <script type='text/javascript' src='https://amniote.net/wp-content/themes/amniote/dist/bundle.js?ver=1.0.30' id='amniotescripts-js'></script>
+
+  <!-- =====================================================
+       ✅ VERY SMOOTH + VERY SLOW SPRING SCROLL (DESKTOP ONLY)
+       ===================================================== -->
+  <script>
+  (function () {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia && window.matchMedia("(max-width: 980px)").matches) return;
+    if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
+
+    const docEl = document.documentElement;
+    const maxScroll = () => Math.max(0, (docEl.scrollHeight || 0) - window.innerHeight);
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+
+    const INPUT_SCALE = 0.60;
+    const SPRING      = 0.06;
+    const FRICTION    = 0.90;
+    const MAX_DELTA   = 120;
+
+    let target = window.scrollY || 0;
+    let pos    = target;
+    let vel    = 0;
+    let raf    = null;
+    let lastT  = performance.now();
+
+    function animate(t) {
+      const dt = Math.min(32, t - lastT);
+      lastT = t;
+
+      const max = maxScroll();
+      target = clamp(target, 0, max);
+
+      const dist = target - pos;
+
+      vel += dist * SPRING * (dt / 16.67);
+      vel *= Math.pow(FRICTION, dt / 16.67);
+      pos += vel;
+
+      if (pos < 0) { pos = 0; vel = 0; }
+      if (pos > max) { pos = max; vel = 0; }
+
+      window.scrollTo(0, pos);
+
+      if (Math.abs(vel) < 0.05 && Math.abs(dist) < 0.5) {
+        raf = null;
+        return;
+      }
+      raf = requestAnimationFrame(animate);
+    }
+
+    function kick() {
+      if (!raf) {
+        lastT = performance.now();
+        raf = requestAnimationFrame(animate);
+      }
+    }
+
+    function wheelDeltaPixels(e) {
+      let d = e.deltaY;
+      if (e.deltaMode === 1) d *= 16;
+      else if (e.deltaMode === 2) d *= 600;
+      return clamp(d, -MAX_DELTA, MAX_DELTA);
+    }
+
+    window.addEventListener("wheel", (e) => {
+      if (e.ctrlKey) return;
+
+      const el = e.target;
+      const nested = el && el.closest && el.closest("#buyPanel, .c-glitch");
+      if (nested) return;
+
+      e.preventDefault();
+
+      const d = wheelDeltaPixels(e) * INPUT_SCALE;
+      vel += d * 0.11;
+      target += d;
+
+      kick();
+    }, { passive: false });
+
+    window.addEventListener("scroll", () => {
+      if (raf) return;
+      target = window.scrollY || 0;
+      pos = target;
+      vel = 0;
+    }, { passive: true });
+  })();
+  </script>
+
+
+  <!-- =====================================================
+       ✅ DVD GUY: random popup + smooth corner-bounce
+       Click him to get rid of him. Desktop only.
+       Added only.
+       ===================================================== -->
+  <div id="dvdGuyWrap" aria-hidden="true">
+    <img id="dvdGuy" src="https://i.ibb.co/G4q7PDnK/artworks-nzfj0c-Hx-M56-U4-Pg4-ZPlyy-A-t500x500-removebg-preview.png" alt="" draggable="false" />
+  </div>
+
+  <script>
+  (function(){
+    // Desktop-only (matches your existing breakpoint)
+    if (window.matchMedia && window.matchMedia("(max-width: 980px)").matches) return;
+    // Respect reduced-motion users
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const wrap = document.getElementById("dvdGuyWrap");
+    const img  = document.getElementById("dvdGuy");
+    if (!wrap || !img) return;
+
+    const rand  = (min, max) => min + Math.random() * (max - min);
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+    const sign  = (n) => (n < 0 ? -1 : 1);
+
+    let raf = null;
+    let spawned = false;
+
+    let x = 0, y = 0;       // position in px
+    let vx = 0, vy = 0;     // velocity px/sec
+    let lastT = 0;
+    let nextTimer = null;
+
+    function bounds(){
+      const w = wrap.offsetWidth  || 160;
+      const h = wrap.offsetHeight || 160;
+      return {
+        maxX: Math.max(0, window.innerWidth  - w),
+        maxY: Math.max(0, window.innerHeight - h),
+        w, h
+      };
+    }
+
+    function setPos(){
+      wrap.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    }
+
+    function scheduleNext(){
+      // Random delay before he appears again
+      const delayMs = rand(8, 22) * 1000;
+      clearTimeout(nextTimer);
+      nextTimer = setTimeout(spawn, delayMs);
+    }
+
+    function spawn(){
+      spawned = true;
+      wrap.style.display = "block";
+
+      const b = bounds();
+
+      // Start at a random spot
+      x = rand(0, b.maxX);
+      y = rand(0, b.maxY);
+
+      // Classic DVD-ish speed
+      const speed = rand(240, 340); // px/sec
+      const angle = rand(0.45, 1.15); // radians (keeps it diagonal-ish)
+
+      vx = Math.cos(angle) * speed * (Math.random() < 0.5 ? 1 : -1);
+      vy = Math.sin(angle) * speed * (Math.random() < 0.5 ? 1 : -1);
+
+      // Avoid too-flat movement
+      if (Math.abs(vx) < 120) vx = sign(vx) * 160;
+      if (Math.abs(vy) < 120) vy = sign(vy) * 160;
+
+      lastT = performance.now();
+      setPos();
+      kick();
+    }
+
+    function despawn(){
+      spawned = false;
+      wrap.style.display = "none";
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+      scheduleNext();
+    }
+
+    function kick(){
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+
+    function tick(t){
+      raf = null;
+      if (!spawned) return;
+
+      const dt = Math.min(40, t - lastT) / 1000; // seconds
+      lastT = t;
+
+      const b = bounds();
+
+      x += vx * dt;
+      y += vy * dt;
+
+      // Bounce off edges
+      if (x <= 0)      { x = 0;      vx = Math.abs(vx); }
+      if (x >= b.maxX) { x = b.maxX; vx = -Math.abs(vx); }
+      if (y <= 0)      { y = 0;      vy = Math.abs(vy); }
+      if (y >= b.maxY) { y = b.maxY; vy = -Math.abs(vy); }
+
+      setPos();
+      raf = requestAnimationFrame(tick);
+    }
+
+    // Click to remove
+    img.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      despawn();
+    });
+
+    // Keep within viewport on resize
+    window.addEventListener("resize", function(){
+      if (!spawned) return;
+      const b = bounds();
+      x = clamp(x, 0, b.maxX);
+      y = clamp(y, 0, b.maxY);
+      setPos();
+    }, { passive: true });
+
+    // First appearance after a short random delay
+    scheduleNext();
+  })();
+  </script>
+
 </body>
 </html>
-
-
-
-
-
-
