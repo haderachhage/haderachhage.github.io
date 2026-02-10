@@ -17,38 +17,28 @@
   /* =====================================================
      ✅ HIDE BROWSER SCROLLBAR (KEEP SCROLL)
      ✅ SMOOTH MOMENTUM SCROLLING
-     (ADDED ONLY)
      ===================================================== */
   html, body{
-    scrollbar-width: none;        /* Firefox */
-    -ms-overflow-style: none;     /* IE/old Edge */
-    scroll-behavior: smooth;      /* smooth scroll for anchor jumps */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
   }
   html::-webkit-scrollbar,
   body::-webkit-scrollbar{
-    display: none;                /* Chrome/Safari/Opera */
+    display: none;
     width: 0;
     height: 0;
   }
+  body{ -webkit-overflow-scrolling: touch; }
 
-  /* Momentum / inertial scrolling on touch devices */
-  body{
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* If any scrollable overlays appear (like lightbox story/zoom), keep them smooth + scrollbarless too */
   .lightbox{
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  .lightbox::-webkit-scrollbar{
-    display:none;
-    width:0;
-    height:0;
-  }
+  .lightbox::-webkit-scrollbar{ display:none; width:0; height:0; }
 
-  /* THEME TOKENS (match your index page frame tokens) */
+  /* THEME TOKENS */
   :root{
     --bg:#fff;
     --ink:#000;
@@ -56,13 +46,11 @@
     --hover-ink:#fff;
     --hover-underline:#000;
 
-    /* IMPORTANT: same names as your index file */
-    --line:#d7d7d7;  /* used by hero-media border */
-    --soft:#f5f5f5;  /* used by hero-media background */
+    --line:#d7d7d7;
+    --soft:#f5f5f5;
 
     color-scheme: light;
 
-    /* showcase tokens */
     --showcase-max: 760px;
     --showcase-pad-x: 16px;
     --showcase-top-pad: 120px;
@@ -72,7 +60,6 @@
     --cascade-overlap: 6px;
     --wobble: 14px;
 
-    /* squared corners */
     --card-radius: 0px;
   }
 
@@ -84,7 +71,6 @@
       --hover-ink:#000;
       --hover-underline:#fff;
 
-      /* IMPORTANT: match your index dark theme */
       --line:#fff;
       --soft:#000;
 
@@ -108,20 +94,18 @@
     inset:0;
     background-image:url(https://i.ibb.co/wNXhrk5z/Untitled-design-9.png);
     background-size:cover;
-    background-position:center;   /* FIXED */
+    background-position:center;
     background-repeat:no-repeat;
     opacity:0;
     pointer-events:none;
     z-index:0;
     transition:opacity 0s;
   }
-
-  /* Trigger cover on hover (IMG + DSN + AUD) */
   body:has(.img-link:hover)::before{ opacity:1; }
   body:has(.dsn-link:hover)::before{ opacity:1; }
   body:has(.aud-link:hover)::before{ opacity:1; }
 
-  /* LEFT COLUMN (fixed so + stays on screen always) */
+  /* LEFT COLUMN */
   .left-col{
     position:fixed;
     left:104px;
@@ -135,7 +119,6 @@
     text-transform:uppercase;
     user-select:none;
   }
-
   .left-col a{
     font-size: clamp(54px, 5.2vw, 130px);
     font-weight: 500;
@@ -162,10 +145,9 @@
     user-select: none;
     z-index:5;
   }
-
   .center-col a {
-    display:inline-block; /* makes hover box reliable */
-    font-size: clamp(54px, 5.2vw, 130px);
+    display:inline-block;
+    font-size: clamp(50px, .2vw, 130px);
     font-weight: 500;
     transform: scaleY(2.25);
     transform-origin: center;
@@ -175,27 +157,20 @@
     color: var(--link);
     padding: 0.15em 0.25em;
     text-decoration: none;
+    margin-top:9px;
   }
-
   .center-col a:hover {
     background-size: cover;
-    background-position: center; /* FIXED */
+    background-position: center;
     background-repeat: no-repeat;
     color: var(--hover-ink);
     text-decoration: underline;
     text-decoration-color: var(--hover-underline);
   }
+  .img-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
+  .aud-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
 
-  /* Link-specific hover images (optional but keeps your intent) */
-  .img-link:hover {
-    background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png);
-  }
-  /* If you don't have an aud-hover.jpg, this was effectively "not working" */
-  .aud-link:hover {
-    background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png);
-  }
-
-  /* RIGHT RAIL (fixed) */
+  /* RIGHT RAIL */
   .right-rail{
     position:fixed;
     right:24px;
@@ -209,7 +184,6 @@
     z-index:6;
     gap:18px;
   }
-
   .right-rail a,
   .right-rail span{
     font-size:clamp(54px, 5.2vw, 130px);
@@ -222,7 +196,6 @@
     text-decoration:none;
     color:var(--ink);
   }
-
   .right-rail .plus{
     transform:scaleY(2.35);
     letter-spacing:-0.16em;
@@ -251,7 +224,6 @@
     margin: 0 auto;
     padding: var(--showcase-top-pad) var(--showcase-pad-x) var(--showcase-bottom-pad);
   }
-
   .stack{
     display:flex;
     flex-direction:column;
@@ -259,38 +231,83 @@
     align-items:center;
   }
 
+  /* =====================================================
+     ✅ RE-TRIGGERABLE SLIDING FADE REVEAL (EVERY TIME IN VIEW)
+     ✅ HIDE FRAME UNTIL IMAGE IS LOADED
+     (NO HUGE GAPS)
+     ===================================================== */
   .card{
     width:120%;
     border-radius: var(--card-radius);
     overflow:hidden;
 
-    border:1px solid var(--line);
-    background:var(--soft);
+    /* hidden frame until loaded */
+    border:1px solid transparent;
+    background:transparent;
+
     display:block;
 
-    will-change: transform, opacity;
+    /* animation starts from "hidden" state */
+    --fromX: 0px;
     opacity: 0;
-    transform: translateY(18px);
-    transition: opacity .45s ease, transform .55s ease;
+    transform: translateY(16px) translateX(var(--fromX));
+    will-change: transform, opacity;
   }
 
   .card:not(:first-child){ margin-top: calc(-1 * var(--cascade-overlap)); }
-  .card:nth-child(odd){ transform: translateY(18px) translateX(calc(-1 * var(--wobble))); }
-  .card:nth-child(even){ transform: translateY(18px) translateX(var(--wobble)); }
+  .card:nth-child(odd){  --fromX: calc(-1 * var(--wobble)); }
+  .card:nth-child(even){ --fromX: var(--wobble); }
 
+  /* once image is loaded, frame appears */
+  .card.img-ready{
+    border-color: var(--line);
+    background: var(--soft);
+  }
+
+  /* every time we add .is-visible, play the reveal */
   .card.is-visible{
-    opacity:1;
-    transform: translateY(0) translateX(0);
+    animation: cardReveal .42s ease both;
+  }
+
+  @keyframes cardReveal{
+    from{
+      opacity: 0;
+      transform: translateY(16px) translateX(var(--fromX));
+    }
+    to{
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+    }
+  }
+
+  /* “disabled link” wrapper that only opens lightbox */
+  .card a.img-open{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    outline:none;
   }
 
   .card img{
     width:100%;
     height:auto;
     display:block;
-    background:var(--soft);
+    background:transparent; /* no frame/box before load */
     -webkit-user-drag: none;
     user-select: none;
     cursor: zoom-in;
+    transition: opacity 180ms ease;
+  }
+  .card a.img-open:hover img{ opacity: 0.78; }
+
+  /* fast image fade when it loads */
+  .card img[data-reveal]{
+    opacity: 0;
+    transition: opacity 200ms ease;
+    will-change: opacity;
+  }
+  .card img[data-reveal].is-loaded{
+    opacity: 1;
   }
 
   /* MOBILE */
@@ -303,18 +320,15 @@
       align-items:baseline;
       gap:14px;
     }
-
     .center-col{
       padding: 64px 16px 16px;
       gap: 44px;
     }
-
     .center-col a{
       max-width: 92vw;
       text-align:center;
       white-space: normal;
     }
-
     .right-rail{
       right:14px;
       top:auto;
@@ -345,7 +359,6 @@
       width:auto;
       transform:none;
     }
-
     .embed-panel iframe{
       width:100%;
       height:320px;
@@ -354,26 +367,27 @@
 
     :root{ --cascade-overlap: 34px; --wobble: 10px; }
     .showcase{ padding-top: 110px; }
+    .card{ width:100%; }
   }
 
-  /* PHONE ONLY: raise LISTEN TO KOSS */
   @media (max-width: 480px){
-    .center-col .img-link{
-      position: relative;
-      top: -80px;
-    }
+    .center-col .img-link{ position: relative; top: -80px; }
   }
 
   @media (prefers-reduced-motion: reduce){
-    .card, .card.is-visible{
+    .card{
+      opacity: 1;
+      transform: none;
+      animation: none !important;
+    }
+    .card img[data-reveal]{
       transition:none;
       opacity:1;
-      transform:none;
     }
   }
 
   /* ============================
-     LIGHTBOX (ADDED ONLY)
+     LIGHTBOX
      ============================ */
   .lightbox{
     position:fixed;
@@ -397,7 +411,6 @@
     pointer-events: auto;
   }
 
-  /* LIGHTBOX ARROWS (UPDATED: signature + style) */
   .lightbox-arrow{
     position: fixed;
     top: 50%;
@@ -419,19 +432,11 @@
   .lightbox-arrow.right{ right: 24px; }
   .lightbox-arrow:hover{ opacity: 0.7; }
 
-  /* ✅ ONLY CHANGE: FORCE WHITE ARROWS IN LIGHT MODE */
   @media (prefers-color-scheme: light){
     .lightbox-arrow{ color:#fff; }
   }
 
-
-  /* ============================
-     DESKTOP-ONLY LIGHTBOX ENHANCEMENTS
-     - Top-right nav (mobile-style) only while lightbox is open on desktop
-     - Story (scroll) mode for 9:16 + 2:3-like ratios only on desktop
-     ============================ */
   @media (min-width: 769px){
-    /* Top-right: show only HJEM / DSN / AUD links while lightbox is open */
     body.lb-open .right-rail{
       top: 18px;
       bottom: auto;
@@ -439,8 +444,6 @@
       flex-direction: row;
       align-items: baseline;
       gap: 14px;
-
-      /* ensure it sits ABOVE the lightbox overlay */
       z-index: 10001;
       pointer-events: auto;
     }
@@ -451,12 +454,9 @@
       transform-origin: right center;
       letter-spacing: -0.10em;
       line-height: 0.70;
-
-      /* visible on the dark overlay */
       color: #fff;
     }
 
-    /* Story mode: fill width and allow vertical scroll */
     .lightbox.is-story{
       align-items: flex-start;
       justify-content: center;
@@ -474,9 +474,6 @@
       margin: 0 auto;
     }
 
-    /* Zoom mode (desktop only): e.g., 3000x3093.jpg
-       - slightly larger than default contain
-       - allows vertical scroll if needed */
     .lightbox.is-zoom{
       align-items: flex-start;
       justify-content: center;
@@ -497,13 +494,8 @@
 
   /* ============================
      CUSTOM CURSORS (Tumi's Metallic Link 3D)
-     IMPORTANT: The originals are .ani (animated) and won’t show in Opera/Chrome.
-     So we use the PNG previews (static), which DO work in Chromium browsers.
-     Source set: https://www.rw-designer.com/cursor-set/tumi-s-metallic-link-3d-complete
      ============================ */
-
   :root{
-    /* PNG preview assets from rw-designer */
     --cur-normal-img:   url("https://www.rw-designer.com/cursor-view/230912.png");
     --cur-link-img:     url("https://www.rw-designer.com/cursor-view/230909.png");
     --cur-text-img:     url("https://www.rw-designer.com/cursor-view/230914.png");
@@ -522,40 +514,23 @@
     --cur-alt-img:      url("https://www.rw-designer.com/cursor-view/230901.png");
   }
 
-  /* Default everywhere (hotspot 0 0) */
   html, body{ cursor: var(--cur-normal-img) 0 0, auto; }
 
-  /* Clickables */
   a, button, [role="button"], summary,
   .lightbox-arrow, .card img, .left-col a, .right-rail a, .center-col a{
     cursor: var(--cur-link-img) 0 0, pointer;
   }
 
-  /* Text/editing */
   input, textarea, select, [contenteditable="true"]{
     cursor: var(--cur-text-img) 0 0, text;
   }
 
-  /* Disabled / unavailable */
   :disabled, [aria-disabled="true"], .is-disabled{
     cursor: var(--cur-no-img) 0 0, not-allowed !important;
   }
 
-  /* Optional utility classes (use if you ever need them) */
-  .cursor-move{ cursor: var(--cur-move-img) 0 0, move !important; }
-  .cursor-precision{ cursor: var(--cur-precision-img) 0 0, crosshair !important; }
-  .cursor-help{ cursor: var(--cur-help-img) 0 0, help !important; }
-  .cursor-working{ cursor: var(--cur-working-img) 0 0, progress !important; }
-  .cursor-busy{ cursor: var(--cur-busy-img) 0 0, wait !important; }
-  .cursor-resize-ns{ cursor: var(--cur-resize-ns-img) 0 0, ns-resize !important; }
-  .cursor-resize-ew{ cursor: var(--cur-resize-ew-img) 0 0, ew-resize !important; }
-  .cursor-resize-nwse{ cursor: var(--cur-resize-nwse-img) 0 0, nwse-resize !important; }
-  .cursor-resize-nesw{ cursor: var(--cur-resize-nesw-img) 0 0, nesw-resize !important; }
-
-  /* Lightbox overlay: alternate select cursor */
   .lightbox{ cursor: var(--cur-alt-img) 0 0, auto; }
   .lightbox img{ cursor: var(--cur-alt-img) 0 0, auto; }
-
 </style>
 </head>
 
@@ -592,10 +567,10 @@
   <!-- IMAGE SHOWCASE -->
   <main class="showcase" aria-label="Image showcase">
     <section class="stack">
-    <figure class="card"><img src="https://i.ibb.co/3YTgn8Nk/DSC-0001.jpg" alt=""></figure>
-    <figure class="card"><img src="https://ia903206.us.archive.org/5/items/yourimage_202602/GABETWOS%20%281%29%20–%20Kopi.png" alt=""></figure>
-    <figure class="card"><img src="https://i.ibb.co/qLBtDVTP/3image.png" alt=""></figure>
-    <figure class="card"><img src="https://i.ibb.co/r2Nzt57Z/gabethere-Kopi.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/3YTgn8Nk/DSC-0001.jpg" alt=""></figure>
+      <figure class="card"><img src="https://ia903206.us.archive.org/5/items/yourimage_202602/GABETWOS%20%281%29%20–%20Kopi.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/qLBtDVTP/3image.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/r2Nzt57Z/gabethere-Kopi.png" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/PZQSQ1Yf/DSC-6423.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/G3tvVHqs/DSC-1442.jpg" alt=""></figure>
       <figure class="card"><img src="https://i.ibb.co/wZdCs46P/DSC-1441.jpg" alt=""></figure>
@@ -660,83 +635,166 @@
   </div>
 
 <script>
+  // embed toggle
   const dassLink = document.getElementById('dassLink');
   const embedPanel = document.getElementById('embedPanel');
-
   dassLink.addEventListener('click', (e) => {
     e.preventDefault();
     embedPanel.classList.toggle('is-open');
   });
 
-  const cards = document.querySelectorAll('.card');
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) e.target.classList.add('is-visible');
-    }
-  }, { threshold: 0.12 });
-
-  cards.forEach(c => io.observe(c));
-
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = lightbox.querySelector('img');
+  const cards = Array.from(document.querySelectorAll('.card'));
   const images = Array.from(document.querySelectorAll('.card img'));
   const lbPrev = document.getElementById('lbPrev');
   const lbNext = document.getElementById('lbNext');
 
   let currentIndex = 0;
 
-  images.forEach(img => {
-    img.setAttribute('draggable', 'false');
-    img.addEventListener('contextmenu', (e) => e.preventDefault());
-    img.addEventListener('dragstart', (e) => e.preventDefault());
-  });
+  // Track which cards are currently in view (so load can trigger reveal immediately)
+  const inView = new WeakSet();
 
+  // Helper: retrigger reveal animation every time
+  function retriggerReveal(card){
+    // remove and re-add to replay keyframes
+    card.classList.remove('is-visible');
+    // force reflow so the browser resets the animation state
+    void card.offsetWidth;
+    card.classList.add('is-visible');
+  }
+
+  // =====================================================
+  // ✅ TOP IMAGES PRIORITY + WRAP IN DISABLED LINK
+  // ✅ FRAME HIDDEN UNTIL IMAGE LOADED
+  // =====================================================
+  (function setupImages(){
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const TOP_EAGER_COUNT = 6;
+
+    images.forEach((img, index) => {
+      img.setAttribute('data-reveal', '');
+      img.decoding = 'async';
+
+      if (index < TOP_EAGER_COUNT) {
+        img.loading = 'eager';
+        try { img.fetchPriority = 'high'; } catch(e) {}
+        img.setAttribute('fetchpriority', 'high');
+      } else {
+        img.loading = 'lazy';
+        try { img.fetchPriority = 'low'; } catch(e) {}
+        img.setAttribute('fetchpriority', 'low');
+      }
+
+      // Wrap with disabled link (ONLY opens lightbox)
+      const card = cards[index];
+      if (card && img.parentElement === card) {
+        const a = document.createElement('a');
+        a.href = '#';
+        a.className = 'img-open';
+        a.setAttribute('aria-label', 'Open image');
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openLightboxAt(index);
+        });
+        card.insertBefore(a, img);
+        a.appendChild(img);
+      }
+
+      // Block save/drag
+      img.setAttribute('draggable', 'false');
+      img.addEventListener('contextmenu', (e) => e.preventDefault());
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+
+      // When image loads: fade image + show frame
+      const onReady = () => {
+        img.classList.add('is-loaded');
+        card.classList.add('img-ready');
+        card.dataset.loaded = "1";
+
+        // If the card is currently in view, reveal now (and retrigger each entry later)
+        if (reduceMotion) {
+          card.classList.add('is-visible');
+        } else if (inView.has(card)) {
+          retriggerReveal(card);
+        }
+      };
+
+      if (reduceMotion) onReady();
+      else if (img.complete && img.naturalWidth > 0) onReady();
+      else {
+        img.addEventListener('load', onReady, { once:true });
+        img.addEventListener('error', onReady, { once:true });
+      }
+    });
+  })();
+
+  // =====================================================
+  // ✅ RE-TRIGGER REVEAL EVERY TIME YOU SCROLL IN/OUT
+  // - on enter: if loaded, replay reveal
+  // - on exit: remove .is-visible so it can replay next time
+  // =====================================================
+  const io = new IntersectionObserver((entries) => {
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    for (const e of entries) {
+      const card = e.target;
+
+      if (e.isIntersecting) {
+        inView.add(card);
+
+        if (reduceMotion) {
+          card.classList.add('is-visible');
+          continue;
+        }
+
+        // Only animate if image is loaded (frame hidden until then)
+        if (card.dataset.loaded === "1") {
+          retriggerReveal(card);
+        }
+      } else {
+        inView.delete(card);
+
+        // Remove visibility so it can animate again next time
+        card.classList.remove('is-visible');
+      }
+    }
+  }, { threshold: 0.12 });
+
+  cards.forEach(c => io.observe(c));
+
+  // =====================================================
+  // LIGHTBOX
+  // =====================================================
   function isDesktopNow(){
     return window.matchMedia('(min-width: 769px)').matches;
   }
-
-  /* ✅ Desktop-only "story" ratios:
-     - 9:16 (h/w ≈ 1.777...)
-     - 2:3-ish (h/w ≈ 1.5) including 3712x5638 (≈ 1.518...)
-     Only these get the scrollable, width-filled view.
-  */
   function isStoryRatio(r){
     const isNineSixteen = (r >= 1.70 && r <= 1.90);
-    const isTwoThirds = (r >= 1.45 && r <= 1.60);
+    const isTwoThirds   = (r >= 1.45 && r <= 1.60);
     return isNineSixteen || isTwoThirds;
   }
-
   function isStoryFromImg(imgEl){
     const w = imgEl && imgEl.naturalWidth;
     const h = imgEl && imgEl.naturalHeight;
     if(!w || !h) return false;
     return isStoryRatio(h / w);
   }
-
-  
   function isZoomFromImg(imgEl){
-    // Zoom rule for the 5917x6100 image:
-    // - primary: match by actual loaded dimensions (most reliable)
-    // - fallback: match by filename/URL containing "5917x6100"
     if(!imgEl) return false;
-
     const w = imgEl.naturalWidth || imgEl.width;
     const h = imgEl.naturalHeight || imgEl.height;
 
-    // Exact (or near-exact) dimension match
     if (w && h){
       if (w === 5917 && h === 6100) return true;
-      // Some hosts resize slightly; allow a small tolerance
       if (Math.abs(w - 5917) <= 4 && Math.abs(h - 6100) <= 4) return true;
     }
-
     const src = (imgEl.src || '').toLowerCase();
     return src.includes('5917x6100');
   }
-
   function updateZoomModeForIndex(i){
     const shouldZoom = isZoomFromImg(images[i]);
-    // If story mode is active (desktop-only), don't stack zoom mode
     if (lightbox.classList.contains('is-story')) {
       lightbox.classList.remove('is-zoom');
       return;
@@ -744,21 +802,15 @@
     lightbox.classList.toggle('is-zoom', shouldZoom);
     if (shouldZoom) lightbox.scrollTop = 0;
   }
-
-function applyDesktopLightboxUI(open){
-    // Only on desktop: top-right nav layout while lightbox is open
+  function applyDesktopLightboxUI(open){
     document.body.classList.toggle('lb-open', open && isDesktopNow());
   }
-
   function updateStoryModeForIndex(i){
     if (!isDesktopNow()) {
       lightbox.classList.remove('is-story');
       return;
     }
-
-    const srcImg = images[i];
-    const shouldStory = isStoryFromImg(srcImg);
-
+    const shouldStory = isStoryFromImg(images[i]);
     lightbox.classList.toggle('is-story', shouldStory);
     if (shouldStory) lightbox.scrollTop = 0;
   }
@@ -769,10 +821,8 @@ function applyDesktopLightboxUI(open){
     updateStoryModeForIndex(currentIndex);
     updateZoomModeForIndex(currentIndex);
 
-    // set src
     lightboxImg.src = images[currentIndex].src;
 
-    // fallback in case the thumbnail's natural sizes weren't ready
     lightboxImg.onload = () => {
       if (!isDesktopNow()) {
         lightbox.classList.remove('is-story');
@@ -800,12 +850,6 @@ function applyDesktopLightboxUI(open){
     openLightboxAt(index);
   }
 
-  images.forEach((img, index) => {
-    img.addEventListener('click', () => {
-      openLightboxAt(index);
-    });
-  });
-
   lbPrev.addEventListener('click', (e) => {
     e.stopPropagation();
     showImage(currentIndex - 1);
@@ -818,7 +862,7 @@ function applyDesktopLightboxUI(open){
   lightboxImg.addEventListener('contextmenu', (e) => e.preventDefault());
   lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
 
-  // ✅ Mobile swipe gestures (left/right) in lightbox
+  // Mobile swipe gestures
   let touchStartX = 0;
   let touchStartY = 0;
   let touching = false;
@@ -842,12 +886,10 @@ function applyDesktopLightboxUI(open){
     const dx = endX - touchStartX;
     const dy = endY - touchStartY;
 
-    // horizontal swipe only
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
       suppressClick = true;
       if (dx < 0) showImage(currentIndex + 1);
       else showImage(currentIndex - 1);
-      // release click suppression after this tick
       setTimeout(() => { suppressClick = false; }, 0);
     }
   }, { passive: true });
@@ -878,7 +920,6 @@ function applyDesktopLightboxUI(open){
     if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
   });
 
-  // If the user resizes while open, keep desktop-only rules consistent
   window.addEventListener('resize', () => {
     if (!lightbox.classList.contains('is-open')) return;
     applyDesktopLightboxUI(true);
@@ -892,9 +933,3 @@ function applyDesktopLightboxUI(open){
 
 </body>
 </html>
-
-
-
-
-
-
