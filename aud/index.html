@@ -1,31 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="SHAYNE HAGE + AUDIO" />
-  <meta property="og:description" content="SOUND ENGINEERED BY SHAYNE" />
-  <meta property="og:image" content="https://i.postimg.cc/Fsx4vgFJ/Untitled-design-(13).png" />
-  <meta property="og:url" content="https://haderachhage.github.io/aud" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SHAYNE HAGE + AUDIO" />
-  <meta name="twitter:description" content="SOUND ENGINEERED BY SHAYNE" />
-  <meta name="twitter:image" content="https://i.postimg.cc/Fsx4vgFJ/Untitled-design-(13).png" />
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" href="/favicon.ico">
-
-  <title>AUDHage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
+<meta property="og:title" content="SHAYNE HAGE + IMAGE" />
+<meta property="og:description" content="IMG ENGINEERED BY SHAYNE" />
+<meta property="og:image" content="https://i.postimg.cc/gkKWpqcw/Untitled-design-(9).png" />
+<meta property="og:url" content="https://haderachhage.github.io/IMG" />
+<meta property="og:type" content="website" />
+<title>IMGHage</title>
 
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -45,22 +29,16 @@
     width: 0;
     height: 0;
   }
-
-  body{
-    -webkit-overflow-scrolling: touch;
-  }
+  body{ -webkit-overflow-scrolling: touch; }
 
   .lightbox{
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  .lightbox::-webkit-scrollbar{
-    display:none;
-    width:0;
-    height:0;
-  }
+  .lightbox::-webkit-scrollbar{ display:none; width:0; height:0; }
 
+  /* THEME TOKENS */
   :root{
     --bg:#fff;
     --ink:#000;
@@ -83,14 +61,6 @@
     --wobble: 14px;
 
     --card-radius: 0px;
-
-    /* ✅ DASS sizing knobs (YouTube unaffected) */
-    --dass-panel-w: min(344px, 38vw);
-    --dass-panel-h: 344px; /* change freely */
-    --dass-radius: 24px;
-
-    /* ✅ NEW: DASS desktop position knob (works with slide animation) */
-    --dass-desktop-x: 800px; /* + = right, - = left */
   }
 
   @media (prefers-color-scheme: dark){
@@ -117,11 +87,12 @@
     min-height: 100%;
   }
 
+  /* FULL-PAGE background hover (cover) */
   body::before{
     content:"";
     position:fixed;
     inset:0;
-    background-image:url(https://i.ibb.co/n8DGRZKB/Untitled-design-13.png);
+    background-image:url(https://i.ibb.co/wNXhrk5z/Untitled-design-9.png);
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
@@ -130,11 +101,11 @@
     z-index:0;
     transition:opacity 0s;
   }
-
   body:has(.img-link:hover)::before{ opacity:1; }
   body:has(.dsn-link:hover)::before{ opacity:1; }
   body:has(.aud-link:hover)::before{ opacity:1; }
 
+  /* LEFT COLUMN */
   .left-col{
     position:fixed;
     left:104px;
@@ -148,7 +119,6 @@
     text-transform:uppercase;
     user-select:none;
   }
-
   .left-col a{
     font-size: clamp(54px, 5.2vw, 130px);
     font-weight: 500;
@@ -157,40 +127,38 @@
     letter-spacing: -0.10em;
     line-height: 0.70;
     white-space: nowrap;
-    color: var(--link);
+    color: #0302E7;
     text-decoration: none;
   }
   .left-col a:hover{ text-decoration: underline; }
 
+  /* CENTER COLUMN */
   .center-col {
-    position: fixed;
+    position: relative;
     inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: -100000000px;
     text-transform: uppercase;
     user-select: none;
     z-index:5;
-    pointer-events: none;
   }
-
   .center-col a {
     display:inline-block;
-    font-size: clamp(54px, 5.2vw, 130px);
+    font-size: clamp(70px, .2vw, 130px);
     font-weight: 500;
     transform: scaleY(2.25);
     transform-origin: center;
     letter-spacing: -0.10em;
     line-height: 0.7;
     white-space: nowrap;
-    color: #0302E7;
+    color: var(--link);
     padding: 0.15em 0.25em;
     text-decoration: none;
-    pointer-events: auto;
+    margin-top:9px;
   }
-
   .center-col a:hover {
     background-size: cover;
     background-position: center;
@@ -199,10 +167,10 @@
     text-decoration: underline;
     text-decoration-color: var(--hover-underline);
   }
-
   .img-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
   .aud-link:hover { background-image: url(https://i.ibb.co/s91dCb6Z/Untitled-design-69.png); }
 
+  /* RIGHT RAIL */
   .right-rail{
     position:fixed;
     right:24px;
@@ -216,7 +184,6 @@
     z-index:6;
     gap:18px;
   }
-
   .right-rail a,
   .right-rail span{
     font-size:clamp(54px, 5.2vw, 130px);
@@ -229,7 +196,6 @@
     text-decoration:none;
     color:var(--ink);
   }
-
   .right-rail .plus{
     transform:scaleY(2.35);
     letter-spacing:-0.16em;
@@ -238,151 +204,19 @@
   }
   .right-rail a:hover{ text-decoration: underline; }
 
-  .embed-overlay{
+  /* RIGHT EMBED PANEL */
+  .embed-panel{
     position:fixed;
-    inset:0;
-    background:transparent;
-    z-index:10000;
+    top:50%;
+    right:24px;
+    transform:translateY(-50%);
+    width:min(520px, 38vw);
+    z-index:7;
     display:none;
   }
-  .embed-overlay.is-open{ display:block; }
+  .embed-panel.is-open{ display:block; }
 
-  .embed-panel{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(700px, 38vw); /* default (YouTube uses this) */
-    z-index: 10001;
-    display: none;
-    background: transparent;
-  }
-  .embed-panel.is-open{ display: block; }
-
-  /* ✅ DASS panel has independent width */
-  #embedPanel{ width: var(--dass-panel-w); }
-
-  /* 4:3 wrapper */
-  .embed-4x3{
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    border-radius: 24px;
-    overflow: hidden;
-    background: #000; /* default (good for YouTube) */
-  }
-  .embed-4x3 iframe{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    border: 0;
-    border-radius: 0;
-    background: #000; /* default (good for YouTube) */
-  }
-
-  /* ✅ DASS: rounded + independent height + NO black border/halo */
-  #embedPanel .embed-4x3{
-    aspect-ratio: auto;
-    height: var(--dass-panel-h);
-    border-radius: var(--dass-radius);
-    background: transparent !important;   /* removes black frame */
-    box-shadow: none !important;
-  }
-  #embedPanel .embed-4x3 iframe{
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-
-  /* ✅ SLIDE BEHAVIOR (DASS ONLY)
-     Desktop: slides into current position (with X knob)
-     Mobile: slides into bottom-left corner
-  */
-  #embedPanel{
-    display: block;             /* keep in DOM so transform can animate */
-    opacity: 0;                 /* hidden when closed */
-    pointer-events: none;       /* not clickable when closed */
-    transition: transform 260ms ease, opacity 180ms ease;
-  }
-  #embedPanel.is-open{
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* ✅ SLIDE BEHAVIOR (YOUTUBE) — same idea as DASS, but DOES NOT change alignment */
-  #ytEmbedPanel{
-    display: block;           /* keep in DOM so transform can animate */
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 260ms ease, opacity 180ms ease;
-  }
-  #ytEmbedPanel.is-open{
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Desktop: slides into the exact same centered position it already uses */
-  @media (min-width: 769px){
-    #ytEmbedPanel{ transform: translate(-50%, calc(-50% + 22px)); }
-    #ytEmbedPanel.is-open{ transform: translate(-50%, -50%); }
-  }
-
-  /* Mobile: does NOT change your anchoring (still bottom/left/right/bottom),
-     only adds a slight slide-up offset */
-  @media (max-width: 768px){
-    #ytEmbedPanel{
-      transform: translate3d(0, 18px, 0);   /* closed: nudged down */
-    }
-    #ytEmbedPanel.is-open{
-      transform: translate3d(0, 0, 0);      /* open: normal */
-    }
-  }
-
-  /* ✅ FIXED: Desktop DASS slide transforms now include X offset knob */
-  @media (min-width: 769px){
-    #embedPanel{
-      transform: translate(calc(-50% + var(--dass-desktop-x)), calc(-50% + 22px));
-    }
-    #embedPanel.is-open{
-      transform: translate(calc(-50% + var(--dass-desktop-x)), -50%);
-    }
-  }
-
-  /* Mobile target: bottom-left corner slide-in */
-  @media (max-width: 768px){
-    /* keep YouTube behavior unchanged */
-    .embed-panel{
-      top:auto;
-      left:14px;
-      right:14px;
-      bottom:14px;
-      width:auto !important;
-      transform:none;
-    }
-
-    /* DASS ONLY */
-    #embedPanel{
-      left:14px;
-      right:auto;
-      top:auto;
-      bottom:14px;
-      width: min(320px, 86vw) !important;
-
-      /* closed: slightly offscreen down + left */
-      transform: translate(-8px, 18px);
-    }
-    #embedPanel.is-open{
-      transform: translate(0, 0);
-    }
-
-    #embedPanel .embed-4x3{ height: 320px; }
-  }
-
-  /* ✅ YouTube: squared only */
-  #ytEmbedPanel .embed-4x3{ border-radius: 0 !important; }
-  #ytEmbedPanel .embed-4x3 iframe{ border-radius: 0 !important; }
-
+  /* SHOWCASE */
   .showcase{
     position: relative;
     z-index:1;
@@ -390,7 +224,6 @@
     margin: 0 auto;
     padding: var(--showcase-top-pad) var(--showcase-pad-x) var(--showcase-bottom-pad);
   }
-
   .stack{
     display:flex;
     flex-direction:column;
@@ -398,63 +231,104 @@
     align-items:center;
   }
 
+  /* =====================================================
+     ✅ RE-TRIGGERABLE SLIDING FADE REVEAL (EVERY TIME IN VIEW)
+     ✅ HIDE FRAME UNTIL IMAGE IS LOADED
+     (NO HUGE GAPS)
+     ===================================================== */
   .card{
     width:120%;
     border-radius: var(--card-radius);
     overflow:hidden;
-    border:2px solid var(--line);
-    background:var(--soft);
+
+    /* hidden frame until loaded */
+    border:1px solid transparent;
+    background:transparent;
+
     display:block;
-    will-change: transform, opacity;
+
+    /* animation starts from "hidden" state */
+    --fromX: 0px;
     opacity: 0;
-    transform: translateY(18px);
-    transition: opacity .45s ease, transform .55s ease;
+    transform: translateY(16px) translateX(var(--fromX));
+    will-change: transform, opacity;
   }
 
   .card:not(:first-child){ margin-top: calc(-1 * var(--cascade-overlap)); }
-  .card:nth-child(odd){ transform: translateY(18px) translateX(calc(-1 * var(--wobble))); }
-  .card:nth-child(even){ transform: translateY(18px) translateX(var(--wobble)); }
+  .card:nth-child(odd){  --fromX: calc(-1 * var(--wobble)); }
+  .card:nth-child(even){ --fromX: var(--wobble); }
 
-  .card.is-visible{
-    opacity:1;
-    transform: translateY(0) translateX(0);
+  /* once image is loaded, frame appears */
+  .card.img-ready{
+    border-color: var(--line);
+    background: var(--soft);
   }
 
-  .card a{ display:block; }
+  /* every time we add .is-visible, play the reveal */
+  .card.is-visible{
+    animation: cardReveal .42s ease both;
+  }
+
+  @keyframes cardReveal{
+    from{
+      opacity: 0;
+      transform: translateY(16px) translateX(var(--fromX));
+    }
+    to{
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+    }
+  }
+
+  /* “disabled link” wrapper that only opens lightbox */
+  .card a.img-open{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    outline:none;
+  }
 
   .card img{
     width:100%;
     height:auto;
     display:block;
-    background:var(--soft);
+    background:transparent; /* no frame/box before load */
     -webkit-user-drag: none;
     user-select: none;
-    cursor: pointer;
-    transition: opacity 0.25s ease;
+    cursor: zoom-in;
+    transition: opacity 180ms ease;
   }
-  .card a:hover img{ opacity: 0.75; }
+  .card a.img-open:hover img{ opacity: 0.78; }
 
+  /* fast image fade when it loads */
+  .card img[data-reveal]{
+    opacity: 0;
+    transition: opacity 200ms ease;
+    will-change: opacity;
+  }
+  .card img[data-reveal].is-loaded{
+    opacity: 1;
+  }
+
+  /* MOBILE */
   @media (max-width: 768px){
     .left-col{
       left:50%;
-      top:35px;
+      top:18px;
       transform:translateX(-50%);
       flex-direction:row;
       align-items:baseline;
-      gap:16px;
+      gap:14px;
     }
-
     .center-col{
       padding: 64px 16px 16px;
-      gap: 28px;
+      gap: 44px;
     }
-
     .center-col a{
       max-width: 92vw;
       text-align:center;
       white-space: normal;
     }
-
     .right-rail{
       right:14px;
       top:auto;
@@ -477,23 +351,38 @@
       letter-spacing:-0.16em;
     }
 
+    .embed-panel{
+      top:auto;
+      left:14px;
+      right:14px;
+      bottom:14px;
+      width:auto;
+      transform:none;
+    }
+    .embed-panel iframe{
+      width:100%;
+      height:320px;
+      display:block;
+    }
+
     :root{ --cascade-overlap: 34px; --wobble: 10px; }
     .showcase{ padding-top: 110px; }
+    .card{ width:100%; }
   }
 
   @media (max-width: 480px){
-    .center-col .img-link{
-      position: relative;
-      top: -80px;
-    }
+    .center-col .img-link{ position: relative; top: -80px; }
   }
 
   @media (prefers-reduced-motion: reduce){
-    #embedPanel{ transition:none !important; }
-    .card, .card.is-visible{
+    .card{
+      opacity: 1;
+      transform: none;
+      animation: none !important;
+    }
+    .card img[data-reveal]{
       transition:none;
       opacity:1;
-      transform:none;
     }
   }
 
@@ -604,7 +493,7 @@
   }
 
   /* ============================
-     CUSTOM CURSORS
+     CUSTOM CURSORS (Tumi's Metallic Link 3D)
      ============================ */
   :root{
     --cur-normal-img:   url("https://www.rw-designer.com/cursor-view/230912.png");
@@ -616,10 +505,12 @@
     --cur-help-img:     url("https://www.rw-designer.com/cursor-view/230907.png");
     --cur-working-img:  url("https://www.rw-designer.com/cursor-view/230917.png");
     --cur-busy-img:     url("https://www.rw-designer.com/cursor-view/230903.png");
+
     --cur-resize-ns-img:url("https://www.rw-designer.com/cursor-view/230916.png");
     --cur-resize-ew-img:url("https://www.rw-designer.com/cursor-view/230908.png");
     --cur-resize-nwse-img:url("https://www.rw-designer.com/cursor-view/230905.png");
     --cur-resize-nesw-img:url("https://www.rw-designer.com/cursor-view/230906.png");
+
     --cur-alt-img:      url("https://www.rw-designer.com/cursor-view/230901.png");
   }
 
@@ -638,16 +529,6 @@
     cursor: var(--cur-no-img) 0 0, not-allowed !important;
   }
 
-  .cursor-move{ cursor: var(--cur-move-img) 0 0, move !important; }
-  .cursor-precision{ cursor: var(--cur-precision-img) 0 0, crosshair !important; }
-  .cursor-help{ cursor: var(--cur-help-img) 0 0, help !important; }
-  .cursor-working{ cursor: var(--cur-working-img) 0 0, progress !important; }
-  .cursor-busy{ cursor: var(--cur-busy-img) 0 0, wait !important; }
-  .cursor-resize-ns{ cursor: var(--cur-resize-ns-img) 0 0, ns-resize !important; }
-  .cursor-resize-ew{ cursor: var(--cur-resize-ew-img) 0 0, ew-resize !important; }
-  .cursor-resize-nwse{ cursor: var(--cur-resize-nwse-img) 0 0, nwse-resize !important; }
-  .cursor-resize-nesw{ cursor: var(--cur-resize-nesw-img) 0 0, nesw-resize !important; }
-
   .lightbox{ cursor: var(--cur-alt-img) 0 0, auto; }
   .lightbox img{ cursor: var(--cur-alt-img) 0 0, auto; }
 </style>
@@ -658,80 +539,93 @@
   <!-- LEFT COLUMN -->
   <div class="left-col">
     <a href="#"></a>
-    <!-- ✅ fixed HTML + points at the playlist (JS still toggles the panel) -->
-    <a href="https://youtube.com/playlist?list=PL5Q1Wfh75sZEiSJ303ukg9Jsk7Kvp6CHf" class="ytLink" id="ytLink">+ </a>
+    <a href="DASS" class="dassLink" id="dassLink">+</a>
     <a href="#"></a>
   </div>
 
   <!-- RIGHT RAIL LINKS -->
   <nav class="right-rail" aria-label="Primary sections">
-    <a href="/">HJEM</a>
+    <a href="/" class="" id="">HJEM</a>
     <span class="plus"></span>
     <span class="plus"></span>
     <span class="plus"></span>
     <span class="plus"></span>
     <span class="plus"></span>
-    <a href="/img">IMG</a>
-    <span class="plus">+</span>
     <a href="/dsn">DSN</a>
+    <span class="plus">+</span>
+    <a href="/aud">AUD</a>
   </nav>
 
   <!-- CENTER COLUMN -->
   <div class="center-col">
-    <a style="font-size:90px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb" class="img-link" target="_blank" rel="noreferrer">KOSS</a>
-    <a href="https://www.youtube.com/@vulamguntilion" class="img-link" target="_blank" rel="noreferrer">SVARTARMOR</a>
-    <a style="font-size:60px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link" target="_blank" rel="noreferrer">X2 SE-FI</a>
-
-    <!-- ✅ DASS stays on-page and toggles embed panel -->
-    <a href="/" class="aud-link" id="dassLink">DASS</a>
+    <a style="font-size:20px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link"></a>
+    <a href="https://www.instagram.com/______haderachhage/" class="dsn-link"></a>
+    <a href="/img" class="aud-link" id="dassLink">UPDA - TE</a>
+    <a href="/" class="aud-link" id="dassLink">  </a>
   </div>
 
   <!-- IMAGE SHOWCASE -->
   <main class="showcase" aria-label="Image showcase">
-  <section class="stack">
+    <section class="stack">
+      <figure class="card"><img src="https://i.ibb.co/3YTgn8Nk/DSC-0001.jpg" alt=""></figure>
+      <figure class="card"><img src="https://ia903206.us.archive.org/5/items/yourimage_202602/GABETWOS%20%281%29%20–%20Kopi.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/qLBtDVTP/3image.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/r2Nzt57Z/gabethere-Kopi.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/PZQSQ1Yf/DSC-6423.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/G3tvVHqs/DSC-1442.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/wZdCs46P/DSC-1441.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/7xvmrFN9/DSC-9537.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/tPsK45R0/1-DSC-7442-Kopi-2.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/gZTfqJdV/DSC-1368.jpg" alt="LEAF"></figure>
+      <figure class="card"><img src="https://i.ibb.co/qFjTR4jx/2-DSC-7442-Kopi-1.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/C3GtX2bS/t-Jg7otq.png" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/q3KqxqqN/DRuvr-B4.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/1fxj0Hwf/DSC-7325.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/w2ZrHsH/Pedxyal.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/S4Dzfv36/DSC-9774.jpg" alt="SINGLE STICK"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RTJtcL6N/DSC-9775.jpg" alt="BEACH"></figure>
+      <figure class="card"><img src="https://i.ibb.co/XZnRpPYd/DSC-9773.jpg" alt="BRYCE"></figure>
 
-    <figure class="card">
-      <a href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb" onclick="return false;" target="_blank" rel="noreferrer">
-        <img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt="">
-      </a>
-    </figure>
+      <figure class="card"><img src="https://i.ibb.co/0RgT4DCv/DSC-9687.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/4RZMgkm1/DSC-9661.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/3ybDTqZM/DSC-9529.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/j9jydKxY/DSC-6925.png" alt="AAMIRAH RED"></figure>
+      <figure class="card"><img src="https://i.ibb.co/Qv5ss0wL/DSC-6897-1.jpg" alt="AAMIRAH LAYING DOWN1"></figure>
+      <figure class="card"><img src="https://i.ibb.co/4R9JYmSF/DSC-6895.jpg" alt="AAMIRAH LAYING DOWN2"></figure>
+      <figure class="card"><img src="https://i.ibb.co/m51HNFFY/DSC-6901.jpg" alt="AAMIRAH LAYING DOWN3"></figure>
+      <figure class="card"><img src="https://i.ibb.co/JjMqM0XC/DSC-6877.jpg" alt="AAMIRAH LAYING DOWN4"></figure>
+      <figure class="card"><img src="https://i.ibb.co/2Ym5JvHh/DSC-6735.jpg" alt="AAMIRAH LAYING DOWN5"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RpjHKcHM/DSC-6728.jpg" alt="AAMIRAH LAYING DOWN6"></figure>
+      <figure class="card"><img src="https://i.ibb.co/Xfq7rdW7/tumblr-227db31e44870ac1f13f3668dca9e5b5-7738ffbe-1280.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/DfS6gbwB/DSC-9946.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RTrHS8NY/DSC-0005.jpg" alt="IMG 05"></figure>
+      <figure class="card"><img src="https://i.ibb.co/8g0JKyWw/DSC-9995.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/PfHfCp0/DSC-5929-1.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/RLtCtf5/DSC-6299.jpg" alt="FIRE"></figure>
+      <figure class="card"><img src="https://i.ibb.co/N6m51YK0/DSC-8551.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/S7PHBVCt/DSC-7213.jpg" alt="Gabe's Eyes"></figure>
+      <figure class="card"><img src="https://i.ibb.co/hJNF5H81/DSC-7322.jpg" alt="Gabe1"></figure>
+      <figure class="card"><img src="https://i.ibb.co/BK6H8vnk/DSC-7342.jpg" alt="Gabe1"></figure>
+      <figure class="card"><img src="https://i.ibb.co/cKYdbnXK/DSC-7355.jpg" alt="Gabe2"></figure>
+      <figure class="card"><img src="https://i.ibb.co/fVj3n2QX/DSC-7406.jpg" alt="Gabe3"></figure>
+      <figure class="card"><img src="https://i.ibb.co/qM3fKTh3/DSC-9716.jpg" alt=""></figure>
+      <figure class="card"><img src="https://i.ibb.co/wqYY17n/DSC-9919.jpg" alt=""></figure>
+    </section>
+  </main>
 
-    <figure class="card">
-      <a href="https://open.spotify.com/album/64Cq5qRQ35f6ApLpNTGCf8" onclick="return false;" target="_blank" rel="noreferrer">
-        <img src="https://i.ibb.co/LDWjBKkj/5image.png" alt="">
-      </a>
-    </figure>
-
-  </section>
-</main>
-
-  <!-- ✅ CLICK-OUT OVERLAY (for embed panel close) -->
-  <div class="embed-overlay" id="embedOverlay"></div>
-
-  <!-- ✅ EMBED PANEL (DASS) — independently sizeable + rounded -->
+  <!-- EMBED PANEL -->
   <div class="embed-panel" id="embedPanel">
-    <div class="embed-4x3">
-      <iframe
-        src="https://untitled.stream/embed/JsMabpfmdQZF"
-        allowfullscreen
-        allow="picture-in-picture"
-        frameborder="0"
-        loading="lazy">
-      </iframe>
-    </div>
-  </div>
-
-  <!-- ✅ EMBED PANEL (YOUTUBE PLAYLIST) — 4:3 + squared corners -->
-  <div class="embed-panel" id="ytEmbedPanel">
-    <div class="embed-4x3">
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/videoseries?list=PL5Q1Wfh75sZEiSJ303ukg9Jsk7Kvp6CHf&autoplay=1&rel=0"
-        allowfullscreen
-        allow="autoplay; encrypted-media; picture-in-picture"
-        frameborder="0"
-        loading="lazy">
-      </iframe>
-    </div>
+    <iframe
+      style="border-radius: 24px"
+      src="https://untitled.stream/embed/JsMabpfmdQZF"
+      width="100%"
+      height="344"
+      allowfullscreen
+      allow="picture-in-picture"
+      frameborder="0"
+      loading="lazy">
+    </iframe>
   </div>
 
   <div class="lightbox" id="lightbox">
@@ -741,120 +635,154 @@
   </div>
 
 <script>
-  /* ==========================
-     ✅ EMBED PANELS: center + click-out closes (DASS + YouTube)
-     ✅ YouTube keeps playing when closed + resumes on reopen
-     ========================== */
-  const embedPanel = document.getElementById('embedPanel');         // DASS
-  const ytEmbedPanel = document.getElementById('ytEmbedPanel');     // YouTube
-  const embedOverlay = document.getElementById('embedOverlay');
-
-  function anyEmbedOpen(){
-    return embedPanel.classList.contains('is-open') || ytEmbedPanel.classList.contains('is-open');
-  }
-
-  function closeAllEmbeds(){
-    embedPanel.classList.remove('is-open');
-    ytEmbedPanel.classList.remove('is-open');
-    embedOverlay.classList.remove('is-open');
-    // ✅ do NOT reset YouTube src
-  }
-
-  function openEmbed(panelEl){
-    embedPanel.classList.remove('is-open');
-    ytEmbedPanel.classList.remove('is-open');
-
-    panelEl.classList.add('is-open');
-    embedOverlay.classList.add('is-open');
-  }
-
-  function toggleEmbed(panelEl){
-    if (panelEl.classList.contains('is-open')) closeAllEmbeds();
-    else openEmbed(panelEl);
-  }
-
-  // ✅ DASS: ALWAYS prevent navigation and toggle panel
-  const dassLinks = Array.from(document.querySelectorAll('#dassLink, .dassLink'));
-  dassLinks.forEach(el => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleEmbed(embedPanel);
-    });
+  // embed toggle
+  const dassLink = document.getElementById('dassLink');
+  const embedPanel = document.getElementById('embedPanel');
+  dassLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    embedPanel.classList.toggle('is-open');
   });
 
-  // ✅ YouTube + link (left rail) toggles YouTube panel
-  const ytLinks = Array.from(document.querySelectorAll('#ytLink, .ytLink'));
-  ytLinks.forEach(el => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleEmbed(ytEmbedPanel);
-    });
-  });
-
-  // click outside closes (both panels) — YouTube keeps playing
-  embedOverlay.addEventListener('click', closeAllEmbeds);
-
-  // clicking inside the panels should NOT close it
-  embedPanel.addEventListener('click', (e) => e.stopPropagation());
-  ytEmbedPanel.addEventListener('click', (e) => e.stopPropagation());
-
-  // ESC closes (both)
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && anyEmbedOpen()) closeAllEmbeds();
-  });
-
-  /* ==========================
-     showcase animation
-     ========================== */
-  const cards = document.querySelectorAll('.card');
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) e.target.classList.add('is-visible');
-    }
-  }, { threshold: 0.12 });
-
-  cards.forEach(c => io.observe(c));
-
-  /* ==========================
-     lightbox logic (unchanged)
-     ========================== */
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = lightbox.querySelector('img');
-
+  const cards = Array.from(document.querySelectorAll('.card'));
   const images = Array.from(document.querySelectorAll('.card img'));
-  const links  = Array.from(document.querySelectorAll('.card a'));
-
   const lbPrev = document.getElementById('lbPrev');
   const lbNext = document.getElementById('lbNext');
 
   let currentIndex = 0;
 
-  images.forEach(img => {
-    img.setAttribute('draggable', 'false');
-    img.addEventListener('contextmenu', (e) => e.preventDefault());
-    img.addEventListener('dragstart', (e) => e.preventDefault());
-  });
+  // Track which cards are currently in view (so load can trigger reveal immediately)
+  const inView = new WeakSet();
 
+  // Helper: retrigger reveal animation every time
+  function retriggerReveal(card){
+    // remove and re-add to replay keyframes
+    card.classList.remove('is-visible');
+    // force reflow so the browser resets the animation state
+    void card.offsetWidth;
+    card.classList.add('is-visible');
+  }
+
+  // =====================================================
+  // ✅ TOP IMAGES PRIORITY + WRAP IN DISABLED LINK
+  // ✅ FRAME HIDDEN UNTIL IMAGE LOADED
+  // =====================================================
+  (function setupImages(){
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const TOP_EAGER_COUNT = 6;
+
+    images.forEach((img, index) => {
+      img.setAttribute('data-reveal', '');
+      img.decoding = 'async';
+
+      if (index < TOP_EAGER_COUNT) {
+        img.loading = 'eager';
+        try { img.fetchPriority = 'high'; } catch(e) {}
+        img.setAttribute('fetchpriority', 'high');
+      } else {
+        img.loading = 'lazy';
+        try { img.fetchPriority = 'low'; } catch(e) {}
+        img.setAttribute('fetchpriority', 'low');
+      }
+
+      // Wrap with disabled link (ONLY opens lightbox)
+      const card = cards[index];
+      if (card && img.parentElement === card) {
+        const a = document.createElement('a');
+        a.href = '#';
+        a.className = 'img-open';
+        a.setAttribute('aria-label', 'Open image');
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openLightboxAt(index);
+        });
+        card.insertBefore(a, img);
+        a.appendChild(img);
+      }
+
+      // Block save/drag
+      img.setAttribute('draggable', 'false');
+      img.addEventListener('contextmenu', (e) => e.preventDefault());
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+
+      // When image loads: fade image + show frame
+      const onReady = () => {
+        img.classList.add('is-loaded');
+        card.classList.add('img-ready');
+        card.dataset.loaded = "1";
+
+        // If the card is currently in view, reveal now (and retrigger each entry later)
+        if (reduceMotion) {
+          card.classList.add('is-visible');
+        } else if (inView.has(card)) {
+          retriggerReveal(card);
+        }
+      };
+
+      if (reduceMotion) onReady();
+      else if (img.complete && img.naturalWidth > 0) onReady();
+      else {
+        img.addEventListener('load', onReady, { once:true });
+        img.addEventListener('error', onReady, { once:true });
+      }
+    });
+  })();
+
+  // =====================================================
+  // ✅ RE-TRIGGER REVEAL EVERY TIME YOU SCROLL IN/OUT
+  // - on enter: if loaded, replay reveal
+  // - on exit: remove .is-visible so it can replay next time
+  // =====================================================
+  const io = new IntersectionObserver((entries) => {
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    for (const e of entries) {
+      const card = e.target;
+
+      if (e.isIntersecting) {
+        inView.add(card);
+
+        if (reduceMotion) {
+          card.classList.add('is-visible');
+          continue;
+        }
+
+        // Only animate if image is loaded (frame hidden until then)
+        if (card.dataset.loaded === "1") {
+          retriggerReveal(card);
+        }
+      } else {
+        inView.delete(card);
+
+        // Remove visibility so it can animate again next time
+        card.classList.remove('is-visible');
+      }
+    }
+  }, { threshold: 0.12 });
+
+  cards.forEach(c => io.observe(c));
+
+  // =====================================================
+  // LIGHTBOX
+  // =====================================================
   function isDesktopNow(){
     return window.matchMedia('(min-width: 769px)').matches;
   }
-
   function isStoryRatio(r){
     const isNineSixteen = (r >= 1.70 && r <= 1.90);
-    const isTwoThirds = (r >= 1.45 && r <= 1.60);
+    const isTwoThirds   = (r >= 1.45 && r <= 1.60);
     return isNineSixteen || isTwoThirds;
   }
-
   function isStoryFromImg(imgEl){
     const w = imgEl && imgEl.naturalWidth;
     const h = imgEl && imgEl.naturalHeight;
     if(!w || !h) return false;
     return isStoryRatio(h / w);
   }
-
   function isZoomFromImg(imgEl){
     if(!imgEl) return false;
-
     const w = imgEl.naturalWidth || imgEl.width;
     const h = imgEl.naturalHeight || imgEl.height;
 
@@ -862,11 +790,9 @@
       if (w === 5917 && h === 6100) return true;
       if (Math.abs(w - 5917) <= 4 && Math.abs(h - 6100) <= 4) return true;
     }
-
     const src = (imgEl.src || '').toLowerCase();
     return src.includes('5917x6100');
   }
-
   function updateZoomModeForIndex(i){
     const shouldZoom = isZoomFromImg(images[i]);
     if (lightbox.classList.contains('is-story')) {
@@ -876,20 +802,15 @@
     lightbox.classList.toggle('is-zoom', shouldZoom);
     if (shouldZoom) lightbox.scrollTop = 0;
   }
-
   function applyDesktopLightboxUI(open){
     document.body.classList.toggle('lb-open', open && isDesktopNow());
   }
-
   function updateStoryModeForIndex(i){
     if (!isDesktopNow()) {
       lightbox.classList.remove('is-story');
       return;
     }
-
-    const srcImg = images[i];
-    const shouldStory = isStoryFromImg(srcImg);
-
+    const shouldStory = isStoryFromImg(images[i]);
     lightbox.classList.toggle('is-story', shouldStory);
     if (shouldStory) lightbox.scrollTop = 0;
   }
@@ -929,13 +850,6 @@
     openLightboxAt(index);
   }
 
-  links.forEach((a, index) => {
-    a.addEventListener('dblclick', (e) => {
-      e.preventDefault();
-      openLightboxAt(index);
-    });
-  });
-
   lbPrev.addEventListener('click', (e) => {
     e.stopPropagation();
     showImage(currentIndex - 1);
@@ -948,6 +862,7 @@
   lightboxImg.addEventListener('contextmenu', (e) => e.preventDefault());
   lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
 
+  // Mobile swipe gestures
   let touchStartX = 0;
   let touchStartY = 0;
   let touching = false;
