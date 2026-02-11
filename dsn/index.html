@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
-<meta property="og:title" content="SHAYNE HAGE + DESIGN" />
-<meta property="og:description" content="DSN + ENVIRONMENT BY SHAYNE HAGE" />
-<meta property="og:image" content="https://i.postimg.cc/CL0g9601/Untitled-design-(30).png" />
-<meta property="og:url" content="https://haderachhage.github.io/DSN" />
-<meta property="og:type" content="website" />
-<title>DSNHage</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
+
+  <!-- HTML Meta Tags -->
+  <title>DSNHage</title>
+  <meta name="description" content="DSN + ENVIRONMENT BY SHAYNE HAGE." />
+
+  <!-- Facebook / Open Graph Meta Tags -->
+  <meta property="og:url" content="https://haderachhage.github.io/DSN" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SHAYNE HAGE + DESIGN" />
+  <meta property="og:description" content="DSN + ENVIRONMENT BY SHAYNE HAGE." />
+  <meta property="og:image" content="https://i.postimg.cc/CL0g9601/Untitled-design-(30).png" />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content="haderachhage.github.io" />
+  <meta property="twitter:url" content="https://haderachhage.github.io/DSN" />
+  <meta name="twitter:title" content="SHAYNE HAGE + DESIGN" />
+  <meta name="twitter:description" content="DSN + ENVIRONMENT BY SHAYNE HAGE." />
+  <meta name="twitter:image" content="https://i.postimg.cc/CL0g9601/Untitled-design-(30).png" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" href="/favicon.ico">
+</head>
+
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
 
@@ -232,15 +252,14 @@
     }
 
     #dsn-02 .dsn-section-header{
-  top: 4rem;           /* keep same sticky point */
-  transform: translateY(3rem);  /* pushes the header down visually */
-}
+      top: 4rem;           /* keep same sticky point */
+      transform: translateY(3rem);  /* pushes the header down visually */
+    }
 
-#dsn-03 .dsn-section-header{
-  top: 4rem;           /* keep same sticky point */
-  transform: translateY(3rem);  /* pushes the header down visually */
-}
-
+    #dsn-03 .dsn-section-header{
+      top: 4rem;           /* keep same sticky point */
+      transform: translateY(3rem);  /* pushes the header down visually */
+    }
 
     .dsn-section{
       position:relative;
@@ -253,10 +272,10 @@
     }
 
     /* ---- SECTION 1: Main left, supporting cards stacked right ---- */
-  #dsn-01 .dsn-section-content{
-  grid-template-columns: 5fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr; /* ✅ now you have a 4th column */
-  grid-auto-rows: max-content;
-}
+    #dsn-01 .dsn-section-content{
+      grid-template-columns: 5fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+      grid-auto-rows: max-content;
+    }
 
     #dsn-01 .dsn-card:nth-child(1){
       grid-column:1;
@@ -265,8 +284,7 @@
       width:900px;
     }
 
-    /* FIX: keep within 3 columns + let aspect-ratio control height */
-   #dsn-01 .dsn-card:nth-child(2){
+    #dsn-01 .dsn-card:nth-child(2){
       grid-column:2;
       grid-row:1;
       aspect-ratio: 16 / 9;
@@ -274,7 +292,6 @@
       min-width:
     }
 
-    /* FIX: remove min constraints so ratio changes actually apply */
     #dsn-01 .dsn-card:nth-child(3){
       grid-column:1 / span 4;
       grid-row:9;
@@ -283,7 +300,6 @@
       height: 999px;
     }
 
-    /* FIX: column 4 doesn't exist in a 3-col grid */
     #dsn-01 .dsn-card:nth-child(4){
       grid-column: 4;
       grid-row:9;
@@ -415,6 +431,7 @@
       transition:opacity 180ms ease;
     }
 
+    /* ✅ KEEP your hover rule (unchanged) */
     .dsn-card:hover img{
       opacity:0.78;
     }
@@ -426,6 +443,64 @@
       display:block;
       user-select:none;
       transition:opacity 180ms ease;
+    }
+
+    /* ===============================
+       ✅ IMAGE LOADING (ADDED ONLY)
+       - do not show until loaded
+       - smooth fade-in
+       - topmost priority handled in HTML attrs
+       =============================== */
+    .dsn-card{ position:relative; }
+
+    .dsn-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        90deg,
+        rgba(0,0,0,0.00) 0%,
+        rgba(0,0,0,0.06) 25%,
+        rgba(0,0,0,0.12) 50%,
+        rgba(0,0,0,0.06) 75%,
+        rgba(0,0,0,0.00) 100%
+      );
+      background-size:200% 100%;
+      animation:dsnShimmer 1.1s linear infinite;
+      opacity:0.9;
+      pointer-events:none;
+    }
+
+    @keyframes dsnShimmer{
+      0%{ background-position:200% 0; }
+      100%{ background-position:-200% 0; }
+    }
+
+    .dsn-card.is-loaded::before{
+      opacity:0;
+      animation:none;
+      transition:opacity 260ms ease;
+    }
+
+    /* hide image until loaded */
+    .dsn-card img{
+      opacity:0;
+      transition:opacity 420ms ease, filter 520ms ease, transform 520ms ease;
+      filter:blur(10px);
+      transform:scale(1.015);
+      will-change:opacity, filter, transform;
+    }
+
+    /* show when loaded */
+    .dsn-card img.is-loaded{
+      opacity:1;
+      filter:blur(0);
+      transform:scale(1);
+    }
+
+    /* ✅ keep hover behavior after loaded (doesn't change your original rule; just ensures it still wins) */
+    .dsn-card:hover img.is-loaded{
+      opacity:0.78;
     }
 
     /* ============ LIGHTBOX ============ */
@@ -441,11 +516,17 @@
     }
     .lightbox.is-open{ display:flex; }
 
+    /* ✅ KEEP your lightbox sizing/contain rule (unchanged) */
     .lightbox img{
       max-width:92vw;
       max-height:92vh;
       object-fit:contain;
     }
+
+    /* ✅ lightbox loading fade (ADDED ONLY, does not change sizing) */
+    .lightbox img{ transition:opacity 260ms ease; }
+    .lightbox.is-loading img{ opacity:0; }
+    .lightbox:not(.is-loading) img{ opacity:1; }
 
     .lightbox-arrow{
       position:fixed;
@@ -878,31 +959,38 @@
 
   <div class="dsn-section-content">
     <div class="dsn-card">
-      <img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt="">
+      <!-- ✅ topmost priority -->
+      <img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt=""
+           loading="eager" fetchpriority="high" decoding="async">
     </div>
 
     <div class="dsn-card">
-      <img src="https://i.ibb.co/KdKdZFw/32bmp-Untitled-design-15.png" alt="">
+      <!-- ✅ topmost priority -->
+      <img src="https://i.ibb.co/KdKdZFw/32bmp-Untitled-design-15.png" alt=""
+           loading="eager" fetchpriority="high" decoding="async">
     </div>
 
     <div class="dsn-card">
-      <img src="https://i.ibb.co/qFjTR4jx/2-DSC-7442-Kopi-1.png" alt="">
+      <!-- ✅ topmost priority -->
+      <img src="https://i.ibb.co/qFjTR4jx/2-DSC-7442-Kopi-1.png" alt=""
+           loading="eager" fetchpriority="high" decoding="async">
     </div>
 
     <div class="dsn-card">
-      <img src="https://i.ibb.co/r2Nzt57Z/gabethere-Kopi.png" alt="">
-    </div>¨
-
-    <div class="dsn-card">
-      <img src="https://i.ibb.co/tPsK45R0/1-DSC-7442-Kopi-2.jpg" alt="">
+      <img src="https://i.ibb.co/r2Nzt57Z/gabethere-Kopi.png" alt=""
+           loading="lazy" fetchpriority="low" decoding="async">
     </div>
 
     <div class="dsn-card">
-      <img src="https://i.ibb.co/LDWjBKkj/5image.png" alt="">
+      <img src="https://i.ibb.co/tPsK45R0/1-DSC-7442-Kopi-2.jpg" alt=""
+           loading="lazy" fetchpriority="low" decoding="async">
+    </div>
+
+    <div class="dsn-card">
+      <img src="https://i.ibb.co/LDWjBKkj/5image.png" alt=""
+           loading="lazy" fetchpriority="low" decoding="async">
     </div>
   </div>
-
-  
 
   <div class="dsn-about">
     <div class="dsn-about-item">AUDIO / VISUAL</div>
@@ -915,13 +1003,12 @@
 <div class="dsn-nav-pop" id="dsnNavPop" aria-hidden="true">
   <div class="dsn-nav-pop-panel" role="dialog" aria-modal="true">
     <div class="dsn-nav-pop-text">CLICK IMAGE</div>
-    <div class="dsn-nav-pop-text">FOR GALLERY VIEW.</div
+    <div class="dsn-nav-pop-text">FOR GALLERY VIEW.</div>
   </div>
 </div>
 
-
   <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
+  <div class="lightbox is-loading" id="lightbox">
     <div class="lightbox-arrow left" id="lbPrev"><+</div>
     <img src="" alt="" draggable="false">
     <div class="lightbox-arrow right" id="lbNext">+</div>
@@ -937,9 +1024,66 @@
 
     let currentIndex = 0;
 
+    /* ===============================
+       ✅ IMAGE LOADING (ADDED ONLY)
+       - do not show until loaded
+       - smooth fade-in once decoded/loaded
+       =============================== */
+    function markLoaded(imgEl){
+      if (!imgEl) return;
+      imgEl.classList.add('is-loaded');
+      const parentCard = imgEl.closest('.dsn-card');
+      if (parentCard) parentCard.classList.add('is-loaded');
+    }
+
+    function wireImage(imgEl){
+      if (!imgEl) return;
+
+      if (!imgEl.hasAttribute('decoding')) imgEl.setAttribute('decoding', 'async');
+
+      if (imgEl.complete && imgEl.naturalWidth > 0){
+        if (imgEl.decode) imgEl.decode().then(() => markLoaded(imgEl)).catch(() => markLoaded(imgEl));
+        else markLoaded(imgEl);
+        return;
+      }
+
+      imgEl.addEventListener('load', () => {
+        if (imgEl.decode) imgEl.decode().then(() => markLoaded(imgEl)).catch(() => markLoaded(imgEl));
+        else markLoaded(imgEl);
+      }, { once:true });
+
+      imgEl.addEventListener('error', () => {
+        const parentCard = imgEl.closest('.dsn-card');
+        if (parentCard) parentCard.classList.add('is-loaded');
+      }, { once:true });
+    }
+
+    images.forEach(wireImage);
+
+    /* ✅ Lightbox: keep click-to-open + your sizing rule; just hide until decoded */
+    function setLightboxSrc(src){
+      lightbox.classList.add('is-loading');
+      lightboxImg.src = src;
+
+      const done = () => lightbox.classList.remove('is-loading');
+
+      if (lightboxImg.complete && lightboxImg.naturalWidth > 0){
+        if (lightboxImg.decode) lightboxImg.decode().then(done).catch(done);
+        else done();
+        return;
+      }
+
+      lightboxImg.addEventListener('load', () => {
+        if (lightboxImg.decode) lightboxImg.decode().then(done).catch(done);
+        else done();
+      }, { once:true });
+
+      lightboxImg.addEventListener('error', done, { once:true });
+    }
+
     function openLightboxAt(i){
       currentIndex = i;
-      lightboxImg.src = images[currentIndex].src;
+      setLightboxSrc(images[currentIndex].src);
       lightbox.classList.add('is-open');
       document.body.style.overflow = 'hidden';
     }
@@ -965,6 +1109,7 @@
 
     lightbox.addEventListener('click', () => {
       lightbox.classList.remove('is-open');
+      lightbox.classList.add('is-loading');
       lightboxImg.src = '';
       document.body.style.overflow = '';
     });
@@ -974,6 +1119,7 @@
       if(!lightbox.classList.contains('is-open')) return;
       if (e.key === 'Escape') {
         lightbox.classList.remove('is-open');
+        lightbox.classList.add('is-loading');
         lightboxImg.src = '';
         document.body.style.overflow = '';
       }
@@ -1018,7 +1164,6 @@
       
       sections.forEach(section => {
         const rect = section.getBoundingClientRect();
-        // Check if section is in viewport (with some margin for top)
         if (rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.2) {
           const aboutStatement = section.querySelector('.dsn-about-statement');
           if (aboutStatement) {
@@ -1036,7 +1181,7 @@
     }
 
     window.addEventListener('scroll', updateActiveSection, { passive: true });
-    updateActiveSection(); // Initial call
+    updateActiveSection();
 
     // NAV POPUP
     const dsnNavTrigger = document.getElementById('dsnNavTrigger');
