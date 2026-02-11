@@ -5,257 +5,1070 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
 <meta property="og:title" content="SHAYNE HAGE + DESIGN" />
-<meta property="og:description" content="DSN ENGINEERED BY SHAYNE" />
+<meta property="og:description" content="DSN + ENVIRONMENT BY SHAYNE HAGE" />
 <meta property="og:image" content="https://i.postimg.cc/CL0g9601/Untitled-design-(30).png" />
 <meta property="og:url" content="https://haderachhage.github.io/DSN" />
 <meta property="og:type" content="website" />
 <title>DSNHage</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
 
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  /* THEME TOKENS (default = LIGHT) */
-  :root{
-    --bg:#fff;
-    --ink:#000;
-    --link:#111;
-    --hover-ink:#fff;
-    --hover-underline:#000;
-    color-scheme: light;
-  }
-
-  /* AUTO SWITCH BASED ON SYSTEM PREFERENCE */
-  @media (prefers-color-scheme: dark){
     :root{
-      --bg:#000;
-      --ink:#fff;
-      --link:#fff;
-      --hover-ink:#000;
-      --hover-underline:#fff;
-      color-scheme: dark;
+      --ink:#111;
+      --line:#d7d7d7;
+      --soft:#f5f5f5;
+      --accent-alt:#0302E7;
+      color-scheme: light;
     }
-  }
 
-  html, body {
-    height: 100%;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "EB Garamond", serif;
-  }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --ink:#fff;
+        --line:#fff;
+        --soft:#000;
+        color-scheme: dark;
+      }
+    }
 
-  /* FULL-PAGE background for DSN hover ONLY */
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background-image:url(https://i.ibb.co/GfJjPhB4/Untitled-design-30.png);
-    background-size:cover;
-    background-position:static;
-    background-repeat:no-repeat;
-    opacity:0;
-    pointer-events:none;
-    z-index:0;
-    transition:opacity 0s;
-  }
+    html,body{
+      font-family:"EB Garamond", serif;
+      background:var(--soft);
+      color:var(--ink);
+      overflow-x:auto;
+    }
 
-  body:has(.dsn-link:hover)::before{
-    opacity:1;
-  }
+    html, body{
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar{
+      display: none;
+    }
+    body{ -webkit-overflow-scrolling: touch; }
 
-  /* LEFT COLUMN */
-  .left-col{
-    position:absolute;
-    left:104px;
-    top:55%;
-    transform:translateY(-50%);
-    transform: scaleY(3.25);
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    z-index:2;
-    text-transform:uppercase;
-    user-select:none;
-  }
-
-  .left-col a{
-    font-size: clamp(54px, 5.2vw, 130px);
-    font-weight: 500;
-    transform: scaleY(2.25);
-    transform-origin: right center;
-    letter-spacing: -0.10em;
-    line-height: 0.70;
-    white-space: nowrap;
-    color: var(--link);
-    text-decoration: none;
-  }
-
-  .left-col a:hover{
-    text-decoration: underline;
-  }
-
-  /* CENTER COLUMN */
-  .center-col {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    text-transform: uppercase;
-    user-select: none;
-    z-index:1;
-  }
-
-  .center-col a {
-    font-size: clamp(54px, 5.2vw, 130px);
-    font-weight: 500;
-    transform: scaleY(2.25);
-    transform-origin: center;
-    letter-spacing: -0.10em;
-    line-height: 0.7;
-    white-space: nowrap;
-    color: var(--link);
-    padding: 0.15em 0.25em;
-    text-decoration: none;
-  }
-
-  .center-col a:hover {
-    background-size: cover;
-    background-position: static;
-    background-repeat: no-repeat;
-    color: var(--hover-ink);
-    text-decoration: underline;
-    text-decoration-color: var(--hover-underline);
-  }
-
-  .img-link:hover {
-    background-image: url(https://images.genius.com/c1fdaab144a29f09e3d46c430f306091.1000x1000x1.jpg);
-  }
-
-  .aud-link:hover {
-    background-image: url("aud-hover.jpg");
-  }
-
-  /* RIGHT EMBED PANEL */
-  .embed-panel{
-    position:fixed;
-    top:50%;
-    right:24px;
-    transform:translateY(-50%);
-    width:min(520px, 38vw);
-    z-index:3;
-    display:none;
-  }
-
-  .embed-panel.is-open{
-    display:block;
-  }
-
-  /* MOBILE ONLY (existing) */
-  @media (max-width: 768px){
-    .left-col{
+    /* ============ LEFT RAIL ============ */
+    .left-rail{
       position:fixed;
-      left:50%;
-      top:18px;
-      transform:translateX(-50%);
-      flex-direction:row;
-      align-items:baseline;
-      gap:14px;
+      left:2rem;
+      top:4rem;
+      display:flex;
+      flex-direction:column;
+      z-index:10;
+      text-transform:uppercase;
+      user-select:none;
+      height:calc(100vh - 8rem);
     }
 
-    .center-col{
-      padding: 64px 16px 16px;
+    .left-rail-top{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-start;
     }
 
-    .center-col a{
-      max-width: 92vw;
-      text-align:center;
-      white-space: normal;
+    .left-rail-top a{
+      font-size:clamp(54px, 5.2vw, 130px);
+      font-weight:500;
+      transform:scaleY(5.5);
+      transform-origin:left center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--accent-alt);
+      text-decoration:none;
+      transition:opacity 220ms ease;
+      display:inline-block;
     }
 
-    .embed-panel{
-      top:auto;
-      left:14px;
-      right:14px;
-      bottom:14px;
-      width:auto;
-      transform:none;
+    .left-rail-top a:hover{
+      text-decoration:underline;
+      opacity:0.75;
     }
 
-    .embed-panel iframe{
+    /* ============ CLIENTS LIST ============ */
+    .clients-section{
+      position:fixed;
+      left:2rem;
+      bottom:4rem;
+      z-index:10;
+      max-width:200px;
+      display:flex;
+      flex-direction:column;
+      gap: 215px;px;
+    }
+
+    .clients-title{
+      font-size:clamp(28px, 2.8vw, 50px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:left center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--accent-alt);
+      text-transform:uppercase;
+      user-select:none;
+      display:auto;
+      flex-wrap:wrap;
+      gap:0 0.2em;
+      margin-top: 1.5rem;
+    }
+
+    .clients-title-line1,
+    .clients-title-line2{
+      flex-basis:100%;
+    }
+
+    .clients-list{
+      display:flex;
+      flex-direction:column;
+      gap: 30px;px;
+    }
+
+    .client-item{
+      font-size:clamp(16px, 1.6vw, 32px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:left center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--accent-alt);
+      text-transform:uppercase;
+      text-decoration:none;
+      transition:opacity 220ms ease;
+      display:inline-block;
+      white-space:nowrap;
+    }
+
+    .client-item:hover{
+      text-decoration:underline;
+      opacity:0.75;
+    }
+
+    /* ============ RIGHT RAIL ============ */
+    .right-rail{
+      position:fixed;
+      right:2rem;
+      top:4rem;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      z-index:10;
+      text-transform:uppercase;
+      user-select:none;
+      align-items:flex-end;
+    }
+
+    .right-rail a,
+    .right-rail span{
+      font-size:clamp(54px, 5.2vw, 130px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:right center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      white-space:nowrap;
+      text-decoration:none;
+      color:var(--ink);
+      transition:opacity 220ms ease;
+    }
+
+    .right-rail .plus{
+      transform:scaleY(2.35);
+      letter-spacing:-0.16em;
+      opacity:.95;
+      pointer-events:none;
+    }
+
+    .right-rail a:hover{
+      text-decoration:underline;
+      opacity:0.75;
+    }
+
+    /* ============ MAIN LAYOUT ============ */
+    main{
+      padding:4rem 2rem;
+      margin-left:280px;
+      margin-right:80px;
+    }
+
+    /* ============ SECTION ============ */
+    .dsn-section{
+      margin-bottom:40px;
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:40px;
+      align-items:start;
+      scroll-margin-top:100px;
+    }
+
+    .dsn-section-header{
+      position:sticky;
+      top:4rem;
+      height:fit-content;
+      text-transform:uppercase;
+      user-select:none;
+      z-index:5;
+    }
+
+    .dsn-section-header a{
+      display:inline-block;
+      font-size:clamp(54px, 5.2vw, 130px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:left center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--ink);
+      text-decoration:none;
+      transition:opacity 220ms ease;
+      white-space:nowrap;
+      top: 4rem;           /* keep same sticky point */
+    }
+
+    .dsn-section-header a:hover{
+      text-decoration:underline;
+      opacity:0.75;
+    }
+
+    #dsn-02 .dsn-section-header{
+  top: 4rem;           /* keep same sticky point */
+  transform: translateY(3rem);  /* pushes the header down visually */
+}
+
+#dsn-03 .dsn-section-header{
+  top: 4rem;           /* keep same sticky point */
+  transform: translateY(3rem);  /* pushes the header down visually */
+}
+
+
+    .dsn-section{
+      position:relative;
+    }
+
+    /* ============ GRID LAYOUT ============ */
+    .dsn-section-content{
+      display:grid;
+      gap:0;
+    }
+
+    /* ---- SECTION 1: Main left, supporting cards stacked right ---- */
+  #dsn-01 .dsn-section-content{
+  grid-template-columns: 5fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr; /* ✅ now you have a 4th column */
+  grid-auto-rows: max-content;
+}
+
+    #dsn-01 .dsn-card:nth-child(1){
+      grid-column:1;
+      grid-row:1 / span 4;
+      height:993px;
+      width:900px;
+    }
+
+    /* FIX: keep within 3 columns + let aspect-ratio control height */
+   #dsn-01 .dsn-card:nth-child(2){
+      grid-column:2;
+      grid-row:1;
+      aspect-ratio: 16 / 9;
+      min-height:993px;
+      min-width:
+    }
+
+    /* FIX: remove min constraints so ratio changes actually apply */
+    #dsn-01 .dsn-card:nth-child(3){
+      grid-column:1 / span 4;
+      grid-row:9;
+      aspect-ratio: auto;
+      width: 1420px;
+      height: 999px;
+    }
+
+    /* FIX: column 4 doesn't exist in a 3-col grid */
+    #dsn-01 .dsn-card:nth-child(4){
+      grid-column: 4;
+      grid-row:9;
+      aspect-ratio: 2 / 3;
+      min-height:999px;
+      min-width:1200px
+    }
+
+    #dsn-01 .dsn-card:nth-child(5){
+      grid-column: 5;
+      grid-row: 10;
+      aspect-ratio: 1 / 1;
+      min-height:auto;
+      min-width:auto;
+    }
+
+    #dsn-01 .dsn-card:nth-child(6){
+      grid-column: 6;
+      grid-row: 10;
+      aspect-ratio: 16 / 9;
+      min-height:auto;
+      min-width:auto;
+    }
+
+    /* ---- SECTION 2: Main left, supporting right ---- */
+    #dsn-02 .dsn-section-content{
+      grid-template-columns:2fr 1fr 1fr;
+      grid-auto-rows:auto;
+      grid-template-rows: repeat(3, auto);
+    }
+
+    #dsn-02 .dsn-card:nth-child(1){
+      grid-column:1;
+      grid-row:1 / span 3;
+      aspect-ratio: 4 / 3;
+      min-height:600px;
+    }
+
+    #dsn-02 .dsn-card:nth-child(2){
+      grid-column:2;
+      grid-row:1;
+      aspect-ratio: 1 / 1;
+    }
+
+    #dsn-02 .dsn-card:nth-child(3){
+      grid-column:3;
+      grid-row:1;
+      aspect-ratio: 16 / 9;
+    }
+
+    #dsn-02 .dsn-card:nth-child(4){
+      grid-column:2 / span 2;
+      grid-row:2;
+      aspect-ratio: 2 / 3;
+    }
+
+    /* ---- SECTION 3: Main left, supporting right ---- */
+    #dsn-03 .dsn-section-content{
+      grid-template-columns:2fr 1fr 1fr;
+      grid-auto-rows:auto;
+      grid-template-rows: repeat(3, auto);
+    }
+
+    #dsn-03 .dsn-card:nth-child(1){
+      grid-column:1;
+      grid-row:1 / span 3;
+      aspect-ratio: 16 / 9;
+      min-height:600px;
+    }
+
+    #dsn-03 .dsn-card:nth-child(2){
+      grid-column:2;
+      grid-row:1;
+      aspect-ratio: 9 / 16;
+    }
+
+    #dsn-03 .dsn-card:nth-child(3){
+      grid-column:3;
+      grid-row:1;
+      aspect-ratio: 1 / 1;
+    }
+
+    #dsn-03 .dsn-card:nth-child(4){
+      grid-column:2 / span 2;
+      grid-row:2;
+      aspect-ratio: 4 / 3;
+    }
+
+    /* ---- SECTION 4: Main left, supporting right ---- */
+    #dsn-04 .dsn-section-content{
+      grid-template-columns:2fr 1fr 1fr;
+      grid-auto-rows:auto;
+      grid-template-rows: repeat(3, auto);
+    }
+
+    #dsn-04 .dsn-card:nth-child(1){
+      grid-column:1;
+      grid-row:1 / span 3;
+      aspect-ratio: 16 / 9;
+      min-height:600px;
+    }
+
+    #dsn-04 .dsn-card:nth-child(2){
+      grid-column:2;
+      grid-row:1;
+      aspect-ratio: 2 / 3;
+      min-height:700px;
+    }
+
+    #dsn-04 .dsn-card:nth-child(3){
+      grid-column:3;
+      grid-row:1;
+      aspect-ratio: 16 / 9;
+      min-width:100px;
+      min-height:1000px;
+    }
+
+    #dsn-04 .dsn-card:nth-child(4){
+      grid-column:2 / span 2;
+      grid-row:2;
+      aspect-ratio: 9 / 16;
+    }
+
+    .dsn-card{
+      border:1px solid var(--line);
+      overflow:hidden;
+      background:var(--soft);
+      cursor:pointer;
+      transition:opacity 180ms ease;
+    }
+
+    .dsn-card:hover img{
+      opacity:0.78;
+    }
+
+    .dsn-card img{
       width:100%;
-      height:320px;
+      height:100%;
+      object-fit:cover;
       display:block;
+      user-select:none;
+      transition:opacity 180ms ease;
     }
-  }
 
-  /* PHONE ONLY: raise LISTEN TO KOSS */
-  @media (max-width: 480px){
-    .center-col .img-link{
-      position: relative;
-      top: -80px;
+    /* ============ LIGHTBOX ============ */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.92);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      cursor:zoom-out;
     }
-  }
+    .lightbox.is-open{ display:flex; }
 
-</style>
+    .lightbox img{
+      max-width:92vw;
+      max-height:92vh;
+      object-fit:contain;
+    }
+
+    .lightbox-arrow{
+      position:fixed;
+      top:50%;
+      transform:translateY(-50%) scaleY(2.35);
+      font-size:clamp(54px, 5.2vw, 130px);
+      font-weight:500;
+      letter-spacing:-0.16em;
+      line-height:0.70;
+      color:#fff;
+      cursor:pointer;
+      user-select:none;
+      z-index:10000;
+      padding:12px;
+    }
+    .lightbox-arrow.left{ left:24px; }
+    .lightbox-arrow.right{ right:24px; }
+    .lightbox-arrow:hover{ opacity:0.7; }
+
+    /* ============ ABOUT SECTION ============ */
+    .dsn-about-fixed{
+      position:fixed;
+      right:2rem;
+      bottom:4rem;
+      z-index:10;
+      text-align:right;
+    }
+
+    .dsn-about-fixed-title{
+  font-size:clamp(28px, 2.8vw, 56px);
+  font-weight:500;
+  transform:scaleY(2.25);
+  transform-origin:right center;
+  letter-spacing:-0.10em;
+  line-height:0.70;
+  color:var(--accent-alt);
+  text-transform:uppercase;
+  user-select:none;
+  display:inline-block;
+  white-space:nowrap;
+  margin-right:20px;
+}
+
+.dsn-about-fixed-title a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.dsn-about-fixed-title a:hover{
+  text-decoration:underline;
+}
+
+
+    .dsn-about-fixed-title{
+  font-size:clamp(28px, 2.8vw, 56px);
+  font-weight:500;
+  transform:scaleY(2.25);
+  transform-origin:right center;
+  letter-spacing:-0.10em;
+  line-height:0.70;
+  color:var(--accent-alt);
+  text-transform:uppercase;
+  user-select:none;
+  display:inline-block;
+  white-space:nowrap;
+  margin-right:20px;
+}
+
+.dsn-about-fixed-title a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.dsn-about-fixed-title a:hover{
+  text-decoration:underline;
+}
+
+
+    .dsn-about-statement-fixed.active{
+      opacity:1;
+    }
+
+    .dsn-about-statement-text{
+      font-size:clamp(12px, 1.2vw, 20px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:right center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--accent-alt);
+      text-transform:uppercase;
+      user-select:none;
+      word-break:break-word;
+      line-height:1.2;
+    }
+
+    .dsn-about-item{
+      font-size:clamp(16px, 1.6vw, 32px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:right center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--accent-alt);
+      text-transform:uppercase;
+      text-decoration:none;
+      transition:opacity 220ms ease;
+      display:inline-block;
+      white-space:nowrap;
+      text-align:right;
+    }
+
+    .dsn-about-item:hover{
+      text-decoration:underline;
+      opacity:0.75;
+    }
+
+    .dsn-section .dsn-about{
+      position:sticky;
+      bottom:4rem;
+      right:2rem;
+      z-index:9;
+      height:fit-content;
+      text-align:right;
+      pointer-events:none;
+    }
+
+    /* keep AUDIO / VISUAL and '24 - '25 on ONE line, no clash */
+.dsn-section .dsn-about{
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-end;
+  align-items:baseline;
+  gap:22px;              /* spacing between the two */
+  white-space:nowrap;    /* keep it one line */
+}
+
+.dsn-section .dsn-about .dsn-about-item{
+  line-height:1;         /* avoids vertical overlap from 0.70 */
+  margin:0;
+}
+
+/* ============ NAV POPUP ============ */
+.dsn-nav-trigger{
+  font-size:clamp(54px, 5.2vw, 130px);
+  font-weight:500;
+  transform:scaleY(5.5);
+  transform-origin:right center;
+  letter-spacing:-0.10em;
+  line-height:0.70;
+  color:var(--accent-alt);
+  text-decoration:none;
+  transition:opacity 220ms ease;
+  display:inline-block;
+  pointer-events:auto;
+}
+
+.dsn-nav-trigger:hover{
+  text-decoration:underline;
+  opacity:0.75;
+}
+
+.dsn-section .dsn-about{
+  gap:22px;
+}
+.dsn-section .dsn-about{
+  align-items:baseline;
+}
+
+.dsn-nav-pop{
+  position:fixed;
+  inset:0;
+  z-index:10050;
+  display:none;
+}
+
+.dsn-nav-pop.is-open{
+  display:block;
+}
+
+.dsn-nav-pop-panel{
+  position:fixed;
+  right:2rem;
+  bottom:calc(6rem + 68px);
+  background:rgba(0,0,0,0.92);
+  border:1px solid rgba(255,255,255,0.18);
+  padding:18px 18px 16px 18px;
+  max-width:min(420px, calc(100vw - 4rem));
+  min-height:180px;          /* increase */
+  max-height:140px;           /* optional */
+  overflow:auto;             /* optional if content grows */
+  opacity:0;
+  transform:translateX(18px);
+  transition:opacity 220ms ease, transform 220ms ease;
+}
+
+.dsn-nav-pop.is-open .dsn-nav-pop-panel{
+  opacity:1;
+  transform:translateX(0);
+}
+
+.dsn-nav-pop-text{
+  font-size:clamp(16px, 1.6vw, 32px);
+  font-weight:500;
+  transform:scaleY(2.25);
+  transform-origin:right center;
+  letter-spacing:-0.10em;
+  line-height:1.6;
+  color:var(--accent-alt);
+  text-transform:uppercase;
+  white-space:normal;
+}
+
+.dsn-nav-pop-links{
+  margin-top:16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:flex-end;
+}
+
+.dsn-nav-pop-link{
+  font-size:clamp(16px, 1.6vw, 32px);
+  font-weight:500;
+  transform:scaleY(2.25);
+  transform-origin:right center;
+  letter-spacing:-0.10em;
+  line-height:0.70;
+  color:var(--accent-alt);
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:opacity 220ms ease;
+  white-space:nowrap;
+}
+
+.dsn-nav-pop-link:hover{
+  text-decoration:underline;
+  opacity:0.75;
+}
+
+
+    #dsn-02 .dsn-about{
+  bottom: 4rem;
+  transform: translateY(7rem);
+}
+
+
+    .dsn-section .dsn-about .dsn-about-item{
+      pointer-events:auto;
+    }
+
+    /* ============ MOBILE ============ */
+    @media (max-width: 980px){
+      .left-rail{ display:none; }
+      .clients-section{ display:none; }
+      .right-rail{ display:none; }
+      
+      main{
+        margin-left:0;
+        margin-right:0;
+        padding:2rem 1.25rem;
+      }
+
+      .dsn-section{
+        grid-template-columns:1fr;
+        gap:20px;
+        margin-bottom:20px;
+      }
+
+      .dsn-section-header{
+        position:static;
+      }
+
+      .dsn-about-title{
+        display:none;
+      }
+
+      .dsn-section .dsn-about{
+        position:static;
+        bottom:auto;
+        right:auto;
+        margin-top:2rem;
+        text-align:left;
+      }
+
+      .dsn-section .dsn-about .dsn-about-item{
+        transform-origin:left center;
+      }
+      
+      /* KEEP LEFT-CENTRIC ALIGNMENT ON MOBILE (NOT SPACE-BETWEEN) */
+      .mobile-top-nav-inner,
+      .mobile-bottom-nav-inner{
+        display:flex;
+        align-items:baseline;
+        justify-content:flex-start;
+        gap:18px;
+        width:100%;
+      }
+      .mobile-right-group{ margin-left:0; }
+
+      .dsn-section-content{
+        grid-template-columns:repeat(2, 1fr);
+      }
+
+      #dsn-01 .dsn-card:nth-child(1),
+      #dsn-02 .dsn-card:nth-child(1),
+      #dsn-03 .dsn-card:nth-child(1),
+      #dsn-04 .dsn-card:nth-child(1){
+        grid-column:span 2;
+        grid-row:auto;
+        min-height:300px;
+      }
+
+      #dsn-01 .dsn-card:nth-child(2),
+      #dsn-01 .dsn-card:nth-child(3),
+      #dsn-01 .dsn-card:nth-child(4),
+      #dsn-02 .dsn-card:nth-child(2),
+      #dsn-02 .dsn-card:nth-child(3),
+      #dsn-02 .dsn-card:nth-child(4),
+      #dsn-03 .dsn-card:nth-child(2),
+      #dsn-03 .dsn-card:nth-child(3),
+      #dsn-03 .dsn-card:nth-child(4),
+      #dsn-04 .dsn-card:nth-child(2),
+      #dsn-04 .dsn-card:nth-child(3),
+      #dsn-04 .dsn-card:nth-child(4){
+        grid-column:span 1;
+        grid-row:auto;
+      }
+    }
+
+    @media (max-width: 480px){
+      .dsn-section-content{
+        grid-template-columns:1fr;
+      }
+
+      #dsn-01 .dsn-card:nth-child(1),
+      #dsn-02 .dsn-card:nth-child(1),
+      #dsn-03 .dsn-card:nth-child(1),
+      #dsn-04 .dsn-card:nth-child(1){
+        grid-column:span 1;
+        grid-row:auto;
+        min-height:300px;
+      }
+    }
+
+    :root{
+      --cur-link-img:url("https://www.rw-designer.com/cursor-view/230909.png");
+    }
+
+    .dsn-card, .client-item{
+      cursor:var(--cur-link-img) 0 0, pointer;
+    }
+
+    /* ===============================
+       MOBILE HOLD PAGE (ONLY CHANGE)
+       =============================== */
+    .mobile-hold{
+      display:none;
+    }
+
+    @media (max-width: 980px){
+      body > *{
+        display:none !important;
+      }
+
+      .mobile-hold{
+        display:flex !important;
+        position:fixed;
+        inset:0;
+        background:var(--soft);
+        color:var(--accent-alt);
+        align-items:center;
+        justify-content:center;
+        text-transform:uppercase;
+        z-index:99999;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="mobile-hold">MOBILE VERSION UNDER CONSTRUCTION.</div>
 
-  <!-- LEFT COLUMN -->
-  <div class="left-col">
-    <a href="#"></a>
-    <a href="/">+</a>
-    <a href="#"></a>
+  <!-- LEFT RAIL -->
+  <div class="left-rail">
+    <div class="left-rail-top">
+      <a href="/">+</a>
+    </div>
+    
+    <!-- CLIENTS SECTION -->
+    <div class="clients-section">
+      <div class="clients-title">
+        <span class="clients-title-line1"></span>
+        <span class="clients-title-line1">ENVIRONMENTS BY</span>
+        <span class="clients-title-line2">SHAYNE HAGE</span>
+      </div>
+      <div class="clients-list">
+        <a href="#dsn-01" class="client-item">koss</a>
+        <a href="#dsn-02" class="client-item">tba</a>
+        <a href="#dsn-02" class="client-item">tba</a>
+      </div>
+    </div>
   </div>
 
-  <!-- CENTER COLUMN -->
-  <div class="center-col">
-    <a style="font-size:20px" href="https://open.spotify.com/album/7bRA5rkWPEjQl1LERPyYeb?si=0CEN8APJQB-wJQyHEJtqkQ" class="img-link">LISTEN TO KOSS</a>
-    <a href="https://www.instagram.com/______haderachhage/" class="dsn-link">DSN IS COMING SOON</a>
-    <a href="#" class="aud-link" id="dassLink"></a>
+  <!-- RIGHT RAIL -->
+  <div class="right-rail">
+    <a href="/dsn">U/D</a>
+    <span class="plus">+</span>
+    <a href="/img">IMG</a>
+    <span class="plus">+</span>
+    <a href="/aud">AUD</a>
   </div>
 
-  <!-- EMBED PANEL -->
-  <div class="embed-panel" id="embedPanel">
-    <iframe
-      style="border-radius: 24px"
-      src="https://untitled.stream/embed/JsMabpfmdQZF"
-      width="100%"
-      height="344"
-      allowfullscreen
-      allow="picture-in-picture"
-      frameborder="0"
-      loading="lazy">
-    </iframe>
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- FIXED ABOUT TITLE -->
+    <div class="dsn-about-fixed" id="sectionAboutFixed">
+      <a href="#" class="dsn-nav-trigger" class="left-rail-top" id="dsnNavTrigger"> - </a>
+      <div class="dsn-about-fixed-title"><a href="https://www.instagram.com/______haderachhage" target="_blank" rel="noopener noreferrer">@</a></div>
+    </div>
+    <!-- FIXED ABOUT STATEMENT -->
+    <div class="dsn-about-statement-fixed" id="sectionAboutStatementFixed">
+      <div class="dsn-about-statement-text" id="sectionAboutText"></div>
+    </div>
+    <!-- SECTION 1 -->
+<section class="dsn-section" id="dsn-01">
+  <div class="dsn-section-header">
+    <a href="#dsn-01">KOSS</a>
   </div>
 
-<script>
-  const dassLink = document.getElementById('dassLink');
-  const embedPanel = document.getElementById('embedPanel');
+  <div class="dsn-section-content">
+    <div class="dsn-card">
+      <img src="https://i.ibb.co/zWBD9J8Q/uten-tittel.png" alt="">
+    </div>
 
-  dassLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    embedPanel.classList.toggle('is-open');
-  });
-</script>
+    <div class="dsn-card">
+      <img src="https://i.ibb.co/KdKdZFw/32bmp-Untitled-design-15.png" alt="">
+    </div>
 
+    <div class="dsn-card">
+      <img src="https://i.ibb.co/qFjTR4jx/2-DSC-7442-Kopi-1.png" alt="">
+    </div>
+
+    <div class="dsn-card">
+      <img src="https://i.ibb.co/r2Nzt57Z/gabethere-Kopi.png" alt="">
+    </div>¨
+
+    <div class="dsn-card">
+      <img src="https://i.ibb.co/tPsK45R0/1-DSC-7442-Kopi-2.jpg" alt="">
+    </div>
+
+    <div class="dsn-card">
+      <img src="https://i.ibb.co/LDWjBKkj/5image.png" alt="">
+    </div>
+  </div>
+
+  
+
+  <div class="dsn-about">
+    <div class="dsn-about-item">AUDIO / VISUAL</div>
+    <div class="dsn-about-item">'24 - '25</div>
+    <div class="dsn-about-statement" style="display:none;"></div>
+  </div>
+</section>
+
+<!-- NAV POPUP -->
+<div class="dsn-nav-pop" id="dsnNavPop" aria-hidden="true">
+  <div class="dsn-nav-pop-panel" role="dialog" aria-modal="true">
+    <div class="dsn-nav-pop-text">CLICK IMAGE</div>
+    <div class="dsn-nav-pop-text">FOR GALLERY VIEW.</div
+  </div>
+</div>
+
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-arrow left" id="lbPrev"><+</div>
+    <img src="" alt="" draggable="false">
+    <div class="lightbox-arrow right" id="lbNext">+</div>
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const cards = Array.from(document.querySelectorAll('.dsn-card'));
+    const images = cards.map(card => card.querySelector('img'));
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+
+    let currentIndex = 0;
+
+    function openLightboxAt(i){
+      currentIndex = i;
+      lightboxImg.src = images[currentIndex].src;
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showImage(index){
+      if(index < 0) index = images.length - 1;
+      if(index >= images.length) index = 0;
+      openLightboxAt(index);
+    }
+
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => openLightboxAt(index));
+    });
+
+    lbPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showImage(currentIndex - 1);
+    });
+    lbNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showImage(currentIndex + 1);
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('is-open');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    });
+    lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+
+    document.addEventListener('keydown', (e) => {
+      if(!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') {
+        lightbox.classList.remove('is-open');
+        lightboxImg.src = '';
+        document.body.style.overflow = '';
+      }
+      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    });
+
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      const touchEndX = e.changedTouches[0].clientX;
+      const dx = touchStartX - touchEndX;
+      if (Math.abs(dx) > 50) {
+        if (dx > 0) showImage(currentIndex + 1);
+        else showImage(currentIndex - 1);
+      }
+    }, { passive: true });
+
+    // Smooth scroll to sections from client links
+    document.querySelectorAll('.client-item').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Track active section and update fixed about statement
+    const sectionAboutText = document.getElementById('sectionAboutText');
+    const sectionAboutStatementFixed = document.getElementById('sectionAboutStatementFixed');
+    const sections = document.querySelectorAll('.dsn-section');
+
+    function updateActiveSection() {
+      let activeStatement = '';
+      
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        // Check if section is in viewport (with some margin for top)
+        if (rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.2) {
+          const aboutStatement = section.querySelector('.dsn-about-statement');
+          if (aboutStatement) {
+            activeStatement = aboutStatement.textContent;
+          }
+        }
+      });
+
+      if (activeStatement) {
+        sectionAboutText.textContent = activeStatement;
+        sectionAboutStatementFixed.classList.add('active');
+      } else {
+        sectionAboutStatementFixed.classList.remove('active');
+      }
+    }
+
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    updateActiveSection(); // Initial call
+
+    // NAV POPUP
+    const dsnNavTrigger = document.getElementById('dsnNavTrigger');
+    const dsnNavPop = document.getElementById('dsnNavPop');
+
+    function openNavPop(){
+      dsnNavPop.classList.add('is-open');
+      dsnNavPop.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeNavPop(){
+      dsnNavPop.classList.remove('is-open');
+      dsnNavPop.setAttribute('aria-hidden', 'true');
+    }
+
+    dsnNavTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (dsnNavPop.classList.contains('is-open')) closeNavPop();
+      else openNavPop();
+    });
+
+    dsnNavPop.addEventListener('click', (e) => {
+      if (e.target === dsnNavPop) closeNavPop();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeNavPop();
+    });
+
+    dsnNavPop.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', () => closeNavPop());
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
