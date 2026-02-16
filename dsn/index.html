@@ -3,6 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script>
+  (function () {
+    if (window.innerWidth <= 980) {
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          window.location.replace("/nav");
+        }, 800); // adjust delay (ms)
+      });
+    }
+  })();
+</script>
+
+  
   <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
 
   <!-- HTML Meta Tags -->
@@ -935,7 +949,7 @@
   <!-- LEFT RAIL -->
   <div class="left-rail">
     <div class="left-rail-top">
-      <a href="/">+</a>
+      <a href="/nav">+</a>
     </div>
     
     <!-- CLIENTS SECTION -->
@@ -1259,6 +1273,7 @@
   </script>
 </body>
 </html>
+
 
 
 
