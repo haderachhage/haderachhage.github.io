@@ -16,6 +16,16 @@
   })();
 </script>
 
+<script>
+  document.querySelectorAll('.dsn-about-statement-text').forEach(el => {
+    // Split sentences at periods followed by space
+    el.innerHTML = el.textContent
+      .split('. ')
+      .map(sentence => sentence.trim())
+      .filter(Boolean)
+      .join('.<br>');
+  });
+</script>
   
   <meta name="google-site-verification" content="GzSv7bpZZf8ctbKx5TxJkS9UvRxxMVoJxj9prcOQu4E" />
 
@@ -1004,7 +1014,59 @@
         z-index:99999;
       }
     }
-  </style>
+
+  /* Statement card styling */
+    .dsn-statement-card {
+  width: 1500px;            /* width of your statement card */
+  min-height: 20px;       /* match your images' height */
+  background: var(--soft);
+  display: flex;
+  align-items: center;     /* center vertically */
+  justify-content: center; /* center horizontally */
+  padding: 2rem;
+  font-size: clamp(60px, 7vw, 80px);
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--accent-alt);
+
+  grid-column: 6;
+  grid-row: 1;
+}
+
+  .dsn-statement-card .dsn-about-statement-text {
+  font-size: clamp(12px, 1.2vw, 20px);
+  color: var(--accent-alt);
+  line-height: 1.3;
+}  
+
+
+/* The new statement will use the same styles as your original */
+#dsn-second {
+  width: 1200px;
+  min-height: 600px;
+  background: var(--soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-size: clamp(480px, 7vw, 800px);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-alt);
+
+  grid-column: 6;
+  grid-row: 5 / SPAN 6;
+}
+
+#dsn-second .dsn-about-statement-text {
+  font-size: clamp(12px, 1.2vw, 20px);
+  color: var(--accent-alt);
+  line-height: 1.3;
+}
+}
+
+
+</style>
 </head>
 
 <body>
@@ -1151,11 +1213,38 @@
   <div class="dsn-about">
     <div class="dsn-about-item">AUDIO / VISUAL </div>
     <div class="dsn-about-item">'24 - '25</div>
-    <div class="dsn-about-item">REKYJAVIK, OSLO, STOCKHOLM, BRITISH COLUMBIA</div>
+    <div class="dsn-about-item">Reykjavík, OSLO, STOCKHOLM, Göteborg, BRITISH COLUMBIA</div>
     <div class="dsn-about-item" style="display:none;"></div>
   </div>
+
+  <div class="dsn-statement-card">
+    <div class="dsn-about-statement-text">
+      KOSS is a constructed audiovisual system named after John C. Koss. Photographs function as instruments, and compositions function as visual architecture. Environmental light from Reykjavík, Østlandet, Stockholm, and British Columbia was decomposed into raw data streams and manually mapped into a digital audio workstation, creating a system where frequency, texture, and reflection structure perception.
+    </div>
+  </div>
+
+  <div class="dsn-statement-card" id="dsn-second">
+  <div class="dsn-about-statement-text">
+    KOSS is a constructed audiovisual system developed between 2024–2025.
+
+It collapses the boundary between image and sound, treating visual data as compositional matter and sound as structural form. Each photograph functions as a sonic source. Each composition functions as a visual instrument. Together, they form a shared frequency field: a single system expressed across multiple perceptual channels.
+
+Environmental light captured via DSLR sensors in Reykjavík, Østlandet, Stockholm, and British Columbia was decomposed into raw data streams. Pixel and RGB information were extracted and manually mapped into a digital audio workstation capable of interpreting non-audio file formats. Harmonic tables were derived from the raw material and sculpted through synthesis, preserving irregularities and idiosyncrasies from the source environments.
+
+Processing techniques — including phasers, flangers, and reverb — were applied conceptually to both image and sound. Distortion, reflection, and texture were treated as active components of the system, shaping perception rather than merely representing it.
+
+Cultural artifacts, such as Bladee’s Good Luck coin, were incorporated as frequency surfaces: objects functioning simultaneously as visual, sonic, and conceptual transmitters. Metallic surfaces capture light as reverb, reflection as signal return, creating a multi-layered, interactive framework.
+
+KOSS is a technical-art experiment: it redefines authorship, medium, and perceptual expectation. It is not a soundtrack. It is not a photo series. It is a system for perceiving and structuring information, a manifesto for the collapse of medium hierarchy, and a framework for generating new forms of aesthetic experience.
+  </div>
+
+</div>
   </div>
 </section>
+
+
+
+
 
 <!-- NAV POPUP -->
 <div class="dsn-nav-pop" id="dsnNavPop" aria-hidden="true">
@@ -1164,6 +1253,8 @@
     <div class="dsn-nav-pop-text">TO GALLERY VIEW.</div>
   </div>
 </div>
+
+
 
   <!-- LIGHTBOX -->
   <div class="lightbox is-loading" id="lightbox">
@@ -1380,4 +1471,3 @@
   </script>
 </body>
 </html>
-
