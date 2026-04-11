@@ -226,6 +226,8 @@
       text-transform:uppercase;
       user-select:none;
       align-items:flex-end;
+      color:#fff;
+      mix-blend-mode:difference;
     }
 
     .right-rail a,
@@ -238,7 +240,7 @@
       line-height:0.70;
       white-space:nowrap;
       text-decoration:none;
-      color:var(--ink);
+      color:inherit;
       transition:opacity 220ms ease;
     }
 
@@ -278,6 +280,11 @@
       text-transform:uppercase;
       user-select:none;
       z-index:5;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:1rem;
+      position:relative;
     }
 
     .dsn-section-header a{
@@ -298,6 +305,80 @@
     .dsn-section-header a:hover{
       text-decoration:underline;
       opacity:0.75;
+    }
+
+    .landing-screen{
+      position:fixed;
+      inset:0;
+      z-index:100001;
+      background:var(--soft);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-transform:uppercase;
+      user-select:none;
+      opacity:1;
+      transition:opacity 260ms ease;
+    }
+
+    .landing-screen.fade-out{
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .landing-screen-inner{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:0.15rem;
+      padding:2rem;
+      text-align:center;
+    }
+
+    .landing-screen a,
+    .landing-screen span{
+      font-size:clamp(54px, 5.2vw, 130px);
+      font-weight:500;
+      transform-origin:center center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--ink);
+      background:none;
+      border:none;
+      white-space:nowrap;
+      cursor:pointer;
+      user-select:none;
+      display:inline-block;
+    }
+
+    .landing-screen .desktop-only {
+      display:inline-block;
+    }
+
+    .landing-screen .mobile-only {
+      display:none;
+    }
+
+    .landing-screen a{
+      transform:scaleY(2.25);
+      color:var(--ink);
+      text-decoration:none;
+    }
+
+    .landing-screen a:hover{
+      opacity:0.75;
+      text-decoration:underline;
+    }
+
+    .landing-plus{
+      color:var(--ink);
+      transform:scaleY(5.5);
+      letter-spacing:-0.16em;
+      opacity:.95;
+      pointer-events:none;
+      text-decoration:none;
+      margin:0 -0.35rem;
     }
 
     #dsn-02 .dsn-section-header{
@@ -335,7 +416,7 @@
 
     #dsn-01 .dsn-card:nth-child(2){
       grid-column:2;
-      grid-row:1;
+      grid-row:1 / span 4;
       aspect-ratio: 16 / 9;
       min-height:993px;
       
@@ -353,25 +434,25 @@
     #dsn-01 .dsn-card:nth-child(4){
       grid-column: 4;
       grid-row:9;
-      aspect-ratio: 2 / 3;
+      aspect-ratio: 16 / 9;
       min-height:999px;
       min-width:1200px
     }
 
     #dsn-01 .dsn-card:nth-child(5){
-      grid-column: 5;
-      grid-row: 10;
-      aspect-ratio: 1 / 1;
-      min-height:auto;
-      min-width:auto;
+      grid-column: 1 / span 3;
+      grid-row: 11;
+      aspect-ratio: 3 / 2;
+      min-height:1000;
+      min-width:900;
     }
 
     #dsn-01 .dsn-card:nth-child(6){
       grid-column: 4;
       grid-row: 11;
       aspect-ratio: 16 / 9;
-      min-height:auto;
-      min-width:auto;
+      height:1200px;
+      width:1500px;
     }
 
     #dsn-01 .dsn-card:nth-child(7){
@@ -593,10 +674,20 @@
       display:none;
       align-items:center;
       justify-content:center;
-      z-index:9999;
+      z-index:100000;
       cursor:zoom-out;
     }
     .lightbox.is-open{ display:flex; }
+
+    body.lightbox-open .left-rail,
+    body.lightbox-open .right-rail,
+    body.lightbox-open .clients-section,
+    body.lightbox-open .dsn-about-fixed,
+    body.lightbox-open .dsn-nav-pop {
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
 
     /* ✅ KEEP your lightbox sizing/contain rule (unchanged) */
     .lightbox img{
@@ -638,54 +729,33 @@
     }
 
     .dsn-about-fixed-title{
-  font-size:clamp(28px, 2.8vw, 56px);
-  font-weight:500;
-  transform:scaleY(2.25);
-  transform-origin:right center;
-  letter-spacing:-0.10em;
-  line-height:0.70;
-  color:var(--accent-alt);
-  text-transform:uppercase;
-  user-select:none;
-  display:inline-block;
-  white-space:nowrap;
-  margin-right:20px;
-}
+      font-size:clamp(28px, 2.8vw, 56px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:right center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--accent-alt);
+      text-transform:uppercase;
+      user-select:none;
+      display:inline-block;
+      white-space:nowrap;
+      margin-right:20px;
+    }
 
-.dsn-about-fixed-title a{
-  color:inherit;
-  text-decoration:none;
-}
+    .dsn-about-fixed-title a{
+      color:inherit;
+      text-decoration:none;
+    }
 
-.dsn-about-fixed-title a:hover{
-  text-decoration:underline;
-}
+    .dsn-about-fixed-title a:hover{
+      text-decoration:underline;
+    }
 
-
-    .dsn-about-fixed-title{
-  font-size:clamp(28px, 2.8vw, 56px);
-  font-weight:500;
-  transform:scaleY(2.25);
-  transform-origin:right center;
-  letter-spacing:-0.10em;
-  line-height:0.70;
-  color:var(--accent-alt);
-  text-transform:uppercase;
-  user-select:none;
-  display:inline-block;
-  white-space:nowrap;
-  margin-right:20px;
-}
-
-.dsn-about-fixed-title a{
-  color:inherit;
-  text-decoration:none;
-}
-
-.dsn-about-fixed-title a:hover{
-  text-decoration:underline;
-}
-
+    .dsn-about-fixed-title .landing-return{
+      display:block;
+      margin-top:0.35rem;
+    }
 
     .dsn-about-statement-fixed.active{
       opacity:1;
@@ -796,11 +866,11 @@
   border:1px solid rgba(255,255,255,0.18);
   padding:20px 18px 16px 18px;
   max-width:min(430px, calc(100vw - 4rem));
-  min-height:155px;          /* increase */
-  min-width: 50px;
+  min-height:auto;          /* increase */
+  min-width: 150px;
   max-height:100px;           /* optional */
   overflow:20px;             /* optional if content grows */
-  opacity:0;
+  opacity:;
   transform:translateX(18px);
   transition:opacity 220ms ease, transform 220ms ease;
 }
@@ -809,6 +879,64 @@
   opacity:1;
   transform:translateX(0);
 }
+
+    .dsn-section-info{
+      display:none;
+      position:absolute;
+      top:calc(100% + 1.25rem);
+      left:0;
+      margin-top:0;
+      width:auto;
+      max-width:min(430px, calc(100vw - 4rem));
+      min-width:240px;
+      z-index:2;
+    }
+    .dsn-section-info.is-open{
+      display:block;
+    }
+    .dsn-section-info .dsn-nav-pop-panel{
+      position:relative;
+      opacity:1;
+      transform:none;
+      right:auto;
+      bottom:auto;
+      border:1px solid rgba(255,255,255,0.18);
+      padding:20px 18px 16px 18px;
+      background:var(--soft);
+      box-shadow:0 28px 60px rgba(0,0,0,0.12);
+      color:var(--accent-alt);
+      width:100%;
+    }
+    .dsn-section-header .dsn-section-info-trigger{
+      display:inline-block;
+      position:sticky;
+      left:0;
+      top:0;
+      align-self:flex-start;
+      width:fit-content;
+      margin-top:1.75rem;
+      font-family:inherit;
+      font-size:clamp(40px, 3.5vw, 55px);
+      font-weight:500;
+      transform:scaleY(2.25);
+      transform-origin:left center;
+      letter-spacing:-0.10em;
+      line-height:0.70;
+      color:var(--accent-alt);
+      background:none;
+      border:none;
+      appearance:none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      cursor:pointer;
+      padding:0;
+      text-transform:uppercase;
+      white-space:nowrap;
+      z-index:3;
+    }
+    .dsn-section-header .dsn-section-info-trigger:hover{
+      opacity:0.5;
+    }
 
 .dsn-nav-pop-text{
   font-size:clamp(16px, 1.6vw, 32px);
@@ -864,8 +992,55 @@
       --cur-link-img:url("https://www.rw-designer.com/cursor-view/230909.png");
     }
 
+    html, body, * {
+      cursor:none !important;
+    }
+
+    .custom-cursor {
+      position:fixed;
+      top:0;
+      left:0;
+      width:2px;
+      height:26px;
+      background:transparent;
+      color:#fff;
+      mix-blend-mode:difference;
+      pointer-events:none;
+      transform:translate(-50%, -50%);
+      transition:transform 120ms ease, opacity 180ms ease, width 120ms ease, height 120ms ease;
+      z-index:100002;
+      opacity:1;
+    }
+
+    .custom-cursor::before,
+    .custom-cursor::after {
+      content:'';
+      position:absolute;
+      background:currentColor;
+      display:block;
+      left:50%;
+      top:50%;
+      transform:translate(-50%, -50%);
+    }
+
+    .custom-cursor::before {
+      width:16px;
+      height:3px;
+      border-radius:2px;
+    }
+
+    .custom-cursor::after {
+      width:1px;
+      height:44px;
+      border-radius:1.5px;
+    }
+
+    .custom-cursor.hidden {
+      opacity:0;
+    }
+
     .dsn-card, .client-item{
-      cursor:var(--cur-link-img) 0 0, pointer;
+      cursor:none !important;
     }
 
     /* ===============================
@@ -944,27 +1119,149 @@
     }
 
     /* ===============================
-       MOBILE HOLD PAGE (ONLY CHANGE)
+       MOBILE LAYOUT
        =============================== */
     .mobile-hold{
       display:none;
     }
 
+    .landing-screen .desktop-only {
+      display:inline-block;
+    }
+
+    .landing-screen .mobile-only {
+      display:none;
+    }
+
     @media (max-width: 980px){
-      body > *{
+      body{
+        overflow-x:hidden;
+      }
+
+      .left-rail,
+      .clients-section,
+      .right-rail,
+      .dsn-about-fixed,
+      .dsn-about-statement-fixed,
+      .dsn-section .dsn-about{
         display:none !important;
       }
 
-      .mobile-hold{
-        display:flex !important;
+      .landing-screen .desktop-only {
+        display:none !important;
+      }
+
+      .landing-screen .mobile-only {
+        display:inline-block !important;
+      }
+
+      main{
+        padding:1.5rem 1rem 2rem;
+        margin:0;
+        max-width:100%;
+      }
+
+      .dsn-section{
+        display:block;
+        margin:0 0 2rem;
+        gap:1rem;
+        width:100%;
+        max-width:100%;
+      }
+
+      .dsn-section-header{
+        position:static;
+        top:auto;
+        transform:none;
+        gap:0.75rem;
+        padding-bottom:0.5rem;
+        align-items:flex-start;
+      }
+
+      .dsn-section-header a,
+      .dsn-section-header .dsn-section-info-trigger{
+        font-size:clamp(32px, 6.5vw, 58px);
+        line-height:0.88;
+        white-space:normal;
+        word-break:break-word;
+        width:100%;
+      }
+
+      .dsn-section-header .dsn-section-info-trigger{
+        position:static;
+        left:auto;
+        width:fit-content;
+      }
+
+      .dsn-section-info{
+        position:relative;
+        top:auto;
+        left:auto;
+        margin-top:1rem;
+        width:100%;
+        max-width:100%;
+        min-width:auto;
+      }
+
+      .dsn-section-info .dsn-nav-pop-panel{
+        padding:18px 16px 14px 16px;
+        border-radius:0;
+      }
+
+      .dsn-section-content{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:1rem;
+      }
+
+      .dsn-section-content > .dsn-card{
+        grid-column:auto !important;
+        grid-row:auto !important;
+        width:100% !important;
+        min-height:auto !important;
+        height:auto !important;
+        aspect-ratio:auto !important;
+        min-width:auto !important;
+      }
+
+      .dsn-card{
+        min-height:260px;
+        height:auto !important;
+      }
+
+      .dsn-card img{
+        width:100%;
+        height:auto !important;
+        min-height:0 !important;
+        aspect-ratio:auto !important;
+      }
+
+      .bio-section{
+        gap:18px;
+      }
+
+      .bio-title-wrap{
+        position:static;
+        top:auto;
+      }
+
+      .bio-title{
+        font-size:clamp(40px, 9vw, 78px);
+        line-height:0.82;
+      }
+
+      .bio-text{
+        font-size:clamp(18px, 5.5vw, 32px);
+        max-width:100%;
+      }
+
+      .dsn-nav-pop-panel{
         position:fixed;
-        inset:0;
-        background:var(--soft);
-        color:var(--accent-alt);
-        align-items:center;
-        justify-content:center;
-        text-transform:uppercase;
-        z-index:99999;
+        bottom:1rem;
+        left:50%;
+        transform:translateX(-50%);
+        width:min(90vw, 420px);
+        max-width:90vw;
       }
     }
   </style>
@@ -972,6 +1269,20 @@
 
 <body>
   <div class="mobile-hold">"UNDER CONSTRUCTION."</div>
+
+  <div class="landing-screen" id="landingScreen" aria-hidden="false">
+    <div class="landing-screen-inner">
+      <a href="#" class="landing-link landing-portfolio desktop-only" id="landingPortfolio">PORTFOLIO</a>
+      <span class="landing-plus desktop-only">+</span>
+      <a href="/dsn" class="landing-link desktop-only">DSN</a>
+      <span class="landing-plus desktop-only">+</span>
+      <a href="https://instagram.com/______haderachhage" class="landing-link landing-ig mobile-only" target="_blank" rel="noopener noreferrer">@</a>
+      <span class="landing-plus mobile-only">+</span>
+      <a href="/img" class="landing-link">IMG</a>
+      <span class="landing-plus">+</span>
+      <a href="/aud" class="landing-link">AUD</a>
+    </div>
+  </div>
 
   <!-- LEFT RAIL -->
   <div class="left-rail">
@@ -983,12 +1294,12 @@
     <div class="clients-section">
       <div class="clients-title">
         <span class="clients-title-line1"></span>
-        <span class="clients-title-line1">SELECTED PROJECTS — </span>
-        <span class="clients-title-line2">CLIENTS</span>
+        <span class="clients-title-line1">SELECTED WORK — </span>
+        <span class="clients-title-line2"></span>
       </div>
       <div class="clients-list">
-        <a href="#dsn-01" class="client-item">TBA</a>
-        <a href="#dsn-02" class="client-item">TBA</a>
+        <a href="#dsn-01" class="client-item">FKA TWIGS — BODY HIGH TOUR</a>
+        <a href="#dsn-02" class="client-item">THE GEORGIA STRAIGHT</a>
         <a href="#dsn-03" class="client-item">TBA</a>
         <a href="#dsn-04" class="client-item">TBA</a>
       </div>
@@ -1011,7 +1322,10 @@
     <!-- FIXED ABOUT TITLE -->
     <div class="dsn-about-fixed" id="sectionAboutFixed">
       <a href="#" class="dsn-nav-trigger" class="left-rail-top" id="dsnNavTrigger"> - </a>
-      <div class="dsn-about-fixed-title"><a href="https://www.instagram.com/______haderachhage" target="_blank" rel="noopener noreferrer">@</a></div>
+      <div class="dsn-about-fixed-title">
+        <a href="https://www.instagram.com/______haderachhage" target="_blank" rel="noopener noreferrer">@</a>
+        <a href="#" class="landing-return" id="landingReturn"></a>
+      </div>
     </div>
     <!-- FIXED ABOUT STATEMENT -->
     <div class="dsn-about-statement-fixed" id="sectionAboutStatementFixed">
@@ -1020,10 +1334,52 @@
  <!-- SECTION 1 -->
   <section class="dsn-section" id="dsn-01">
    <div class="dsn-section-header">
-    <a href="#dsn-01">TBA</a>
+    <a href="#dsn-01">FKA TWIGS</a>
+    <button class="dsn-section-info-trigger" type="button" aria-expanded="false"><]></button>
+    <div class="dsn-section-info" aria-hidden="true">
+      <div class="dsn-nav-pop-panel" role="dialog" aria-modal="true">
+        <div class="dsn-nav-pop-text">BODY HIGH TOUR — LIVE  26'' </div>
+      </div>
+    </div>
   </div>
-  
-
+   <div class="dsn-section-content">
+    <div class="dsn-card">
+      <img data-protect-index="0" alt="1 - koss" draggable="false"
+           loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="dsn-card">
+      <img data-protect-index="1" alt="2 - koss" draggable="false"
+           loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="dsn-card">
+      <img data-protect-index="2" alt="3 - koss" draggable="false"
+           loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="dsn-card">
+      <img data-protect-index="3" alt="4 - koss" draggable="false"
+           loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="dsn-card">
+      <img data-protect-index="4" alt="5 - koss" draggable="false"
+           loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="dsn-card">
+      <img data-protect-index="5" alt="6 - koss" draggable="false"
+           decoding="async">
+    </div>
+    <div class="dsn-card">
+      <img data-protect-index="6" alt="7 - koss" draggable="false"
+            decoding="async">
+    </div>
+    <div class="dsn-card">
+      <img data-protect-index="7" alt="8 - koss" draggable="false"
+           decoding="async">
+    </div>
+    <div class="dsn-card">
+      <img data-protect-index="8" alt="9 - koss" draggable="false"
+           decoding="async">
+    </div>
+ 
 
   <div class="dsn-about">
     <div class="dsn-about-item"></div>
@@ -1031,6 +1387,29 @@
     <div class="dsn-about-statement" style="display:none;"></div>
   </div>
 </section>
+
+<!-- SECTION 2 -->
+  <section class="dsn-section" id="dsn-02">
+   <div class="dsn-section-header">
+    <a href="#dsn-02">THE GEORGIA STRAIGHT</a>
+    <button class="dsn-section-info-trigger" type="button" aria-expanded="false">+</button>
+    <div class="dsn-section-info" aria-hidden="true">
+      <div class="dsn-nav-pop-panel" role="dialog" aria-modal="true">
+        <div class="dsn-nav-pop-text">EDITORIAL PHOTOGRAPHY</div>
+      </div>
+    </div>
+  </div>
+    
+    
+ 
+
+  <div class="dsn-about">
+    <div class="dsn-about-item"></div>
+    <div class="dsn-about-item"></div>
+    <div class="dsn-about-statement" style="display:none;"></div>
+  </div>
+</section>
+
 
 <!-- BIO SPACER (ADDED ONLY) -->
 <div class="bio-spacer"></div>
@@ -1051,7 +1430,11 @@
     </div>
     
     <div class="bio-text">
-     AUDIO/VISUAL DESIGNER
+     AUDIO — VISUAL DESIGNER
+    </div>
+
+    <div class="bio-text">
+      ENGINEER
     </div>
     
     <div class="bio-text">
@@ -1095,6 +1478,69 @@
     const lbPrev = document.getElementById('lbPrev');
     const lbNext = document.getElementById('lbNext');
 
+    const protectedImageSources = [
+      "aHR0cHM6Ly9pLmliYi5jby9Qc1ltTnFSVi9JTUdQNDM2OS5qcGc=",
+      "aHR0cHM6Ly9pLmliYi5jby9iUkdtWTV0Mi8wMS1JTUdQNDA5Ny5qcGc=",
+      "aHR0cHM6Ly9pLmliYi5jby9Na1duOUJ2Zi8wMi1JTUdQNDUwNy5qcGc=",
+      "aHR0cHM6Ly9pLmliYi5jby9Sa3c1Qk1Kbi8wNC1JTUdQNDM4OC5qcGc=",
+      "aHR0cHM6Ly9pLmliYi5jby9yUlZRTnd0Ui8wNS1JTUdQNDQzNi5qcGc=",
+      "aHR0cHM6Ly9pLmliYi5jby9ZNGRtc3NLTS9JTUdQNDI0NC0yLmpwZw==",
+      "aHR0cHM6Ly9pLmliYi5jby9qdjdra05DUi9JTUdQNDQxMi5qcGc=",
+      "aHR0cHM6Ly9pLmliYi5jby9Qc1NnNlRaMy9JTUdQNDA5My5qcGc=",
+      "aHR0cHM6Ly9pLmliYi5jby9acDg4ekdLdi8wMS1JTUdQNDI0Ny5qcGc=",
+      "aHR0cHM6Ly9pLmliYi5jby96V0JEOUo4US91dGVuLXRpdHRlbC5wbmc=",
+      "aHR0cHM6Ly9pLmliYi5jby96V0JEOUo4US91dGVuLXRpdHRlbC5wbmc=",
+      "aHR0cHM6Ly9pLmliYi5jby96V0JEOUo4US91dGVuLXRpdHRlbC5wbmc="
+    ];
+
+    function decodeSource(encoded){
+      try { return atob(encoded); } catch { return '';} 
+    }
+
+    async function protectImageElement(imgEl, index){
+      if (!imgEl) return;
+      imgEl.draggable = false;
+      imgEl.addEventListener('dragstart', e => e.preventDefault());
+      const source = decodeSource(protectedImageSources[index]);
+      if (!source) return;
+      try {
+        const response = await fetch(source, { mode: 'cors' });
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        imgEl.src = objectUrl;
+        imgEl.dataset.objectUrl = objectUrl;
+      } catch (error) {
+        imgEl.src = source;
+      }
+    }
+
+    function protectPage(){
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      document.addEventListener('selectstart', e => e.preventDefault());
+      document.addEventListener('copy', e => e.preventDefault());
+      document.addEventListener('keydown', (e) => {
+        const key = e.key.toUpperCase();
+        const isMac = navigator.platform.toUpperCase().includes('MAC');
+        const ctrlOrCmd = isMac ? e.metaKey : e.ctrlKey;
+        if (
+          key === 'F12' ||
+          (ctrlOrCmd && e.shiftKey && ['I','J','C'].includes(key)) ||
+          (ctrlOrCmd && ['U','S','A','C','X'].includes(key))
+        ) {
+          e.preventDefault();
+        }
+      });
+      images.forEach(img => {
+        if (!img) return;
+        img.setAttribute('draggable', 'false');
+        img.addEventListener('dragstart', e => e.preventDefault());
+      });
+    }
+
+    async function protectImages(){
+      await Promise.all(images.map((img, index) => protectImageElement(img, index)));
+    }
+
     let currentIndex = 0;
 
     /* ===============================
@@ -1132,6 +1578,8 @@
     }
 
     images.forEach(wireImage);
+    protectPage();
+    protectImages();
 
     /* ✅ Lightbox: keep click-to-open + your sizing rule; just hide until decoded */
     function setLightboxSrc(src){
@@ -1158,7 +1606,16 @@
       currentIndex = i;
       setLightboxSrc(images[currentIndex].src);
       lightbox.classList.add('is-open');
+      document.body.classList.add('lightbox-open');
       document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(){
+      lightbox.classList.remove('is-open');
+      lightbox.classList.add('is-loading');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+      document.body.classList.remove('lightbox-open');
     }
 
     function showImage(index){
@@ -1181,24 +1638,32 @@
     });
 
     lightbox.addEventListener('click', () => {
-      lightbox.classList.remove('is-open');
-      lightbox.classList.add('is-loading');
-      lightboxImg.src = '';
-      document.body.style.overflow = '';
+      closeLightbox();
     });
     lightboxImg.addEventListener('click', (e) => e.stopPropagation());
 
     document.addEventListener('keydown', (e) => {
-      if(!lightbox.classList.contains('is-open')) return;
-      if (e.key === 'Escape') {
-        lightbox.classList.remove('is-open');
-        lightbox.classList.add('is-loading');
-        lightboxImg.src = '';
-        document.body.style.overflow = '';
-      }
-      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
-      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
-    });
+
+  if (lightbox.classList.contains('is-open')) {
+    if (e.key === 'Escape') {
+      closeLightbox();
+      return;
+    }
+    if (e.key === 'ArrowRight') {
+      showImage(currentIndex + 1);
+      return;
+    }
+    if (e.key === 'ArrowLeft') {
+      showImage(currentIndex - 1);
+      return;
+    }
+  }
+
+  if (e.key === 'Escape') {
+    openLandingScreen();
+  }
+
+});
 
     let touchStartX = 0;
     lightbox.addEventListener('touchstart', (e) => {
@@ -1280,13 +1745,115 @@
       if (e.target === dsnNavPop) closeNavPop();
     });
 
+    function closeSectionInfo(sectionInfo){
+      sectionInfo.classList.remove('is-open');
+      sectionInfo.setAttribute('aria-hidden', 'true');
+      const trigger = sectionInfo.previousElementSibling?.querySelector('.dsn-section-info-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function closeAllSectionInfo(){
+      document.querySelectorAll('.dsn-section-info.is-open').forEach(closeSectionInfo);
+    }
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeNavPop();
+      if (e.key === 'Escape') {
+        closeNavPop();
+        closeAllSectionInfo();
+      }
     });
 
     dsnNavPop.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', () => closeNavPop());
     });
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.dsn-section-info') || e.target.closest('.dsn-section-info-trigger')) return;
+      closeAllSectionInfo();
+    }, true);
+
+    document.querySelectorAll('.dsn-section-info-trigger').forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = trigger.closest('.dsn-section');
+        if (!section) return;
+        const sectionInfo = section.querySelector('.dsn-section-info');
+        if (!sectionInfo) return;
+        const isOpen = sectionInfo.classList.contains('is-open');
+        closeAllSectionInfo();
+        if (!isOpen) {
+          sectionInfo.classList.add('is-open');
+          sectionInfo.setAttribute('aria-hidden', 'false');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('.dsn-section-info').forEach(sectionInfo => {
+      sectionInfo.addEventListener('click', (e) => {
+        if (e.target === sectionInfo) closeSectionInfo(sectionInfo);
+      });
+    });
+
+    const landingScreen = document.getElementById('landingScreen');
+    const landingPortfolio = document.getElementById('landingPortfolio');
+    const landingReturn = document.getElementById('landingReturn');
+
+    const customCursor = document.createElement('div');
+    customCursor.className = 'custom-cursor';
+    document.body.appendChild(customCursor);
+
+    document.addEventListener('mousemove', (event) => {
+      customCursor.style.left = `${event.clientX}px`;
+      customCursor.style.top = `${event.clientY}px`;
+      customCursor.classList.remove('hidden');
+    });
+
+    document.addEventListener('mouseleave', () => {
+      customCursor.classList.add('hidden');
+    });
+
+    document.addEventListener('mousedown', () => {
+      customCursor.style.transform = 'translate(-50%, -50%) scale(0.92)';
+    });
+
+    document.addEventListener('mouseup', () => {
+      customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+
+    function closeLandingScreen() {
+      if (!landingScreen) return;
+      landingScreen.classList.add('fade-out');
+      landingScreen.setAttribute('aria-hidden', 'true');
+      landingScreen.addEventListener('transitionend', function handleFade() {
+        landingScreen.style.display = 'none';
+        landingScreen.removeEventListener('transitionend', handleFade);
+      }, { once: true });
+    }
+
+    function openLandingScreen() {
+      if (!landingScreen) return;
+      landingScreen.style.display = 'flex';
+      landingScreen.setAttribute('aria-hidden', 'false');
+      landingScreen.classList.add('fade-out');
+      requestAnimationFrame(() => {
+        landingScreen.classList.remove('fade-out');
+      });
+    }
+
+    if (landingPortfolio) {
+      landingPortfolio.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeLandingScreen();
+      });
+    }
+
+    if (landingReturn) {
+      landingReturn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openLandingScreen();
+      });
+    }
 
         // BIO reveal (ADDED ONLY)
     const bioSection = document.getElementById('bio');
@@ -1306,4 +1873,3 @@
 </body>
 
 </html>
-
